@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
+<mapper namespace="login">
+
+	<!-- 메인에서 -> 회원관리 누를시에  : 회원정보 전체 뿌려주기 -->
+	<select id="memInfoList" resultType="com.test.first.mapper.dto.member.MemberInfoVO">
+		select * from member_info
+	</select>
+	
+	<!-- 메인에서 -> 회원가입 에서 회원 정보 입력하는 부분  : 회원정보 db에 넣기-->
+	<insert id="memInfoInsert">		
+		insert into member_info (uid,upw,uname,ugender,ubirth) values(#{uid},#{upw},#{uname},#{ugender},#{ubirth})
+	</insert>
+	
+	<!-- 로그인시 db에서 회원 유무를 확인하는 부분  : 회원정보 db에서 확인-->
+	<select id="loginConfirm" resultType="String">
+		select uname from member_info where uid=#{uid} and upw=#{upw}
+	</select>
+	
+	<!-- 이름(닉네임)의 아이디 해당되는 정보를 찾아서 회원정보창에 뿌려주는 것 -->
+	<select id="memInfoView" resultType="com.test.first.mapper.dto.member.MemberInfoVO">
+		select * from member_info where uid=#{uid}
+	</select>
+	
+	<!-- 해당되는 아이디와 비밀번호를 찾아서 있으면 count로 1(true) , 없으면 count로 0(false) 출력 -->
+	<select id="checkPw" resultType = "int">
+	select count(*) from member_info where uid = #{uid} and upw = #{upw};
+	</select>
+	
+	<!-- 해당되는 회원정보들을 모두 수정 -->
+	<update id="memInfoUpdate">
+		update member_info set uid=#{uid}, upw=#{upw}, uname=#{uname}, ugender=#{ugender},ubirth=#{ubirth} where uid=#{uid}
+	</update>
+	
+	<!-- 해당되는 회원정보를 모두 삭제 -->
+	<delete id="memInfoDelete">
+		delete from member_info where uid=#{uid}
+	</delete>
+	
+	
+
+	<select id="viewMember" resultType="com.test.first.mapper.dto.member.MemberInfoVO">
+		select * from member_info where uid=#{uid} and upw=#{upw}
+	</select>
+	
+	
+   
+</mapper>
