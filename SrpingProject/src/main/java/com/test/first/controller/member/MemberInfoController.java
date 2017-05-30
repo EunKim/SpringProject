@@ -3,6 +3,8 @@ package com.test.first.controller.member;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -10,9 +12,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.test.first.mapper.dto.common.ResponseDTO;
 import com.test.first.mapper.dto.member.MemberInfoVO;
 import com.test.first.service.member.MemberInfoService;
 
@@ -125,8 +130,45 @@ public class MemberInfoController {
 			mav.addObject("messageDelete", "삭제실패!비밀번호가 일치하지 않습니다.");
 			return mav;
 		}
+	
+	}
+
+	//회원가입시 아이디 중복 확인용 
+	@ResponseBody
+	@RequestMapping(value="member/selectId.do",method=RequestMethod.POST)
+	public ResponseDTO checkId(String uid){
+		ResponseDTO responseDTO = new ResponseDTO(); //성공,실패 코드 등록, 메세지 보낼꺼 처리
 		
+		boolean result = memberinfoService.isAvailableId(uid);
 		
+		if(result == true){
+			responseDTO.setCode(-1);
+			responseDTO.setMsg("이미 존재하는 ID 입니다.");
+		}else{
+			responseDTO.setCode(99);
+			responseDTO.setMsg("사용 가능한  ID 입니다.");
+		}
+		
+		return responseDTO;
+	}
+	
+	//회원가입시 이름(닉네임) 확인용
+	@ResponseBody
+	@RequestMapping(value="member/selectName.do",method=RequestMethod.POST)
+	public ResponseDTO checkName(String uname){
+		ResponseDTO responseDTO = new ResponseDTO(); //성공,실패 코드 등록, 메세지 보낼꺼 처리
+		
+		boolean result = memberinfoService.isAvailableName(uname);
+		
+		if(result == true){
+			responseDTO.setCode(-1);
+			responseDTO.setMsg("이미 존재하는 닉네임 입니다.");
+		}else{
+			responseDTO.setCode(99);
+			responseDTO.setMsg("사용 가능한  닉네임 입니다.");
+		}
+		
+		return responseDTO;
 	}
 
 }

@@ -32,6 +32,15 @@ public interface MemberInfoService {
 	//회원정보에서 삭제처리 -> 삭제처리 하면서 로그아웃 기능도 필요하기 때문에 session 파라미터 필요
 	public void deleteMember(String uid,HttpSession session);
 	
+	//아이디 중복 검사 처리
+	public boolean isAvailableId(String uid);
+	
+	//이름(닉네임) 중복 검사 처리
+	public boolean isAvailableName(String uname);
+	
+	
+	
+	
 	public MemberInfoVO viewMember(MemberInfoVO vo);
 	
 	

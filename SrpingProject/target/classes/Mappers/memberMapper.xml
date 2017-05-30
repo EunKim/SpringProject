@@ -21,7 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select uname from member_info where uid=#{uid} and upw=#{upw}
 	</select>
 	
-	<!-- 이름(닉네임)의 아이디 해당되는 정보를 찾아서 회원정보창에 뿌려주는 것 -->
+	<!-- 1.이름(닉네임)의 아이디 해당되는 정보를 찾아서 회원정보창에 뿌려주는 것 --> <!-- 2.아이디 중복 검사  -->
 	<select id="memInfoView" resultType="com.test.first.mapper.dto.member.MemberInfoVO">
 		select * from member_info where uid=#{uid}
 	</select>
@@ -40,6 +40,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="memInfoDelete">
 		delete from member_info where uid=#{uid}
 	</delete>
+	
+	<!-- 아이디 중복 확인용 -->
+	<select id="selectId" resultType="com.test.first.mapper.dto.member.MemberInfoVO">
+		select uid from member_info where uid = #{uid}
+	</select>
+	
+	<!-- 이름(닉네임)중복 확인용 -->
+	<select id="selectName" resultType="com.test.first.mapper.dto.member.MemberInfoVO">
+		select uname from member_info where uname = #{uname}
+	</select>
 	
 	
 

@@ -43,7 +43,7 @@ public class MemberInfoDAOImpl implements MemberInfoDAO {
 	//로그아웃 처리 -> 필요한 쿼리문이 존재하지 않기때문에 DAO를 거치지 않고 서비스단에서 해결가능.
 	
 	
-	//맨위의 해당되는 이름(닉네임)의 아이디를  통하여 그에 해당하는 회원정보만을 가져와서 뿌려는 단계
+	//맨위의 해당되는 이름(닉네임)의 아이디를  통하여 그에 해당하는 회원정보만을 가져와서 뿌려는 단계 , 
 	@Override
 	public MemberInfoVO viewMember(String uid) {
 		// TODO Auto-generated method stub
@@ -79,7 +79,22 @@ public class MemberInfoDAOImpl implements MemberInfoDAO {
 		// TODO Auto-generated method stub
 		sqlSession.update("login.memInfoDelete", uid);
 	}
-
+	
+	//회원가입시 아이디 중복검사에 사용
+	@Override
+	public MemberInfoVO selectId(String uid) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("login.selectId", uid);
+	}
+	
+	//회원가입시 이름(닉네임) 중복검사에 사용
+	@Override
+	public MemberInfoVO selectName(String uname) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("login.selectName",uname);
+	}
+	
+	
 	
 
 	@Override
@@ -87,6 +102,12 @@ public class MemberInfoDAOImpl implements MemberInfoDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("login.viewMember", vo);
 	}
+
+	
+
+	
+
+	
 
 
 
