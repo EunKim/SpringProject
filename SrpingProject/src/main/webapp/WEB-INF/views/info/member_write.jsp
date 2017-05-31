@@ -70,7 +70,7 @@ function f1(x) {
     }
  }
  
-	//비밀번호 실시간 유효성 검사 : 비밀번호를 입력하면서 실시간으로 유효 한지 안한지
+	//비밀번호 실시간 유효성 검사 : 비밀번호를 입력하면서 실시간으로 유효 한지 안한지확인
 	$(function(){
 		$("#upw").keyup(function(){
 			var upwcon = $("#upw").val();
@@ -85,6 +85,7 @@ function f1(x) {
 			}
 		});
 		
+		//비밀번호 확인 실시간으로 검사 : 비밀번호와  실시간으로 일치한지 확인
 		$("#repw").keyup(function(){
 			
 			var upwcon = $("#upw").val();
@@ -102,29 +103,28 @@ function f1(x) {
 
 
 	$(document).ready(function() {
-		//수정 버튼
+		//확인 버튼 누를시
 		$("#btnSubmit").click(function() {
 			
 			//폼별로 폼의 값을 불러옴.
-			var upw=$("#upw").val();
-			var repw = $("#repw").val();
-			var uname = $("#uname").val();
 			var ugender = $("#ugender").val();
 			var ubirth = $("#ubirth").val();
 			
+			//아이디 중복검사를 했는지 안했는지 확인
 			if($("#isCheckedId").val() == "N"){
 				alert("ID 중복검사를 먼저 해주세요.");
 				$("#uid").focus();
 				return;
 			}
 			
+			//이름(닉네임)중복 검사를 했는지 안했는지 확인
 			if($("#isCheckedName").val() == "N"){
 				alert("이름(닉네임)중복검사를 먼저 해주세요.");
 				$("#uname").focus();
 				return;
 			}
 			
-			//오류 : 성별 공백 검사 -> 선택을 안했는데도 제출되어지는데, db에는 쿼리문 오류
+			//성별 선택을 안했을시
 			if(ugender == " "){
 				alert('성별을 꼭 선택해주세요');
 				//document.getElementById('errorUgender').innerHTML='* 성별을 선택하세요.';
@@ -132,13 +132,6 @@ function f1(x) {
 				return;
 			}
 			
-		
-			//생일날짜 공백일때 검사
-			if(ubirth == null){
-				alert('생년월일을 꼭 선택해주세요');
-				$("#female").focus();
-				return;
-			}
 
 			//폼 내부의 데이터를 전송할 주소
 			document.formwrite.action="${path}/member/insertlist.do";
@@ -187,7 +180,7 @@ function f1(x) {
 				$("#uname").focus();
 				return;
 				
-			}else{
+			}else{//이름 내역 성공시
 				var url="${path}/member/selectName.do";
 				$.post(url, {uname:uname}, function(json){
 					

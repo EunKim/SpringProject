@@ -50,13 +50,6 @@ public class MemberInfoController {
 	}
 	
 
-	// info/member_login.jsp로 이동
-	@RequestMapping("member/login.do")
-	public String login() {
-		return "info/member_login";
-	}
-	
-
 	// 로그인시 확인버튼을 누를때 입력한 정보가 db에 있는 정보인지 아닌지 확인
 	@RequestMapping("member/login_check.do")
 	public ModelAndView login_check(@ModelAttribute MemberInfoVO vo, HttpSession session) { //session : 로그인접속시간,할떄 필요
@@ -66,7 +59,7 @@ public class MemberInfoController {
 			mav.setViewName("main");
 			mav.addObject("message", "success");
 		} else {// 로그인 실패
-			mav.setViewName("info/member_login");
+			mav.setViewName("redirect:/member/login.do");
 			mav.addObject("message", "error");
 		}
 		return mav;

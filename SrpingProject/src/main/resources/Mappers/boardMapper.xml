@@ -4,10 +4,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
-<mapper namespace="board">
+<mapper namespace="chattingBoard">
 
-	<select id="boardList">
+	<!-- 채팅방의 전체 목록을 보여주는 쿼리 -->
+	<select id="chattingList" resultType="com.test.first.mapper.dto.board.BoardInfoVO">
 		select * from chatting_board
 	</select>
+	
+	<!-- 채팅방의 목록에서 선택했을때 그 선택된것의 상세보기 기능 -->
+	<select id="chattingInfo" resultType="com.test.first.mapper.dto.board.BoardInfoVO">
+		select * from chatting_board where bonumber = #{bonumber}
+	</select>
+	
+	<!-- 조회수 증가처리용 -->
+	<update id="increaseViewcnt">
+		update chatting_board set bocount=bocount+1 where bonumber=#{bonumber};
+	</update>
+	
+	<insert id="chattingWrite">
+		insert into chatting_board (botitle,bomeetdate,bomeettime,boplace,bocost,bocontent,bouname) 
+      			values (#{botitle},#{bomeetdate},#{bomeettime},#{boplace},#{bocost},#{bocontent},#{bouname})
+	</insert>
    
 </mapper>

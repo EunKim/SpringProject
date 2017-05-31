@@ -40,7 +40,7 @@ $(document).ready(function(){
 			name="formUpdate">
 
 			<fieldset>
-				<legend>회원정보</legend>
+				<legend style="text-align:left; font-size: 30px; font-style: bold;">INFO!</legend>
 
 				<div class="form-group">
 					<label class="col-lg-2 control-label" for="inputID">아이디</label>
@@ -51,7 +51,7 @@ $(document).ready(function(){
 				</div>
 
 				<div class="form-group">
-					<label class="col-lg-2 control-label" for="inputPassword">비밀번호</label>
+					<label class="col-lg-2 control-label" for="inputPassword" style="font-size: 13px;">비밀번호</label>
 					<div class="col-lg-10">
 						<input class="form-control" id="upw" name="upw" type="password">
 					</div>
@@ -82,7 +82,7 @@ $(document).ready(function(){
 					<label class="col-lg-2 control-label" for="inputBirth">생일</label>
 					<div class="col-lg-10">
 						<!-- <input class="form-control" name="uname" type="text" placeholder="이름 or 닉네임을 15자 이내로 입력."> -->
-						<div>
+						<div style="margin-top: 10px;">
 							<input type="date" id="ubirth" name="ubirth"
 								value="${dto.ubirth}">
 						</div>
@@ -91,7 +91,7 @@ $(document).ready(function(){
 
 
 				<div class="form-group">
-					<div class="col-lg-10 col-lg-offset-2">
+					<div class="col-lg-10 col-lg-offset-2" style="margin-top: 20px;">
 						<button class="btn btn-primary" type="button" id="btnUpdate">수정</button>
 						<button class="btn btn-default" type="button" id="btnDelete">회원
 							탈퇴</button>

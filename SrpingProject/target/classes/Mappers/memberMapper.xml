@@ -50,7 +50,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectName" resultType="com.test.first.mapper.dto.member.MemberInfoVO">
 		select uname from member_info where uname = #{uname}
 	</select>
-	
+
 	
 
 	<select id="viewMember" resultType="com.test.first.mapper.dto.member.MemberInfoVO">

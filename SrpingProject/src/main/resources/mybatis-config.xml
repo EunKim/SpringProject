@@ -6,6 +6,9 @@
 
 	<mappers>
 		<mapper resource="Mappers/memberMapper.xml" />
+		<mapper resource="Mappers/boardMapper.xml" />
 	</mappers>
+	
+	
 
 </configuration>

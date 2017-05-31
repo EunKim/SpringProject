@@ -38,8 +38,7 @@
 								href="${path}/member/login.do"><span>로그인 <span
 										class="border"></span>
 								</span></a></li>
-							<li><a href="${path}/member/list.do"><span>회원관리 <span
-										class="border"></span></span></a></li>
+							<li><a href="${path}/board/list.do"><span> 글 목록 <span class="border"></span></span></a></li>
 						</ul>
 					</div>
 				</div>

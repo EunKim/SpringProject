@@ -20,7 +20,7 @@
 			<th>생년월일</th>
 		</tr>
 
-		<c:forEach var="row" items="${list }">
+		<c:forEach var="row" items="${list}">
 			<tr>
 				<th>${row.usernumber}</th>
 				<th><a href="${path}/member/view.do?userid=${row.userid}">${row.userid}</a></th>
