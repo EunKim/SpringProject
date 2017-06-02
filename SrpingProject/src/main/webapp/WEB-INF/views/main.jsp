@@ -19,7 +19,11 @@
 	document.getElementById("login").style.display="block";
 </script>
 </c:if>  --%>
-
+<c:if test="${message == 'error'}">
+<script type="text/javascript">
+	alert("아이디 비밀번호가 일치하지 않습니다.");
+</script>
+</c:if>
 
 	<div id="fh5co-main">
 		<div class="fh5co-intro text-center">

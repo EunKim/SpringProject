@@ -5,14 +5,13 @@
 <!-- 컨텍스트 경로 -->
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
-<div id="loginshow" style="display: inline-block; text-align: center; width: 100%; height: 5%;  margin-left: 375px; margin-top: 10px;">
-	<a href="${path}/member/viewuser.do?uid=${sessionScope.uid}" style="color: blue; margin-right: 10px;">${sessionScope.uname} 접속중</a>
-	<a href="${path}/member/logout.do">로그아웃</a>
-</div>
-
 
 <header id="fh5co-header" role="banner">
 	<nav class="navbar navbar-default" role="navigation">
+	<div id="loginshow" style="display: inline-block; text-align: center; height: 5%;  margin-left: 1210px; margin-top: 10px;">
+	<a href="${path}/member/viewuser.do?uid=${sessionScope.uid}" style="color: blue; margin-right: 10px;">${sessionScope.uname} 접속중</a>
+	<a href="${path}/member/logout.do">로그아웃</a>
+	</div>
 		<div class="container">
 			<div class="row">
 			

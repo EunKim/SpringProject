@@ -4,6 +4,6 @@
 <c:if test="${sessionScope.uid == null }">
 	<script>
 		alert("로그인 하신후 사용하세요.");
-		location.href="${path}/member/login.do";
+		location.href="${path}/board/list.do";
 	</script>
 </c:if>

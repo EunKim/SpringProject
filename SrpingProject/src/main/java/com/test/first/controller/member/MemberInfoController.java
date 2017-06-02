@@ -46,20 +46,21 @@ public class MemberInfoController {
 	@RequestMapping("member/insertlist.do")
 	public String insertFirst(@ModelAttribute MemberInfoVO vo) {
 		memberinfoService.insertMember(vo);
-		return "redirect:/member/login.do";
+		return "main";
 	}
 	
 
 	// 로그인시 확인버튼을 누를때 입력한 정보가 db에 있는 정보인지 아닌지 확인
 	@RequestMapping("member/login_check.do")
 	public ModelAndView login_check(@ModelAttribute MemberInfoVO vo, HttpSession session) { //session : 로그인접속시간,할떄 필요
+		System.out.println("들어온곳");
 		boolean result = memberinfoService.loginConfirm(vo, session);
 		ModelAndView mav = new ModelAndView();
 		if (result == true) {// 로그인 성공
 			mav.setViewName("main");
 			mav.addObject("message", "success");
 		} else {// 로그인 실패
-			mav.setViewName("redirect:/member/login.do");
+			mav.setViewName("main");
 			mav.addObject("message", "error");
 		}
 		return mav;

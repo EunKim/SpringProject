@@ -37,128 +37,213 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
 <script type="text/javascript">
 
-//성별 효과 함수
-function f1(x) {
-    m = document.getElementById('male');
-    f = document.getElementById('female');
-    input = document.getElementById('ugender');
+/* 성별 */
+function selGender(x) {
+   m = document.getElementById('male');
+   f = document.getElementById('female');
+   input = document.getElementById('ugender');
 
-    // 남자선택시 여자는 선택 x, 여자선택시 남자는 선택x
-    if (typeof f1.mtoggle == 'undefined'
-          && typeof f1.ftoggle == 'undefined') {
-       f1.mtoggle = true;
-       f1.ftoggle = true;
-    }
+   //mtoggle과 ftoggle 전역변수 선언
+   if (typeof selGender.mtoggle == 'undefined'
+         && typeof selGender.ftoggle == 'undefined') {
+      selGender.mtoggle = true;
+      selGender.ftoggle = true;
+   }
 
-    if (x.id == 'male') {
-       f1.mtoggle = x.classList.toggle('button1');
-       input.value = '남성';
-    //   m.innerHTML = f1.mtoggle + " " + f1.ftoggle;
+   if (x.id == 'male') {
+      selGender.mtoggle = x.classList.toggle('button1');
+      input.value = 'male';
+   //   m.innerHTML = selGender.mtoggle + " " + selGender.ftoggle;
 
-       if (f1.ftoggle == false) {
-          f1.ftoggle = f.classList.toggle('button1');
-       }
+      if (selGender.ftoggle == false) {
+         selGender.ftoggle = f.classList.toggle('button1');
+      }
 
-    } else if (x.id == 'female') {
-       f1.ftoggle = x.classList.toggle('button1');
-       input.value = '여성';
-    //   f.innerHTML = f1.mtoggle + " " + f1.ftoggle;
+   } else if (x.id == 'female') {
+      selGender.ftoggle = x.classList.toggle('button1');
+      input.value = 'female';
+   //   f.innerHTML = selGender.mtoggle + " " + selGender.ftoggle;
 
-       if (f1.mtoggle == false) {
-          f1.mtoggle = m.classList.toggle('button1');
-       }
-    }
- }
- 
-	//비밀번호 실시간 유효성 검사 : 비밀번호를 입력하면서 실시간으로 유효 한지 안한지확인
-	$(function(){
-		$("#upw").keyup(function(){
-			var upwcon = $("#upw").val();
-			var reupw = /^[a-z0-9]{6,20}$/;
-			if(reupw.test(upwcon) == false){
-				//alert('비밀번호를 다시 작성해주세요');
-				document.getElementById('errorUpw').innerHTML='* 비밀번호가 유효하지 않습니다.';
-				$("#upw").focus();
-				return;
-			}else{
-				document.getElementById('errorUpw').innerHTML=' ';
-			}
-		});
-		
-		//비밀번호 확인 실시간으로 검사 : 비밀번호와  실시간으로 일치한지 확인
-		$("#repw").keyup(function(){
-			
-			var upwcon = $("#upw").val();
-			var repwcon = $("#repw").val();
-			
-			if(upwcon != repwcon){
-				document.getElementById('errorReUpw').innerHTML='* 비밀번호가 일치 하지 않습니다.';
-				$("#repw").focus();
-				return;
-			}else{
-				document.getElementById('errorReUpw').innerHTML=' ';
-			}
-		});
-	});
+      if (selGender.mtoggle == false) {
+         selGender.mtoggle = m.classList.toggle('button1');
+      }
+   }
+   
+}
 
 
-	$(document).ready(function() {
-		//확인 버튼 누를시
-		$("#btnSubmit").click(function() {
-			
-			//폼별로 폼의 값을 불러옴.
-			var ugender = $("#ugender").val();
-			var ubirth = $("#ubirth").val();
-			
-			//아이디 중복검사를 했는지 안했는지 확인
-			if($("#isCheckedId").val() == "N"){
-				alert("ID 중복검사를 먼저 해주세요.");
-				$("#uid").focus();
-				return;
-			}
-			
-			//이름(닉네임)중복 검사를 했는지 안했는지 확인
-			if($("#isCheckedName").val() == "N"){
-				alert("이름(닉네임)중복검사를 먼저 해주세요.");
-				$("#uname").focus();
-				return;
-			}
-			
-			//성별 선택을 안했을시
-			if(ugender == " "){
-				alert('성별을 꼭 선택해주세요');
-				//document.getElementById('errorUgender').innerHTML='* 성별을 선택하세요.';
-				$("#ugender").focus();
-				return;
-			}
-			
+//비밀번호 실시간 유효성 검사 : 비밀번호를 입력하면서 실시간으로 유효 한지 안한지확인
+$(function(){
+   $("#pw").keyup(function(){
+      var pw= $("#pw").val();
+        var pwcon = /^[a-z0-9]{6,20}$/;
+        
+        if(pwcon.test(pw) == false){
+           document.getElementById('errorUpw').innerHTML='* 비밀번호가 유효하지 않습니다.';
+           $("#pw").focus();
+           return;
+         }else{
+           document.getElementById('errorUpw').innerHTML='';
+        }
+   });
+});
 
-			//폼 내부의 데이터를 전송할 주소
+//비밀번호 확인 실시간으로 검사 : 비밀번호와  실시간으로 일치한지 확인
+$(function(){
+    $("#repw").keyup(function(){
+         
+       var pwcon = $("#pw").val();
+        var repwcon = $("#repw").val();
+         
+        if(pwcon != repwcon){
+            document.getElementById('errorReUpw').innerHTML='* 비밀번호가 일치 하지 않습니다.';
+            $("#repw").focus();
+           return; 
+        }else{
+           document.getElementById('errorReUpw').innerHTML='';
+        }
+    });
+});
+
+//생년월일 유효성 검사
+var errorArray = ['','',''];      
+
+function checkBirth(x){
+   
+   if(x.id == 'uyear'){
+
+      var conYear = /^[0-9]{4}$/;
+      
+      if(conYear.test(x.value) == true && parseInt(x.value) >= 1930) {
+         errorArray[0] = '';
+      } else {
+         errorArray[0] = '* 생년을 4자리 형식으로 입력하십시오.';
+      }
+      
+   } else if(x.id == 'umonth'){
+      
+      var conMonth = /^[0-9]{1,2}$/;
+      
+      if(conMonth.test(x.value) == true && (x.value) <= 12 && (x.value) > 0) {
+         errorArray[1] = '';
+      } else {
+         errorArray[1] = '* 1~12월 사이의 값을 입력하십시오.';
+      }
+      
+   } else if(x.id == 'uday'){
+      var conDay = /^[0-9]{1,2}$/;
+      
+      if(conDay.test(x.value) == true && (x.value) <= 31 && (x.value) > 0){
+         errorArray[2] = '';
+      }else {
+         errorArray[2] = '* 1~31 사이의 값을 입력하십시오.';
+        }
+   }
+   
+   //월, 일 0d 패턴
+   if((x.value) < 10){
+      if((x.value).length == 1){
+         x.value = 0 + x.value; 
+      }   
+   }
+   
+   
+   for(var i=0; i<errorArray.length; i++) {
+      if(errorArray[i] != ''){
+         document.getElementById('errorUbirth').innerHTML = errorArray[i];
+         return ;
+      }
+      
+      document.getElementById('errorUbirth').innerHTML = '';
+   }
+}
+
+   $(document).ready(function() {
+      //확인 버튼 누를시
+      $("#btnSubmit").click(function() {
+         
+         //아이디 중복검사를 했는지 안했는지 확인
+         if($("#isCheckedId").val() == "N"){
+            alert("ID 중복검사를 먼저 해주세요.");
+            $("#uid").focus();
+            return;
+         }
+         
+         //이름(닉네임)중복 검사를 했는지 안했는지 확인
+         if($("#isCheckedName").val() == "N"){
+            alert("이름(닉네임)중복검사를 먼저 해주세요.");
+            $("#uname").focus();
+            return;
+         }
+         
+         //성별 선택을 안했을시
+         var ugender = $("#ugender").val();
+        
+         if(ugender == ''){
+            alert('성별을 꼭 선택해주세요');
+            //document.getElementById('errorUgender').innerHTML='* 성별을 선택하세요.';
+            $("#ugender").focus();
+            return;
+         }
+         
+         //생년월일 검사
+         var uyear = $("#uyear").val();
+         var umonth = $("#umonth").val();
+         var uday = $("#uday").val();
+         var ubirth =  document.getElementById('ubirth');
+         
+         for(var a=0; a<errorArray.length; a++){
+            if(errorArray[a] != ''){
+               break;
+           }
+         }
+         
+         if(uyear == '' || umonth == '' || uday == '' || a < errorArray.length){
+            
+            alert('생년월일을 꼭 선택해주세요');
+               $("#uyear").focus();
+               return;
+         }
+         $('#ubirth').val(uyear+'-'+umonth+'-'+uday);
+        
+        //비밀번호 확인
+         var pw = $("#pw").val();
+         var repw = $("#repw").val();
+         
+         if(pw == '' || repw == '' 
+               || document.getElementById('errorUpw').innerHTML != ''
+               || document.getElementById('errorReUpw').innerHTML != '' ){
+               
+            alert('비밀번호를 정확하게 입력하시오.');
+            $('#pw').focus();
+            return;                 
+         } 
+
+       		//폼 내부의 데이터를 전송할 주소
 			document.formwrite.action="${path}/member/insertlist.do";
 			
 			//제출
-			document.formwrite.submit();	
-		});
-		
-		//아이디 중복 확인
-		$("#btnConfirmId").click(function(){
+			document.formwrite.submit(); 
+      });
+      
+      //아이디 중복 확인
+     $("#btnConfirmId").click(function(){
 			
-		
-			var reuid = /^[a-z0-9]{6,20}$/;
-			var uid = $("#uid").val();
+    	 var reuid = /^[a-z0-9]{6,20}$/;
+			var uuid = $("#uuid").val();
 			
 			//아이디 유효성 검사(6~20자리 사이로 소문자,숫자만 인식)
-			if(reuid.test(uid) == false){
+			if(reuid.test(uuid) != true){
 				//alert('아이디를 다시 작성해주세요');
 				document.getElementById('errorUid').innerHTML='* 아이디를 다시 작성해 주세요.';
-				$("#uid").focus();
+				$("#uuid").focus();
 				return;
 			}else{//유효성 검사에서 통과하면 아이디 중복 체크
 				var url = "${path}/member/selectId.do";
-				$.post(url, {uid : uid}, function(json){
+				$.post(url, {uid : uuid}, function(json){
 					console.log(json);
 					alert(json.msg);
-					document.getElementById('errorUid').innerHTML='	';
+					document.getElementById('errorUid').innerHTML='';
 					//ID를 사용할수 있으면 isCheckedId : Y -> 확인버튼 누를시 중복확인 했으면 회원가입가능하고, 아니면 불가능하게 하려고 사용
 					if(json.code == 99){
 						$("#isCheckedId").val("Y");
@@ -166,10 +251,10 @@ function f1(x) {
 				});
 			}
 		});
-		
-		//이름(닉네임) 중복 확인
-		$("#btnConfirmName").click(function(){
-			var uname =$("#uname").val();
+      
+      //이름(닉네임) 중복 확인
+      $("#btnConfirmName").click(function(){
+    	  var uname =$("#uname").val();
 			var blank_pattern = /^\s+|\s+$/g;
 			var blank_pattern2 = /[\s]/g;
 			
@@ -183,18 +268,18 @@ function f1(x) {
 			}else{//이름 내역 성공시
 				var url="${path}/member/selectName.do";
 				$.post(url, {uname:uname}, function(json){
-					
 					console.log(json);
 					alert(json.msg);
-					document.getElementById('errorUname').innerHTML=' ';
+					document.getElementById('errorUname').innerHTML='';
 					if(json.code == 99){
 						$("#isCheckedName").val("Y");
 					}
 				});
 			}
-			
-		});
-	});
+         
+      });
+   });
+   
 </script>
 </head>
 	<!-- 오늘 날짜 구하는것 -->
@@ -205,97 +290,94 @@ function f1(x) {
 		String yyyyMMddToday =  DATE_FORMAT.format(today);
 	%>
 <body>
-
+	
 	<%@ include file="../include/menu.jsp"%>
-
-
-	<div align="center" style="margin-top: 30px;">
-		<form class="form-horizontal" style="width: 40%; text-align: center"
-			name="formwrite">
-
-			<fieldset>
-				<legend style="text-align:left; font-size: 30px; font-style: bold;">JOIN!</legend>
-
-				<div class="form-group">
-					<label class="col-lg-2 control-label" for="inputID">아이디</label>
-					<div class="col-lg-8">
-						<input class="form-control" id="uid" name="uid" type="text"
-							placeholder="* 소문자나 숫자로 6자리~20자리 사이">
-						<input type="hidden" name="isCheckedId" id ="isCheckedId" value="N"/>
-					</div>
-					<button class="btn btn-primary" type="button" id="btnConfirmId" style="margin-bottom: -5px; margin-left: -30px;">중복 확인</button>
-					<p id="errorUid" style="color: red; margin-top: 15px; margin-bottom: -20px; margin-left: -270px;" ></p>
-				</div>
-
-				<div class="form-group">
-					<label class="col-lg-2 control-label" for="inputPassword">비밀번호</label>
-					<div class="col-lg-10">
-						<input class="form-control" id="upw" name="upw" type="password"
-							placeholder="* 소문자나 숫자로 6자리~20자리 사이">
-					</div>
-					<p id="errorUpw" style="color: red; margin-top: 20px; margin-bottom: -25px; margin-left: -260px;" ></p>
-				</div>
-
-				<div class="form-group">
-					<label class="col-lg-2 control-label" for="inputPassword"
-						style="font-size: 13px;">비밀번호 확인</label>
-					<div class="col-lg-10">
-						<input class="form-control" id="repw" name="repw" type="password"
-							placeholder="* 비밀번호를  재입력 해주세요">
-					</div>
-					<p id="errorReUpw" style="color: red; margin-top: 20px; margin-bottom: -25px; margin-left: -260px;" ></p>
-				</div>
-
-				<div class="form-group">
-					<label class="col-lg-2 control-label" for="inputName">이름</label>
-					<div class="col-lg-8">
-						<input class="form-control" id="uname" name="uname" type="text"
-							placeholder="*이름 or 닉네임을 15자 이내로 입력해주세요">
-						<input type="hidden" name="isCheckedName" id ="isCheckedName" value="N"/>
-					</div>
-					<button class="btn btn-primary" type="button" id="btnConfirmName" style="margin-bottom: -5px; margin-left: -30px;">중복 확인</button>
-					<p id="errorUname" style="color: red; margin-top: 15px; margin-bottom: -20px; margin-left: -250px;" ></p>
-				</div>
-
-				<!-- <div class="form-group">
-					<label class="col-lg-2 control-label">*성별</label>
-					<div>
-						<input id="ugender" name="ugender" type="radio" value="여성">여성
-						<input id="ugender" name="ugender" type="radio" value="남성">남성
-					</div>
-				</div> -->
-
-			<div class="form-group">
-               <label class="col-lg-2 control-label">* 성별</label>
-               <input type="hidden" id ="ugender" name="ugender" value =" ">
-               <div class="my_button button1" id="male" onclick="f1(this)">남          성</div>
-               <div class="my_button button1" id="female" onclick="f1(this)">여          성</div>
-               <p id="errorUgender" style="color: red; margin-top: 10px; margin-bottom: -20px; margin-left: -280px;" ></p>
+	
+	<div align="center">
+      <form class="form-horizontal" style="width: 700px;" name="formwrite">
+         <fieldset>
+            <legend align="left">JOIN!</legend>
+            <div class="form-group">
+               <label class="col-lg-2 control-label" for="inputID">아이디</label>
+               <div class="col-lg-8">
+                  <input class="form-control" id="uuid" name="uid" type="text"
+                     placeholder="* 소문자나 숫자로 6자리~20자리 사이"> <input
+                     type="hidden" name="isCheckedId" id="isCheckedId" value="N" />
+               </div>
+               <button class="btn btn-primary" type="button" id="btnConfirmId"
+                  style="margin-bottom: -5px; margin-left: -30px;">중복 확인</button>
+               <p id="errorUid"
+                  style="color: red; margin-top: 15px; margin-bottom: -20px; margin-left: -260px;"></p>
             </div>
-				
-			
-				<div class="form-group">
-					<label class="col-lg-2 control-label" for="inputBirth">* 생일</label>
-					<div class="col-lg-10">
-						<!-- <input class="form-control" name="uname" type="text" placeholder="이름 or 닉네임을 15자 이내로 입력."> -->
-						<div style="margin-top: 10px;">
-							<input type="date" id="ubirth" name="ubirth" min="1950-01-01" max=<%=yyyyMMddToday%> value=<%=yyyyMMddToday%> >
-						</div>
-					</div>
-				</div>
 
+            <div class="form-group">
+               <label class="col-lg-2 control-label" for="inputPassword">비밀번호</label>
+               <div class="col-lg-10">
+                  <input class="form-control" id="pw" name="upw" type="password"
+                     placeholder="* 소문자나 숫자로 6자리~20자리 사이">
+               </div>
+               <p id="errorUpw"
+                  style="color: red; margin-top: 15px; margin-bottom: -20px; margin-left: -260px;"></p>
+            </div>
 
-				<div class="form-group" >
-					<div class="col-lg-10 col-lg-offset-2" style="margin-top: 20px;">
-						<button class="btn btn-default" type="reset">취소</button>
-						<button class="btn btn-primary" type="button" id="btnSubmit">확인</button>
-					</div>
-				</div>
-			</fieldset>
-		</form>
+            <div class="form-group">
+               <label class="col-lg-2 control-label" for="inputPassword" style="font-size: 12px;">비밀번호 확인</label>
+               <div class="col-lg-10">
+                  <input class="form-control" id="repw" name="repw" type="password"
+                     placeholder="* 비밀번호를  재입력 해주세요">
+               </div>
+               <p id="errorReUpw"
+                  style="color: red; margin-top: 15px; margin-bottom: -20px; margin-left: -260px;"></p>
+            </div>
 
-	</div>
+            <div class="form-group">
+               <label class="col-lg-2 control-label" for="inputName">이름</label>
+               <div class="col-lg-8">
+                  <input class="form-control" id="uname" name="uname" type="text"
+                     placeholder="*이름 or 닉네임을 15자 이내로 입력해주세요"> <input
+                     type="hidden" name="isCheckedName" id="isCheckedName" value="N" />
+               </div>
+               <button class="btn btn-primary" type="button" id="btnConfirmName"
+                  style="margin-bottom: -5px; margin-left: -30px;">중복 확인</button>
+               <p id="errorUname"
+                  style="color: red; margin-top: 15px; margin-bottom: -20px; margin-left: -260px;"></p>
+            </div>
 
+            <div class="form-group">
+               <label class="col-lg-2 control-label">성별</label> 
+               <input type="hidden" id="ugender" name="ugender" value="">
+               <div class="my_button button1" id="male" onclick="selGender(this)">남     성</div>
+               <div class="my_button button1" id="female" onclick="selGender(this)">여     성</div>
+            </div>
 
+            <div class="form-group">
+               <label class="col-lg-2 control-label" for="inputBirth">생년월일</label>
+               <input type="hidden" id="ubirth" name="ubirth" value="">
+                <div class="col-lg-4" style="width: 200px; padding-right: 1px;">
+                  <input class="form-control" type="number" id="uyear" name="uyear"
+                     onchange="checkBirth(this)" placeholder="년도">
+               </div>
+               <div class="col-lg-4" style="width: 200px; padding-right: 1px;">
+                  <input class="form-control" type="number" id="umonth" name="umonth"
+                     onchange="checkBirth(this)" placeholder="월">
+               </div>
+               <div class="col-lg-4" style="width: 200px; padding-right: 1px;">
+                  <input class="form-control" type="number" id="uday" name="uday"
+                     onchange="checkBirth(this)" placeholder="일">
+               </div>
+               <p id="errorUbirth" class="col-lg-8"
+                  style="color: red; margin-top: 15px; margin-bottom: -20px; padding-left: 50px"></p>
+            </div>
+            
+            <div class="form-group">
+               <div class="col-lg-10 col-lg-offset-2">
+                  <button class="btn btn-default" type="reset">Cancel</button>
+                  <button class="btn btn-primary" type="button" id="btnSubmit">Submit</button>
+               </div>
+            </div>
+         </fieldset>
+         
+      </form>
+   </div>
 </body>
 </html>
