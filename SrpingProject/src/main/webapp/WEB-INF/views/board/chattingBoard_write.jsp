@@ -26,7 +26,7 @@ $(document).ready(function(){
 	$("#btnMap").click(function(){
 		var newwindow;
 		newwindow = window.open("${path}/board/googlemap.do", "window", "width=600, height=700");
-		newwindow.document.getElementById("checkplace").value = "입력 됬다";
+		
 
 	});
 	
@@ -75,15 +75,14 @@ $(document).ready(function(){
 				<div class="form-group">
 					<label class="col-lg-2 control-label" for="inputMeetingTime" style="font-size: 13px;">장소명</label>
 					<div class="col-lg-10">
-						<input class="form-control" id="nameplace" name="nameplace" type="text"  >
+						<input class="form-control" id="boplace" name="boplace" type="text"  >
 					</div>
 				</div>
 				
 				<div class="form-group">
 					<label class="col-lg-2 control-label" for="inputMeetingPlace" style="font-size: 13px;">상세주소</label>
-					<div class="col-lg-8">
-						<input type="hidden" id="boplace" name="boplace" value="">
-						<input class="form-control" id="addressplace"  type="text">
+					<div class="col-lg-8">	
+						<input class="form-control" id="boaddress" name="boaddress" type="text">
 					</div>
 					<button class="btn btn-primary" type="button" id="btnMap" style="margin-bottom: -5px; margin-left: -30px;">지도</button>
 				</div>

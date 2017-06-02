@@ -9,6 +9,7 @@ public class BoardInfoVO {
 	private String bomeetdate;
 	private String bomeettime;
 	private String boplace;
+	private String boaddress;
 	private String bocost;
 	private String bocontent;
 	private String bouname;
@@ -77,12 +78,22 @@ public class BoardInfoVO {
 	public void setBoplace(String boplace) {
 		this.boplace = boplace;
 	}
+	
+	public String getBoaddress() {
+		return boaddress;
+	}
+	public void setBoaddress(String boaddress) {
+		this.boaddress = boaddress;
+	}
+	
 	@Override
 	public String toString() {
 		return "BoardInfoVO [bonumber=" + bonumber + ", botitle=" + botitle + ", bomeetdate=" + bomeetdate
-				+ ", bomeettime=" + bomeettime + ", boplace=" + boplace + ", bocost=" + bocost + ", bocontent="
-				+ bocontent + ", bouname=" + bouname + ", boregdate=" + boregdate + ", bocount=" + bocount + "]";
+				+ ", bomeettime=" + bomeettime + ", boplace=" + boplace + ", boaddress=" + boaddress + ", bocost="
+				+ bocost + ", bocontent=" + bocontent + ", bouname=" + bouname + ", boregdate=" + boregdate
+				+ ", bocount=" + bocount + "]";
 	}
+	
 	
 	
 	

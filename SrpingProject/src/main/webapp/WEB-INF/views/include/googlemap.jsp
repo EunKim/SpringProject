@@ -269,7 +269,7 @@ html, body, #map-canvas {
 		$('#CheckAddress').click(function(){
 			//var str = $('#checkplace').val();
 			//alert(str);
-			opener.document.getElementById('addressplace').value = document.getElementById('checkplace').value;
+			opener.document.getElementById('boaddress').value = document.getElementById('checkplace').value;
 			window.close();
 		});
 	});
@@ -283,7 +283,7 @@ html, body, #map-canvas {
 		<input type="button" value="검색" onclick="Address()">
 		
 		<input type="button" value="선택" id="CheckAddress">
-		<input type="text" id="checkplace" name="checkplace">
+		<input type="hidden" id="checkplace" name="checkplace">
 		</form>
 	</div>
 	<div id="map-canvas" style="width: 100%; height: 680px"></div>

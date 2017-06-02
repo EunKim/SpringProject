@@ -35,7 +35,8 @@ $(document).ready(function() {
 			<th>제 목</th>
 			<th>만날 날짜</th>
 			<th>만날 시간</th>
-			<th>만날 장소</th>
+			<th>장소명</th>
+			<th>상세주소</th>
 			<th>비용</th>
 			<!-- <th>내용</th> -->
 			<th>작성자</th>
@@ -51,6 +52,7 @@ $(document).ready(function() {
 				<th>${row.bomeetdate}</th>
 				<th>${row.bomeettime}</th>
 				<th>${row.boplace}</th>
+				<th>${row.boaddress}</th>
 				<th>${row.bocost}</th>
 				<%-- <th>${row.bocontent}</th> --%>
 				<th>${row.bouname}</th>

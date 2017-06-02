@@ -27,6 +27,11 @@ public class MemberInfoController {
 	@Inject
 	MemberInfoService memberinfoService;
 
+	@RequestMapping("member/main.do")
+	public String mainPage(){
+		return "main";
+	}
+	
 	// 메인에서 -> 회원관리 누를시 나타나는 멤버 리스트
 	@RequestMapping("member/list.do")
 	public String memberList(Model model) {
@@ -51,7 +56,7 @@ public class MemberInfoController {
 	
 
 	// 로그인시 확인버튼을 누를때 입력한 정보가 db에 있는 정보인지 아닌지 확인
-	@RequestMapping("member/login_check.do")
+	/*@RequestMapping("member/login_check.do")
 	public ModelAndView login_check(@ModelAttribute MemberInfoVO vo, HttpSession session) { //session : 로그인접속시간,할떄 필요
 		System.out.println("들어온곳");
 		boolean result = memberinfoService.loginConfirm(vo, session);
@@ -64,17 +69,31 @@ public class MemberInfoController {
 			mav.addObject("message", "error");
 		}
 		return mav;
+	}*/
+	
+	@RequestMapping("member/login_check.do")
+	@ResponseBody
+	public boolean login_check(@ModelAttribute MemberInfoVO vo, HttpSession session) { //session : 로그인접속시간,할떄 필요
+		System.out.println("들어온곳");
+		boolean result = memberinfoService.loginConfirm(vo, session);
+		
+		return result;
 	}
-
 	
 	// 로그아웃을 눌렀을때 로그아웃 처리
-	@RequestMapping("member/logout.do")
+	/*@RequestMapping("member/logout.do")
 	public ModelAndView logout(HttpSession session) {
 		memberinfoService.logout(session);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("main");
 		mav.addObject("message", "logout"); //굳이 필요하지는 않음.
 		return mav;
+	}*/
+	
+	@RequestMapping("member/logout.do")
+	public String logout(HttpSession session) {
+		memberinfoService.logout(session);
+		return "redirect:/member/main.do";
 	}
 
 	// 맨위 이름(닉네임)에서  선택하면 회원정보를 알수있는 부분 -> 회원정보(아이디값)를 가지고, info/member_view에 해당에 맞게 정보를 뿌려줌.

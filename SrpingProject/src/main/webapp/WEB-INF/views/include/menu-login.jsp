@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <!-- jstl core tag -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
 <!-- 컨텍스트 경로 -->
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
@@ -13,7 +14,8 @@
 
 <header id="fh5co-header" role="banner">
 	<nav class="navbar navbar-default" role="navigation">
-	<div id="loginshow" style="display: inline-block; text-align: center; width: 100%; height: 5%;  margin-left: 375px; margin-top: 10px;">
+	
+	<div id="loginshow" style="display: inline-block; text-align: center; height: 5%;  margin-left:1200px; margin-top: 15px;">
 	<div href="${path}/member/viewuser.do?uid=${sessionScope.uid}" style="color: white; margin-right: 10px;"><p></p> </div> 
 	<div href="${path}/member/logout.do"  style="color: white;"> </div>
 	</div> 
@@ -52,9 +54,9 @@
 <div id="myModal" class="modal">
    <div class="modal-content">
        <div align="center">
-      <form class="form-horizontal"  style="width: 350px"  name="form2" method="post" >
+      <form class="form-horizontal"  style="width: 350px"  name="login_form" method="post" >
          <fieldset>
-            <legend style="padding-top: 10px; color: #777777">LOGIN<span class="close">&times;</span></legend>
+            <legend style="padding-top: 10px; color: #777777"><span class="glyphicon glyphicon-lock" style="padding-left: 10px"></span>LOGIN<span class="close">&times;</span></legend>
             <div class="form-group">
                <div class="col-lg-10" >
                   <input class="form-control" id="uid" name="uid" type="text" style="margin-bottom: -10px; margin-left: 35px; float: none;" placeholder="아이디">
@@ -65,12 +67,13 @@
                   <input class="form-control" id="upw" name="upw" type="password" style="margin-left: 35px; float: none;" placeholder="비밀번호">
                </div>
             </div>
+            <div class="col-lg-10" id="login_fail" style="margin-left: 28px; margin-top: -15px; margin-bottom: 15px; color: red;" ><!-- spanner --></div>
             <div class="form-group">
                <div class="col-lg-10" >
                   <input type="submit" class="form-control" style="margin-left: 35px; float: none; background-color: #f78181;" id="loginbtn" value = "로 그 인">
                </div>
             </div>
-            <div class="col-lg-4" style="float: right; margin-top: -20px;" id="newlogin">회원가입</div></br>
+            <div class="col-lg-4" style="float: right; margin-top: -20px;" id="newlogin">회원가입</div><br/>
             <div class="col-lg-7" style="float: right; margin-top: -20px; margin-bottom: 10px" onclick="">아이디/비밀번호 분실</div>
          </fieldset>
       </form>
@@ -83,83 +86,84 @@
 var modal = document.getElementById('myModal');
 
 // Get the button that opens the modal
-var login = document.getElementById("login");
+//var login = document.getElementById("login");
 
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 
 // When the user clicks the button, open the modal 
-login.onclick = function() {
+/* login.onclick = function() {
     modal.style.display = "block";
-}
+} */
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
-    modal.style.display = "none";
+   modal.style.display = "none";
 }
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
- 
-$(document).ready(function(){
-    	//새로 회원가입 할때
-    	$("#newlogin").click(function(){
-    		location.href="${path}/member/newlogin.do";	
-    	});
-    	
-    	
-    	//로그인 할때
-    	$("#loginbtn").click(function(){
-    		//태그.val() 태그에 입력된 값
-    		//태그.val("값") 태그의 값을 변경
-    		var uid=$("#uid").val();
-    		var upw=$("#upw").val();
-    		
-    		//아이디 6자리 미만일때 오류 체크
-    		if(uid.length < 6 ){
-    			alert("※아이디 6자리 이상 입력 하세요");
-    			$("#uid").focus();
-    			return;
-    		}
-    		
-    		//비밀번호 6자리 미만일때 아닐때 오류 체크
-    		if(upw.length < 6){
-    			alert("※비밀번호 6자리 이상 입력 하세요");
-    			$("#upw").focus();
-    			return;
-    		}
-    		
-    		//6자리~20자리 사이의 소문자와 숫자만 인식 (공백,대문자,특수문자 인식x)
-    		var reid = /^[a-z0-9]{6,20}$/;
-    		if(reid.test(uid) == false){
-    			alert("※아이디는  소문자와 숫자만 가능합니다.");
-    			$("#uid").focus();
-    			return;
-    		}
-    		
-    		//6자리~20자리 사이의 소문자와 숫자만 인식
-    		var repw =/^[a-z0-9]{6,20}$/;
-    		if(repw.test(upw) == false){
-    			alert("※비밀번호  소문자와 숫자만 가능합니다.");
-    			$("#upw").focus();
-    			return;
-    		}
-    		
-    		//폼 내부의 데이터를 전송할 주소
-    		document.form2.action="${path}/member/login_check.do";
-    		
-    		//제출
-    		document.form2.submit();	
-    	
-    	});
-    	
-    
-    });   
-    
+   if (event.target == modal) {
+      modal.style.display = "none";
+   }
 }
+
+$(document).ready(function() {
+
+   // Launch MODAL BOX if the Login Link is clicked
+   $("#login").click(function() {
+      modal.style.display = "block";
+   });
+
+   // When the form is submitted
+   $("#loginbtn").click(function() {
+
+      // 'this' refers to the current submitted form  
+      //var str = $(this).serialize();
+      
+      var uid = $("#uid").val();
+      var upw = $("#upw").val();
+      
+      if(uid==''){
+         alert('아이디를 입력하시오.')
+         $("#uid").focus();
+         return ;
+      }
+      
+      if(upw==''){
+         alert('비밀번호를 입력하시오.')
+         $("#upw").focus();
+         return;
+      } 
+
+
+      $.ajax({
+         type : "post",
+         url: "${path}/member/login_check.do",  // Send the login info to this page
+         data : "uid="+uid+"&upw="+upw,
+         success : function(message) {
+        	 if (message) // LOGIN OK?
+             {
+                alert('로그인에 성공 하셨습니다.');
+                location.reload(false);
+             } else {
+            	/* alert('실패'); */
+               
+                document.getElementById('login_fail').innerHTML = '아이디 혹은 비밀번호가 틀렸습니다.'; 
+             } 
+         }
+      });
+
+      // -- End AJAX Call --
+      return false;
+   }); // end submit event
+});
+
+function go_to_private_page() {
+   window.location = '???.jsp'; // Members Area
+}
+
+
 </script>
 
 <style>

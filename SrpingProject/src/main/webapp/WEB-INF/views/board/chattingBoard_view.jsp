@@ -68,10 +68,18 @@ $(document).ready(function(){
 				</div>
 
 				<div class="form-group">
-					<label class="col-lg-2 control-label" for="inputMeetingPlace" style="font-size: 13px;">만날장소</label>
+					<label class="col-lg-2 control-label" for="inputMeetingPlace" style="font-size: 13px;">장소명</label>
 					<div class="col-lg-10">
 						<input class="form-control" id="boplace" name="boplace" type="text"
 							value="${dto.boplace}" readonly>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-lg-2 control-label" for="inputMeetingPlace" style="font-size: 13px;">상세주소</label>
+					<div class="col-lg-10">
+						<input class="form-control" id="boaddress" name="boaddress" type="text"
+							value="${dto.boaddress}" readonly>
 					</div>
 				</div>
 

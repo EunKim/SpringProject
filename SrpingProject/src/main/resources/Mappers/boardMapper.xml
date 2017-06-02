@@ -22,8 +22,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<insert id="chattingWrite">
-		insert into chatting_board (botitle,bomeetdate,bomeettime,boplace,bocost,bocontent,bouname) 
-      			values (#{botitle},#{bomeetdate},#{bomeettime},#{boplace},#{bocost},#{bocontent},#{bouname})
+		insert into chatting_board (botitle,bomeetdate,bomeettime,boplace,boaddress,bocost,bocontent,bouname) 
+      			values (#{botitle},#{bomeetdate},#{bomeettime},#{boplace},#{boaddress},#{bocost},#{bocontent},#{bouname})
 	</insert>
    
 </mapper>

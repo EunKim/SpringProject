@@ -9,7 +9,7 @@
 <header id="fh5co-header" role="banner">
 	<nav class="navbar navbar-default" role="navigation">
 	<div id="loginshow" style="display: inline-block; text-align: center; height: 5%;  margin-left: 1210px; margin-top: 10px;">
-	<a href="${path}/member/viewuser.do?uid=${sessionScope.uid}" style="color: blue; margin-right: 10px;">${sessionScope.uname} 접속중</a>
+	<a href="${path}/member/viewuser.do?uid=${sessionScope.uid}" style="color: blue; margin-right: 18px;">${sessionScope.uname} 접속중</a>
 	<a href="${path}/member/logout.do">로그아웃</a>
 	</div>
 		<div class="container">
