@@ -39,4 +39,17 @@ public class ChattingBoardServiceImpl implements ChattingBoardService {
 		chattingBoardDAO.insertChatting(vo);
 	}
 
+	//채팅방에서 수정버튼 클릭시
+	@Override
+	public void updateChatting(BoardInfoVO vo) {
+		// TODO Auto-generated method stub
+		chattingBoardDAO.updateChatting(vo);
+	}
+
+	//채팅방에서 삭제처리 시도시
+	@Override
+	public void deleteChatting(int bonumber) {
+		chattingBoardDAO.deleteChatting(bonumber);
+	}
+
 }

@@ -28,6 +28,7 @@ public class MemberInfoDAOImpl implements MemberInfoDAO {
 	@Override
 	public void insertMember(MemberInfoVO vo) {
 		// TODO Auto-generated method stub
+		System.out.println("insert222222222");
 		sqlSession.insert("login.memInfoInsert", vo);
 	}
 
@@ -71,7 +72,19 @@ public class MemberInfoDAOImpl implements MemberInfoDAO {
 	public void updateMember(MemberInfoVO vo) {
 		// TODO Auto-generated method stub
 		sqlSession.update("login.memInfoUpdate", vo);
-	}	
+	}
+	
+	//회원정보에서 비밀번호수정시 이루어지는 쿼리.
+	@Override
+	public void updatePwd(String uid, String upw) {
+		// TODO Auto-generated method stub
+		System.out.println("2222");
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("uid", uid);
+		map.put("upw", upw);
+		sqlSession.update("login.memPwdUpdate",map);
+	}
+	
 
 	//회원정보의 비밀번호까지 일치하면 회원정보 삭제하는 쿼리문 가져옴.
 	@Override
@@ -102,6 +115,8 @@ public class MemberInfoDAOImpl implements MemberInfoDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("login.viewMember", vo);
 	}
+
+	
 
 	
 

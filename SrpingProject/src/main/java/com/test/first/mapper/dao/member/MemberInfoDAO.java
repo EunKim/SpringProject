@@ -26,6 +26,9 @@ public interface MemberInfoDAO {
 	//회원정보에서 수정처리
 	public void updateMember(MemberInfoVO vo);
 	
+	//회원정보에서 회원의 비밀번호 수정시
+	public void updatePwd(String uid, String upw);
+	
 	//회원정보에서 삭제처리
 	public void deleteMember(String uid);
 	

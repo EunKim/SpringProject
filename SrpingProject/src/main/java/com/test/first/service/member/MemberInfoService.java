@@ -29,6 +29,9 @@ public interface MemberInfoService {
 	//회원정보에서 수정처리
 	public void updateMember(MemberInfoVO vo);
 	
+	//회원정보에서 회원의 비밀번호 수정시
+	public void updatePwd(String uid, String upw);
+	
 	//회원정보에서 삭제처리 -> 삭제처리 하면서 로그아웃 기능도 필요하기 때문에 session 파라미터 필요
 	public void deleteMember(String uid,HttpSession session);
 	

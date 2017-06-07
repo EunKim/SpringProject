@@ -32,12 +32,45 @@
 %>
 <script type="text/javascript">
 
+function selGender(x) {
+	   window.onload = null
+	   m = document.getElementById('male');
+	   f = document.getElementById('female');
+	   input = document.getElementById('ugender');
+
+	   //mtoggle과 ftoggle 전역변수 선언
+	   if (typeof selGender.mtoggle == 'undefined'
+	         && typeof selGender.ftoggle == 'undefined') {
+	      selGender.mtoggle = true;
+	      selGender.ftoggle = true;
+	   }
+
+	   if (x.id == 'male') {
+	      selGender.mtoggle = x.classList.toggle('button1');
+	      input.value = 'male';
+	   //   m.innerHTML = selGender.mtoggle + " " + selGender.ftoggle;
+
+	      if (selGender.ftoggle == false) {
+	         selGender.ftoggle = f.classList.toggle('button1');
+	      }
+
+	   } else if (x.id == 'female') {
+	      selGender.ftoggle = x.classList.toggle('button1');
+	      input.value = 'female';
+	   //   f.innerHTML = selGender.mtoggle + " " + selGender.ftoggle;
+
+	      if (selGender.mtoggle == false) {
+	         selGender.mtoggle = m.classList.toggle('button1');
+	      }
+	   }
+	   
+}
 
 
 window.onload = function(){
 	m = document.getElementById('male');
 	f = document.getElementById('female');
-	genderValue = document.getElementById('ugender').value;
+	genderValue = document.getElementById('checkgender').value;
 	
 	if(genderValue == 'male'){
 		m.style.background = '#f44336';
@@ -51,26 +84,25 @@ window.onload = function(){
 }
 
 $(document).ready(function(){
+	
+	var pwdwindow;
 	//수정 버튼
-	$("#btnUpdate").click(function(){
-		 //location.href="${path}/member/updateuserinfo.do";
-		/* if(confirm("수정하시겠습까?")){
+	$("#btnUpdateEnd").click(function(){
+		if(confirm("수정하시겠습까?")){
 			document.formUpdate.action="${path}/member/updateuser.do";
 			document.formUpdate.submit();
-		} */
+		} 
 		
-		document.formUpdate.action="${path}/member/updateuserinfo.do";
-		document.formUpdate.submit();
 	});
 	
-	//삭제 버튼
-	$("#btnDelete").click(function(){
-		if(confirm("탈퇴하시겠습니까?")){
-			document.formUpdate.action="${path}/member/deleteuser.do";
-			document.formUpdate.submit();
-		}
+	$("#btnpwd").click(function(){
+		var pwdwindow;
+		pwdwindow = window.open("${path}/member/updatepwd.do", "window", "width=450, height=500");
+		//pwdwindow.document.getElementById("PwdInput").value = ${dto.upw};
+
 	});
 	
+		
 });
 </script>
 </head>
@@ -83,7 +115,7 @@ $(document).ready(function(){
 			name="formUpdate">
 
 			<fieldset>
-				<legend style="text-align:left; font-size: 30px; font-style: bold;">INFO!</legend>
+				<legend style="text-align:left; font-size: 30px; font-style: bold;">수정창</legend>
 
 				<div class="form-group">
 					<label class="col-lg-2 control-label" for="inputID">아이디</label>
@@ -93,39 +125,32 @@ $(document).ready(function(){
 					</div>
 				</div>
 
-				<!-- <div class="form-group">
+				<div class="form-group">
 					<label class="col-lg-2 control-label" for="inputPassword" style="font-size: 13px;">비밀번호</label>
-					<div class="col-lg-10">
-						<input class="form-control" id="upw" name="upw" type="password">
+					<div class="col-lg-8">
+						<input type="hidden" name="CheckedPwd" id="CheckedPwd" value="${dto.upw}" />
+						<input class="form-control" id="upw" name="upw" type="password" value="${dto.upw}">
 					</div>
-				</div>  -->
+					<button class="btn btn-primary" type="button" id="btnpwd" style="margin-bottom: -5px; margin-left: -30px;">수정하기</button>
+				</div> 
 
 				<div class="form-group">
 					<label class="col-lg-2 control-label" for="inputName">이름</label>
 					<div class="col-lg-10">
 						<input class="form-control" id="uname" name="uname" type="text"
-							value="${dto.uname}" readonly>
+							value="${dto.uname}">
 					</div>
 				</div>
 
-				<%-- <div class="form-group">
-					<label class="col-lg-2 control-label">성별</label>
-					<!-- <div>
-						<input id="ugender" name="ugender" type="radio" value="여성">여성
-						<input id="ugender" name="ugender" type="radio" value="남성">남성
-					</div> -->
-					<div class="col-lg-10">
-						<input class="form-control" id="ugender" name="ugender"
-							type="text" value="${dto.ugender}" readonly>
-					</div>
-				</div> --%>
-				
 				<div class="form-group">
-               <label class="col-lg-2 control-label">성별</label> 
-               <input type="hidden" id="ugender" name="ugender" value="${dto.ugender}">
-               <div class="my_button button1" id="male" onclick="selGender(this)" readonly>남     성</div>
-               <div class="my_button button1" id="female" onclick="selGender(this)" readonly>여     성</div>
-            </div>
+					<label class="col-lg-2 control-label">성별</label> 
+					<input type="hidden" id="ugender" name="ugender" value="">
+					<input type="hidden" id="checkgender" name="checkgender" value="${dto.ugender}">
+					<div class="my_button button1" id="male" onclick="selGender(this)"
+						readonly>남 성</div>
+					<div class="my_button button1" id="female"
+						onclick="selGender(this)" readonly>여 성</div>
+				</div>
 
 
 				<div class="form-group">
@@ -134,7 +159,7 @@ $(document).ready(function(){
 						<!-- <input class="form-control" name="uname" type="text" placeholder="이름 or 닉네임을 15자 이내로 입력."> -->
 						<div style="margin-top: 10px;">
 							<input type="date" id="ubirth" name="ubirth"
-								value="${dto.ubirth}" readonly>
+								value="${dto.ubirth}" >
 						</div>
 					</div>
 				</div>
@@ -142,9 +167,7 @@ $(document).ready(function(){
 
 				<div class="form-group">
 					<div class="col-lg-10 col-lg-offset-2" style="margin-top: 20px;">
-						<button class="btn btn-primary" type="button" id="btnUpdate">수정</button>
-						<button class="btn btn-default" type="button" id="btnDelete">회원
-							탈퇴</button>
+						<button class="btn btn-primary" type="button" id="btnUpdateEnd">수정완료</button>
 					</div>
 				</div>
 			</fieldset>

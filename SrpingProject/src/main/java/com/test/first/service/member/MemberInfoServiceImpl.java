@@ -28,6 +28,7 @@ public class MemberInfoServiceImpl implements MemberInfoService {
 	@Override
 	public void insertMember(MemberInfoVO vo) {
 		// TODO Auto-generated method stub
+		System.out.println("insert111111");
 		memberInfoDAO.insertMember(vo);
 	}
 
@@ -37,13 +38,13 @@ public class MemberInfoServiceImpl implements MemberInfoService {
 		// TODO Auto-generated method stub
 
 		boolean result = memberInfoDAO.loginConfirm(vo); // 해당되는 쿼리(db에 있는 회원인지
-															// 아닌지)가 참인지 거짓인지 확인
 		if (result) { // true일 경우 세션 등록
 			MemberInfoVO vo2 = viewMember(vo);
 
 			// 세션변수 등록
 			session.setAttribute("uid", vo2.getUid());
 			session.setAttribute("uname", vo2.getUname());
+			System.out.println("222222");		
 		}
 		return result;
 	}
@@ -78,6 +79,14 @@ public class MemberInfoServiceImpl implements MemberInfoService {
 	public void updateMember(MemberInfoVO vo) {
 		// TODO Auto-generated method stub
 		memberInfoDAO.updateMember(vo);
+	}
+	
+	//회원정보에서 비밀번호 수정시에 필요
+	@Override
+	public void updatePwd(String uid, String upw) {
+		// TODO Auto-generated method stub
+		System.out.println("111111");
+		memberInfoDAO.updatePwd(uid, upw);
 	}
 
 	// 해당 id를 가진 회원을 삭제처리하며 session들을 모두 삭제 처리하여 로그아웃처리
@@ -120,6 +129,8 @@ public class MemberInfoServiceImpl implements MemberInfoService {
 		// TODO Auto-generated method stub
 		return memberInfoDAO.viewMember(vo);
 	}
+
+	
 
 	
 

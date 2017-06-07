@@ -54,10 +54,35 @@ public class ChattingBoardController {
 		return "redirect:/board/list.do";
 	}
 	
+	//글 쓰기에서 상세 주소의 지도 선택시 지도쪽으로 이동
 	@RequestMapping("board/googlemap.do")
 	public String googlemap(){
 		return "include/googlemap";
 	}
+
+	//글에서 수정 버튼 누를시 수정할수 있는 폼으로 이동
+	@RequestMapping(value="board/updateBoard.do",method=RequestMethod.GET)
+	public ModelAndView updateboard(@RequestParam int bonumber )throws Exception{
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("board/chattingBoard_update");
+		mav.addObject("dto", chattingBoardService.viewInfo(bonumber));
+		return mav;
+	}
+	
+	//채팅방에서 수정완료후에 다시 채팅방 리스트로 돌아가게 하는것.
+	@RequestMapping(value="board/updateForm.do",method=RequestMethod.GET)
+	public String updateConfirm(@ModelAttribute BoardInfoVO vo){
+		chattingBoardService.updateChatting(vo);
+		return "redirect:/board/list.do";
+	}
+	
+	@RequestMapping("board/deletchat.do")
+	public String deleteChat(int bonumber){
+		chattingBoardService.deleteChatting(bonumber);
+		return "redirect:/board/list.do";
+	}
+	
 }
 
 

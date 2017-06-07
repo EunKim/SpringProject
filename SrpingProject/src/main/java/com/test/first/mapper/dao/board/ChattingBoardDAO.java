@@ -17,5 +17,11 @@ public interface ChattingBoardDAO {
 	
 	//채팅방 목록을 만드는 부분(입력)
 	public void insertChatting(BoardInfoVO vo);
+	
+	//채팅방 내용을 수정할떄 부분
+	public void updateChatting(BoardInfoVO vo);
+	
+	//채팅방 삭제처리
+	public void deleteChatting(int bonumber);
 
 }

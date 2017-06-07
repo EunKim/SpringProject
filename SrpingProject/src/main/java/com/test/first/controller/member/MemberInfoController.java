@@ -50,6 +50,7 @@ public class MemberInfoController {
 	// 메인에서 -> 회원가입 확인버튼 누른다음에 회원정보가 db에 입력이 되면 로그인 하는 부분으로 이동.
 	@RequestMapping("member/insertlist.do")
 	public String insertFirst(@ModelAttribute MemberInfoVO vo) {
+		System.out.println("insert");
 		memberinfoService.insertMember(vo);
 		return "main";
 	}
@@ -76,7 +77,7 @@ public class MemberInfoController {
 	public boolean login_check(@ModelAttribute MemberInfoVO vo, HttpSession session) { //session : 로그인접속시간,할떄 필요
 		System.out.println("들어온곳");
 		boolean result = memberinfoService.loginConfirm(vo, session);
-		
+		System.out.println(result);
 		return result;
 	}
 	
@@ -106,23 +107,60 @@ public class MemberInfoController {
 	}
 	
 	
+	//회원정보에서 회원정보 수정 누를시 회원정보를 수정할수있는 jsp로 넘어가는것.
+	@RequestMapping("member/updateuserinfo.do")
+	public String updateUser(String uid, Model model){
+		
+		model.addAttribute("dto", memberinfoService.viewMember(uid));
+		return "info/member_update";
+	}
+	
+	
 	// 회원정보창에서  회원정보를 수정하고 수정버튼을 누르면, 비밀번호가 회원정보와 일치하는지 확인하고 비밀번호가 맞으면 수정된 정보를 다시 회원정보창에 넣어 뿌려줌.
-	@RequestMapping("member/updateuser.do")
+	/*@RequestMapping("member/updateuser.do")
 	public String update(@ModelAttribute MemberInfoVO vo, Model model) {
 		//비밀번호 체크
 		boolean result = memberinfoService.checkPw(vo.getUid(), vo.getUpw()); //해당되는 아이디의 비밀번호가 맞는지 확인
 		if(result){//맞으면 회원정보 수정
 			memberinfoService.updateMember(vo);
-			return "main";
+			//model.addAttribute("dto",vo);
+			return "redirect:/member/logout.do";
 		}else{//일치하지 않을시에, 해당 메세지를 뿌려줌
 			model.addAttribute("dto",vo);
 			model.addAttribute("messageUpdate","수정실패!비밀번호가 일치하지 않습니다.");
-			return "info/member_view";
+			return "info/member_update";
 		}
 		
+	}*/
+	
+	@RequestMapping("member/updateuser.do")
+	public String update(@ModelAttribute MemberInfoVO vo) {
 		
+		memberinfoService.updateMember(vo);
+		//model.addAttribute("dto",vo);
+		return "redirect:/member/logout.do";
+	
+	}
+	
+	//회원정보 수정시 비밀번호 수정하기를 눌렀을때 나타나는 창의 jsp
+	@RequestMapping("member/updatepwd.do")
+	public String updatepwd(){
+		return "info/updatepwd";
+	}
+	
+	
+	@RequestMapping("member/update_pwd.do")
+	@ResponseBody
+	public boolean updatePw(String uid, String upw){
+		//boolean result = memberinfoService.checkPw(uid, upw);
+		System.out.println(uid);
+		memberinfoService.updatePwd(uid, upw);
+		return true;
+		//return "redirect:/member/updatepwd.do";
 	}
 
+	
+	
 	//회원정보에서 회원의 비밀번호가 맞으면 회원탈퇴후에 정보도 삭제하면서 로그아웃처리(세션처리)
 	@RequestMapping("member/deleteuser.do")
 	public ModelAndView delete(@ModelAttribute MemberInfoVO vo, HttpSession session, Model model) {

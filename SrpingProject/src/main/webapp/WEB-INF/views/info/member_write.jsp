@@ -307,7 +307,7 @@ function checkBirth(x){
                <button class="btn btn-primary" type="button" id="btnConfirmId"
                   style="margin-bottom: -5px; margin-left: -30px;">중복 확인</button>
                <p id="errorUid"
-                  style="color: red; margin-top: 15px; margin-bottom: -20px; margin-left: -260px;"></p>
+                  style="color: red; margin-top: 15px; margin-bottom: -20px; margin-left: -240px;"></p>
             </div>
 
             <div class="form-group">
@@ -317,7 +317,7 @@ function checkBirth(x){
                      placeholder="* 소문자나 숫자로 6자리~20자리 사이">
                </div>
                <p id="errorUpw"
-                  style="color: red; margin-top: 15px; margin-bottom: -20px; margin-left: -260px;"></p>
+                  style="color: red; margin-top: 20px; margin-bottom: -20px; margin-left: -228px;"></p>
             </div>
 
             <div class="form-group">
@@ -327,7 +327,7 @@ function checkBirth(x){
                      placeholder="* 비밀번호를  재입력 해주세요">
                </div>
                <p id="errorReUpw"
-                  style="color: red; margin-top: 15px; margin-bottom: -20px; margin-left: -260px;"></p>
+                  style="color: red; margin-top: 20px; margin-bottom: -20px; margin-left: -228px;"></p>
             </div>
 
             <div class="form-group">
@@ -340,7 +340,7 @@ function checkBirth(x){
                <button class="btn btn-primary" type="button" id="btnConfirmName"
                   style="margin-bottom: -5px; margin-left: -30px;">중복 확인</button>
                <p id="errorUname"
-                  style="color: red; margin-top: 15px; margin-bottom: -20px; margin-left: -260px;"></p>
+                  style="color: red; margin-top: 15px; margin-bottom: -20px; margin-left: -228px;"></p>
             </div>
 
             <div class="form-group">

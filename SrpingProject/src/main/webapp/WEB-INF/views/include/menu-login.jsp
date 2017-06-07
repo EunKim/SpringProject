@@ -16,8 +16,8 @@
 	<nav class="navbar navbar-default" role="navigation">
 	
 	<div id="loginshow" style="display: inline-block; text-align: center; height: 5%;  margin-left:1200px; margin-top: 15px;">
-	<div href="${path}/member/viewuser.do?uid=${sessionScope.uid}" style="color: white; margin-right: 10px;"><p></p> </div> 
-	<div href="${path}/member/logout.do"  style="color: white;"> </div>
+	<div style="color: white; margin-right: 10px;"><p></p> </div> 
+	<div style="color: white;"> </div>
 	</div> 
 		<div class="container">
 			<div class="row">
@@ -36,7 +36,7 @@
 										<span class="border"></span>
 								</span></a></li>
 							 <li><a href="${path}/member/newlogin.do"><span>회원가입 <span class="border"></span></span></a></li>
-							<li id="loginconfirm"><a id="login"><span>로그인
+							<li id="loginconfirm"><a id="login"><span> 로그인
 										<span class="border"></span>
 								</span></a></li>
 							<li><a href="${path}/board/list.do"><span> 글 목록 <span class="border"></span></span></a></li>
@@ -114,6 +114,10 @@ $(document).ready(function() {
    $("#login").click(function() {
       modal.style.display = "block";
    });
+   
+   $("#newlogin").click(function (){
+	  location.href="${path}/member/newlogin.do";
+   });
 
    // When the form is submitted
    $("#loginbtn").click(function() {
@@ -145,7 +149,9 @@ $(document).ready(function() {
         	 if (message) // LOGIN OK?
              {
                 alert('로그인에 성공 하셨습니다.');
-                location.reload(false);
+                //location.reload(true);
+                //localhost.href="mian.jsp"
+                window.history.go(0);
              } else {
             	/* alert('실패'); */
                

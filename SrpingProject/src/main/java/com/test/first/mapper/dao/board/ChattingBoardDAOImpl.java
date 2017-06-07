@@ -38,4 +38,17 @@ public class ChattingBoardDAOImpl implements ChattingBoardDAO {
 	public void insertChatting(BoardInfoVO vo) {
 		sqlSession.insert("chattingBoard.chattingWrite", vo);
 	}
+
+	//채팅방에서 수정버튼을 누르고 수정할시에 들어가는 부분
+	@Override
+	public void updateChatting(BoardInfoVO vo) {
+		// TODO Auto-generated method stub
+		sqlSession.update("chattingBoard.chattingUpdate", vo);
+	}
+
+	//채팅방 삭제 버튼 클릭시
+	@Override
+	public void deleteChatting(int bonumber) {
+		sqlSession.delete("chattingBoard.chattingDelete",bonumber);
+	}
 }

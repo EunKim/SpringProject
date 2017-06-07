@@ -14,18 +14,19 @@
 $(document).ready(function(){
 	//수정 버튼
 	$("#btnWriteUpdate").click(function(){
-		location.href="${path}/board/updateBoard.do?bonumber=${dto.bonumber}";
+		if(confirm("수정하시겠습니까?")){
+			document.formchatUpdate.action="${path}/board/updateForm.do?";
+			document.formchatUpdate.submit();
+		}
 		
 	});
 	
-	//삭제 버튼
-	$("#btnWriteDelete").click(function(){
-		if(confirm("삭제하시겠습니까?")){
-			document.chattingForm.action="${path}/board/deletchat.do";
-			document.chattingForm.submit();
-		}
+	$("#btnMap").click(function(){
+		var newwindow;
+		newwindow = window.open("${path}/board/googlemap.do", "window", "width=600, height=700");
+		
+
 	});
-	
 	
 });
 </script>
@@ -35,7 +36,7 @@ $(document).ready(function(){
 	<%@ include file="../include/menu.jsp"%>
 	
 	<div align="center" style="margin-top: 30px;">
-		<form class="form-horizontal" style="width: 40%; text-align: center;" name="chattingForm">
+		<form class="form-horizontal" style="width: 40%; text-align: center;" name="formchatUpdate">
 
 			<fieldset>
 				<legend>상세보기</legend>
@@ -45,7 +46,7 @@ $(document).ready(function(){
 					<div class="col-lg-10">
 						<input type="hidden" id=bonumber name="bonumber" value="${dto.bonumber}">
 						<input class="form-control" id="botitle" name="botitle" type="text"
-							value="${dto.botitle}" readonly>
+							value="${dto.botitle}" >
 					</div>
 				</div>
 
@@ -53,7 +54,7 @@ $(document).ready(function(){
 					<label class="col-lg-2 control-label" for="inputMeetingDate" style="font-size: 13px;">만날날짜</label>
 					<div class="col-lg-10">
 						<input class="form-control" id="bomeetdate" name="bomeetdate" type="text"
-							value="${dto.bomeetdate}" readonly>
+							value="${dto.bomeetdate}" >
 					</div>
 				</div>
 
@@ -61,7 +62,7 @@ $(document).ready(function(){
 					<label class="col-lg-2 control-label" for="inputMeetingTime" style="font-size: 13px;">만날시간</label>
 					<div class="col-lg-10">
 						<input class="form-control" id="bomeettime" name="bomeettime" type="text"
-							value="${dto.bomeettime}" readonly>
+							value="${dto.bomeettime}" >
 					</div>
 				</div>
 
@@ -69,16 +70,16 @@ $(document).ready(function(){
 					<label class="col-lg-2 control-label" for="inputMeetingPlace" style="font-size: 13px;">장소명</label>
 					<div class="col-lg-10">
 						<input class="form-control" id="boplace" name="boplace" type="text"
-							value="${dto.boplace}" readonly>
+							value="${dto.boplace}" >
 					</div>
 				</div>
 				
 				<div class="form-group">
 					<label class="col-lg-2 control-label" for="inputMeetingPlace" style="font-size: 13px;">상세주소</label>
-					<div class="col-lg-10">
-						<input class="form-control" id="boaddress" name="boaddress" type="text"
-							value="${dto.boaddress}" readonly>
+					<div class="col-lg-8">
+						<input class="form-control" id="boaddress" name="boaddress" type="text" value="${dto.boaddress}">
 					</div>
+					<button class="btn btn-primary" type="button" id="btnMap" style="margin-bottom: -5px; margin-left: -30px;">지도</button>
 				</div>
 
 
@@ -86,14 +87,14 @@ $(document).ready(function(){
 					<label class="col-lg-2 control-label" for="inputCost">비용</label>
 					<div class="col-lg-10">
 						<input class="form-control" id="bocost" name="bocost" type="text"
-							value="${dto.bocost}" readonly>
+							value="${dto.bocost}" >
 					</div>
 				</div>
 				
 				<div class="form-group">
 					<label class="col-lg-2 control-label" for="inputContent">본문</label>
 					<div class="col-lg-10">
-						 <textarea class="form-control" id="bocontent" name="bocontent"rows="3" readonly>${dto.bocontent}</textarea>
+						 <textarea class="form-control" id="bocontent" name="bocontent"rows="3" >${dto.bocontent}</textarea>
 					</div>
 				</div>
 
@@ -102,7 +103,7 @@ $(document).ready(function(){
 					<label class="col-lg-2 control-label" for="inputWriter">작성자</label>
 					<div class="col-lg-10">
 						<input class="form-control" id="bouname" name="bouname" type="text"
-							value="${dto.bouname}" readonly>
+							value="${dto.bouname}" >
 					</div>
 				</div>
 				
@@ -110,25 +111,15 @@ $(document).ready(function(){
 					<label class="col-lg-2 control-label" for="inputWriteDate" style="font-size: 13px;">작성날짜</label>
 					<div class="col-lg-10">
 						<input class="form-control" id="boregdate" name="boregdate" type="text"
-							value="${dto.boregdate}" readonly>
+							value="${dto.boregdate}" >
 					</div>
 				</div>
 				
 				<c:if test="${sessionScope.uname == dto.bouname}">
 				<div class="form-group">
 					<div class="col-lg-10 col-lg-offset-2">
-						<button class="btn btn-primary" type="button" id="btnWriteUpdate">글 수정</button>
-						<button class="btn btn-primary" type="button" id="btnWriteDelete">글 삭제</button>
-						<button class="btn btn-primary" type="button" id="btnStartChat">채팅방 들어가기</button>
+						<button class="btn btn-primary" type="button" id="btnWriteUpdate">수정완료</button>
 					</div>
-				</div>
-				</c:if>
-				
-				<c:if test="${sessionScope.uname != dto.bouname}">
-				<div class="form-group">
-					<div class="col-lg-10 col-lg-offset-2">
-				<button class="btn btn-primary" type="button" id="btnStartChat">채팅방 들어가기</button>
-				</div>
 				</div>
 				</c:if>
 				

@@ -21,9 +21,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update chatting_board set bocount=bocount+1 where bonumber=#{bonumber};
 	</update>
 	
+	<!--채팅방 만들어서 입력시 -->
 	<insert id="chattingWrite">
 		insert into chatting_board (botitle,bomeetdate,bomeettime,boplace,boaddress,bocost,bocontent,bouname) 
       			values (#{botitle},#{bomeetdate},#{bomeettime},#{boplace},#{boaddress},#{bocost},#{bocontent},#{bouname})
 	</insert>
+	
+	<!-- 채팅방 정보 수정시 -->
+	<update id="chattingUpdate">
+		update chatting_board set botitle=#{botitle}, bomeetdate=#{bomeetdate}, bomeettime=#{bomeettime},boplace=#{boplace}, 
+						  boaddress=#{boaddress}, bocost=#{bocost}, bocontent=#{bocontent}, bouname=#{bouname} where bonumber=#{bonumber}
+	</update>
+	
+	<!-- 채팅방 삭제시 -->
+	<delete id="chattingDelete">
+		delete from chatting_board where bonumber=#{bonumber}
+	</delete>
    
 </mapper>

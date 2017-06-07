@@ -33,7 +33,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 해당되는 회원정보들을 모두 수정 -->
 	<update id="memInfoUpdate">
-		update member_info set uid=#{uid}, upw=#{upw}, uname=#{uname}, ugender=#{ugender},ubirth=#{ubirth} where uid=#{uid}
+		update member_info set uid=#{uid}, uname=#{uname}, ugender=#{ugender},ubirth=#{ubirth} where uid=#{uid}
+	</update>
+	
+	<!-- 해당되는 회원정보의 비밀번호 수정시 필요 -->
+	<update id="memPwdUpdate">
+		update member_info set upw=#{upw} where uid=#{uid}
 	</update>
 	
 	<!-- 해당되는 회원정보를 모두 삭제 -->
@@ -50,7 +55,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectName" resultType="com.test.first.mapper.dto.member.MemberInfoVO">
 		select uname from member_info where uname = #{uname}
 	</select>
-
+		
 	
 
 	<select id="viewMember" resultType="com.test.first.mapper.dto.member.MemberInfoVO">
