@@ -8,7 +8,7 @@
 
 <header id="fh5co-header" role="banner">
 	<nav class="navbar navbar-default" role="navigation">
-	<div id="loginshow" style="display: inline-block; text-align: center; height: 5%;  margin-left: 1210px; margin-top: 10px;">
+	<div id="loginshow" style="display: inline-block; text-align: center; height: 5%;  margin-left: 1230px; margin-top: 10px;">
 	<a href="${path}/member/viewuser.do?uid=${sessionScope.uid}" style="color: blue; margin-right: 18px;">${sessionScope.uname} 접속중</a>
 	<a href="${path}/member/logout.do">로그아웃</a>
 	</div>
@@ -23,11 +23,11 @@
 							class="js-fh5co-nav-toggle fh5co-nav-toggle visible-xs-block"
 							data-toggle="collapse" data-target="#fh5co-navbar"
 							aria-expanded="false" aria-controls="navbar"><i></i></a> <a
-							class="navbar-brand" href="http://localhost/first/">Clean</a>
+							class="navbar-brand" href="${path}">Clean</a>
 					</div>
 					<div id="fh5co-navbar" class="navbar-collapse collapse">
 						<ul class="nav navbar-nav navbar-right">
-							<li class="active"><a href="http://localhost/first/"><span>Home
+							<li class="active"><a href="${path}"><span>Home
 										<span class="border"></span>
 								</span></a></li>
 							<li style="display: none;"><a

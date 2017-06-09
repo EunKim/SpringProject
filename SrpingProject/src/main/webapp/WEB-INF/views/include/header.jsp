@@ -7,6 +7,8 @@
 <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/Bootstrap/bootstrap.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/Bootstrap/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/Bootstrap/bootstrap-clockpicker.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/Bootstrap/bootstrap-clockpicker.min.css" type="text/css">
 
 <!-- main.jsp에서 clean 부트스트랩을 쓸때 필요한 것 -->
 	<meta charset="utf-8">
@@ -58,6 +60,7 @@
 	
 	<script src="${pageContext.request.contextPath}/resources/js/jquery-1.10.2.js" type="text/javascript"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/bootstrap.js" type="text/javascript"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/bootstrap-clockpicker.js" type="text/javascript"></script>
 	<script src="login-register.js" type="text/javascript"></script>
 	
 	

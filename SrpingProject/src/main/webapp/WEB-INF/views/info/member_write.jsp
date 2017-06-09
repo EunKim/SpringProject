@@ -12,7 +12,7 @@
    background-color: #f44336;
    color: white;
    padding: 7px 32px;
-   width: 38%;
+   width: 240px;
    text-align: center;
    text-decoration: none;
    display: inline-block;
@@ -219,67 +219,67 @@ function checkBirth(x){
             return;                 
          } 
 
-       		//폼 내부의 데이터를 전송할 주소
-			document.formwrite.action="${path}/member/insertlist.do";
-			
-			//제출
-			document.formwrite.submit(); 
+             //폼 내부의 데이터를 전송할 주소
+         document.formwrite.action="${path}/member/insertlist.do";
+         
+         //제출
+         document.formwrite.submit(); 
       });
       
       //아이디 중복 확인
      $("#btnConfirmId").click(function(){
-			
-    	 var reuid = /^[a-z0-9]{6,20}$/;
-			var uuid = $("#uuid").val();
-			
-			//아이디 유효성 검사(6~20자리 사이로 소문자,숫자만 인식)
-			if(reuid.test(uuid) != true){
-				//alert('아이디를 다시 작성해주세요');
-				document.getElementById('errorUid').innerHTML='* 아이디를 다시 작성해 주세요.';
-				$("#uuid").focus();
-				return;
-			}else{//유효성 검사에서 통과하면 아이디 중복 체크
-				var url = "${path}/member/selectId.do";
-				$.post(url, {uid : uuid}, function(json){
-					console.log(json);
-					alert(json.msg);
-					document.getElementById('errorUid').innerHTML='';
-					//ID를 사용할수 있으면 isCheckedId : Y -> 확인버튼 누를시 중복확인 했으면 회원가입가능하고, 아니면 불가능하게 하려고 사용
-					if(json.code == 99){
-						$("#isCheckedId").val("Y");
-					}
-				});
-			}
-		});
+         
+        var reuid = /^[a-z0-9]{6,20}$/;
+         var uuid = $("#uuid").val();
+         
+         //아이디 유효성 검사(6~20자리 사이로 소문자,숫자만 인식)
+         if(reuid.test(uuid) != true){
+            //alert('아이디를 다시 작성해주세요');
+            document.getElementById('errorUid').innerHTML='* 아이디를 다시 작성해 주세요.';
+            $("#uuid").focus();
+            return;
+         }else{//유효성 검사에서 통과하면 아이디 중복 체크
+            var url = "${path}/member/selectId.do";
+            $.post(url, {uid : uuid}, function(json){
+               console.log(json);
+               alert(json.msg);
+               document.getElementById('errorUid').innerHTML='';
+               //ID를 사용할수 있으면 isCheckedId : Y -> 확인버튼 누를시 중복확인 했으면 회원가입가능하고, 아니면 불가능하게 하려고 사용
+               if(json.code == 99){
+                  $("#isCheckedId").val("Y");
+               }
+            });
+         }
+      });
       
       //이름(닉네임) 중복 확인
       $("#btnConfirmName").click(function(){
-    	  var uname =$("#uname").val();
-			var blank_pattern = /^\s+|\s+$/g;
-			var blank_pattern2 = /[\s]/g;
-			
-			//공백 처리
-			if(uname == "" || uname == " " || uname==null || (blank_pattern.test(uname) == true) || (blank_pattern.test(uname) == true) ){
-				//alert('이름(닉네임)을 다시 작성해주세요.');
-				document.getElementById('errorUname').innerHTML='* 이름(닉네임)을 다시 작성하세요.';
-				$("#uname").focus();
-				return;
-				
-			}else{//이름 내역 성공시
-				var url="${path}/member/selectName.do";
-				$.post(url, {uname:uname}, function(json){
-					console.log(json);
-					alert(json.msg);
-					document.getElementById('errorUname').innerHTML='';
-					if(json.code == 99){
-						$("#isCheckedName").val("Y");
-					}
-				});
-			}
+         var uname =$("#uname").val();
+         var blank_pattern = /^\s+|\s+$/g;
+         var blank_pattern2 = /[\s]/g;
+         
+         //공백 처리
+         if(uname == "" || uname == " " || uname==null || (blank_pattern.test(uname) == true) || (blank_pattern.test(uname) == true) ){
+            //alert('이름(닉네임)을 다시 작성해주세요.');
+            document.getElementById('errorUname').innerHTML='* 이름(닉네임)을 다시 작성하세요.';
+            $("#uname").focus();
+            return;
+            
+         }else{//이름 내역 성공시
+            var url="${path}/member/selectName.do";
+            $.post(url, {uname:uname}, function(json){
+               console.log(json);
+               alert(json.msg);
+               document.getElementById('errorUname').innerHTML='';
+               if(json.code == 99){
+                  $("#isCheckedName").val("Y");
+               }
+            });
+         }
          
       });
    });
-   
+ 
 </script>
 </head>
 	<!-- 오늘 날짜 구하는것 -->
@@ -293,86 +293,82 @@ function checkBirth(x){
 	
 	<%@ include file="../include/menu.jsp"%>
 	
-	<div align="center">
-      <form class="form-horizontal" style="width: 700px;" name="formwrite">
+	  <div align="center">
+      <form class="form-horizontal" style="width: 600px;" name="formwrite" method="post">
          <fieldset>
             <legend align="left">JOIN!</legend>
-            <div class="form-group">
-               <label class="col-lg-2 control-label" for="inputID">아이디</label>
-               <div class="col-lg-8">
+            <div class="form-group" style="margin-bottom: 15px">
+               <label class="control-label" for="inputID" style="float: left; width: 100px; margin-right: 20px">아이디</label>
+               <div style="width: 370px; float: left; margin-right: -10px;">
                   <input class="form-control" id="uuid" name="uid" type="text"
                      placeholder="* 소문자나 숫자로 6자리~20자리 사이"> <input
-                     type="hidden" name="isCheckedId" id="isCheckedId" value="N" />
+                     type="hidden" name="isCheckedId" id="isCheckedId" value="N">
                </div>
-               <button class="btn btn-primary" type="button" id="btnConfirmId"
-                  style="margin-bottom: -5px; margin-left: -30px;">중복 확인</button>
-               <p id="errorUid"
-                  style="color: red; margin-top: 15px; margin-bottom: -20px; margin-left: -240px;"></p>
+               <button class="btn btn-primary" type="button" id="btnConfirmId" style="padding: 12px 10px">중복 확인</button>   
+               <p id="errorUid" style="color: red; float:left; margin: 10px 120px -5px;"></p>
             </div>
 
             <div class="form-group">
-               <label class="col-lg-2 control-label" for="inputPassword">비밀번호</label>
-               <div class="col-lg-10">
+               <label class="control-label" for="inputPassword" style="float: left; width: 100px; margin-right: 20px;">비밀번호</label>
+               <div style="width: 485px; float: left;">
                   <input class="form-control" id="pw" name="upw" type="password"
                      placeholder="* 소문자나 숫자로 6자리~20자리 사이">
                </div>
-               <p id="errorUpw"
-                  style="color: red; margin-top: 20px; margin-bottom: -20px; margin-left: -228px;"></p>
+               <p id="errorUpw" style="color: red; float:left; margin: 10px 120px -5px;"></p>
             </div>
 
             <div class="form-group">
-               <label class="col-lg-2 control-label" for="inputPassword" style="font-size: 12px;">비밀번호 확인</label>
-               <div class="col-lg-10">
+               <label class="control-label" for="inputPassword" style="float: left; width: 100px; margin: -15px 0px; margin-right: 20px;">비밀번호 <br/>확인</label>
+               <div style="width: 485px; float: left;">
                   <input class="form-control" id="repw" name="repw" type="password"
                      placeholder="* 비밀번호를  재입력 해주세요">
                </div>
-               <p id="errorReUpw"
-                  style="color: red; margin-top: 20px; margin-bottom: -20px; margin-left: -228px;"></p>
+               <p id="errorReUpw" style="color: red; float:left; margin: 10px 120px -5px;"></p>
             </div>
 
-            <div class="form-group">
-               <label class="col-lg-2 control-label" for="inputName">이름</label>
-               <div class="col-lg-8">
+            <div class="form-group" style="margin-bottom: 15px">
+               <label class="control-label" for="inputName" style="float: left; width: 100px; margin-right: 20px">이름</label>
+               <div style="width: 370px; float: left; margin-right: -10px;">
                   <input class="form-control" id="uname" name="uname" type="text"
                      placeholder="*이름 or 닉네임을 15자 이내로 입력해주세요"> <input
                      type="hidden" name="isCheckedName" id="isCheckedName" value="N" />
                </div>
                <button class="btn btn-primary" type="button" id="btnConfirmName"
-                  style="margin-bottom: -5px; margin-left: -30px;">중복 확인</button>
-               <p id="errorUname"
-                  style="color: red; margin-top: 15px; margin-bottom: -20px; margin-left: -228px;"></p>
+                 style="padding: 12px 10px">중복 확인</button>
+               <p id="errorUname" style="color: red; float:left; margin: 10px 120px -5px;"></p>
             </div>
 
             <div class="form-group">
-               <label class="col-lg-2 control-label">성별</label> 
+               <label class="control-label" style="float: left; width: 100px; margin-right: 20px">성별</label> 
                <input type="hidden" id="ugender" name="ugender" value="">
+               <div style="float: left;">
                <div class="my_button button1" id="male" onclick="selGender(this)">남     성</div>
                <div class="my_button button1" id="female" onclick="selGender(this)">여     성</div>
+               </div>
             </div>
 
             <div class="form-group">
-               <label class="col-lg-2 control-label" for="inputBirth">생년월일</label>
+               <label class="control-label" for="inputBirth" style="float: left; width: 100px; margin-right: 20px">생년월일</label>
                <input type="hidden" id="ubirth" name="ubirth" value="">
-                <div class="col-lg-4" style="width: 200px; padding-right: 1px;">
+                <div style="float: left; width: 165px; padding-right: 10px;">
                   <input class="form-control" type="number" id="uyear" name="uyear"
                      onchange="checkBirth(this)" placeholder="년도">
                </div>
-               <div class="col-lg-4" style="width: 200px; padding-right: 1px;">
+               <div style="float: left; width: 165px; padding-right: 10px;">
                   <input class="form-control" type="number" id="umonth" name="umonth"
                      onchange="checkBirth(this)" placeholder="월">
                </div>
-               <div class="col-lg-4" style="width: 200px; padding-right: 1px;">
+               <div style="float: left; width: 165px; padding-right: 10px;">
                   <input class="form-control" type="number" id="uday" name="uday"
                      onchange="checkBirth(this)" placeholder="일">
                </div>
-               <p id="errorUbirth" class="col-lg-8"
-                  style="color: red; margin-top: 15px; margin-bottom: -20px; padding-left: 50px"></p>
+               <p id="errorUbirth" style="color: red; float:left; margin: 10px 120px -5px;"></p>
             </div>
             
             <div class="form-group">
-               <div class="col-lg-10 col-lg-offset-2">
+               <div>
                   <button class="btn btn-default" type="reset">Cancel</button>
-                  <button class="btn btn-primary" type="button" id="btnSubmit">Submit</button>
+                  <button class="btn btn-primary" type="button" id="btnSubmit" >Submit</button>
                </div>
             </div>
          </fieldset>

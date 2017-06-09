@@ -17,10 +17,15 @@ public class ChattingBoardServiceImpl implements ChattingBoardService {
 
 	//채팅 방 목록 보여주는 단계
 	@Override
-	public List<BoardInfoVO> ChattingBoardList() {
-		return chattingBoardDAO.ChattingBoardList();
+	public List<BoardInfoVO> ChattingBoardList(int start, int end,String search_option, String keyword) {
+		return chattingBoardDAO.ChattingBoardList(start, end, search_option,keyword);
 	}
 
+	@Override
+	public int countArticle(String search_option, String keyword) {
+		return chattingBoardDAO.countArticle(search_option, keyword);
+	}
+	
 	//채팅방 목록-> 상세보기로 들어가는 단계
 	@Override
 	public BoardInfoVO viewInfo(int bonumber) {
@@ -51,5 +56,7 @@ public class ChattingBoardServiceImpl implements ChattingBoardService {
 	public void deleteChatting(int bonumber) {
 		chattingBoardDAO.deleteChatting(bonumber);
 	}
+
+	
 
 }

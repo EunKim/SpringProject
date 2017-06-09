@@ -1,6 +1,8 @@
 package com.test.first.controller.board;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -14,19 +16,43 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.test.first.mapper.dto.board.BoardInfoVO;
 import com.test.first.service.board.ChattingBoardService;
+import com.test.first.service.board.Pager;
 
 @Controller
 public class ChattingBoardController {
 
 	@Inject
 	ChattingBoardService chattingBoardService;
+	
 
 	// 메인에서 -> 글목록 누를시 나타나는 채팅방 목록 리스트
 	@RequestMapping("board/list.do")
-	public String chattingList(Model model) {
-		List<BoardInfoVO> list = chattingBoardService.ChattingBoardList();
-		model.addAttribute("list", list);
-		return "board/chattingBoard_info";
+	public ModelAndView chattingList(@RequestParam(defaultValue="1")int curPage,
+			@RequestParam(defaultValue="all") String search_option, 
+			@RequestParam(defaultValue="") String keyword) {
+		
+		//레코드 갯수 계산
+		int count = chattingBoardService.countArticle(search_option, keyword);
+		
+		//페이지 나누기 관련 처리
+		Pager pager = new Pager(count,curPage);
+		int start = pager.getPageBegin();
+		int end = pager.getPageEnd();
+		
+		System.out.println("start" + start + "end" + end);
+		
+		List<BoardInfoVO> list = chattingBoardService.ChattingBoardList(start,end,search_option,keyword);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("board/chattingBoard_info");
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("list",list);
+		map.put("count",list.size());
+		map.put("search_option",search_option);
+		map.put("keyword",keyword);
+		map.put("pager", pager);
+		mav.addObject("map",map);
+		
+		return mav;
 	}
 
 	//채팅 목록에서 눌렀을때에 상세보기로 할수 있게 하는것.

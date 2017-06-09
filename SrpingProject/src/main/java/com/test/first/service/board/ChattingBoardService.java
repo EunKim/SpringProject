@@ -8,7 +8,10 @@ import com.test.first.mapper.dto.board.BoardInfoVO;
 public interface ChattingBoardService {
 	
 	//메인에서 -> 글 목록 누를시에
-	public List<BoardInfoVO> ChattingBoardList();
+	public List<BoardInfoVO> ChattingBoardList(int start, int end, String search_option, String keyword);
+	
+	//글 갯수 체크
+	public int countArticle(String search_option, String keyword);
 	
 	//글 목록에서 -> 글을 누르면 상세 페이지로 넘어가는 부분
 	public BoardInfoVO viewInfo(int bonumber);

@@ -1,6 +1,8 @@
 package com.test.first.mapper.dao.board;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -17,10 +19,28 @@ public class ChattingBoardDAOImpl implements ChattingBoardDAO {
 	
 	//메인에서 -> 글 목록 선택시 만들어져 있는 채팅방의 목록의 전체 쿼리를 가져옴.
 	@Override
-	public List<BoardInfoVO> ChattingBoardList() {
-		return sqlSession.selectList("chattingBoard.chattingList");
+	public List<BoardInfoVO> ChattingBoardList(int start, int end,String search_option, String keyword) {
+		Map<String,Object> map = new HashMap<String, Object>();
+		
+		map.put("search_option", search_option);
+		map.put("keyword", keyword);
+		//between #{start} and #{end} 에 들어갈 값
+		map.put("start", start);
+		map.put("end", end);
+		
+		return sqlSession.selectList("chattingBoard.chattingList",map);
 	}
-
+	
+	@Override
+	public int countArticle(String search_option, String keyword) {
+		Map<String,String> map = new HashMap<String, String>();
+		
+		map.put("search_option", search_option);
+		map.put("keyword", keyword);
+		
+		return sqlSession.selectOne("chattingBoard.countArticle",map);
+	}
+	
 	//글목록에서 -> 누르면 상세로 보기로 넘어가는 부분
 	@Override
 	public BoardInfoVO viewInfo(int bonumber) {
@@ -51,4 +71,6 @@ public class ChattingBoardDAOImpl implements ChattingBoardDAO {
 	public void deleteChatting(int bonumber) {
 		sqlSession.delete("chattingBoard.chattingDelete",bonumber);
 	}
-}
+
+	
+}	

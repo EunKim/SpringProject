@@ -7,35 +7,102 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="chattingBoard">
 
 	<!-- 채팅방의 전체 목록을 보여주는 쿼리 -->
+	<!-- <select id="chattingList" resultType="com.test.first.mapper.dto.board.BoardInfoVO"> 
+		select * from chatting_board </select> -->
+
 	<select id="chattingList" resultType="com.test.first.mapper.dto.board.BoardInfoVO">
-		select * from chatting_board
+		<include refid="paging_header"/>
+		select @rownum := @rownum+1 AS ROWNUM,
+		bonumber,botitle,bomeetdate,bomeettime,boplace,bocontent,b.boregdate,bouname,bocount
+		from chatting_board AS b, member_info AS m, (SELECT @rownum :=0) AS R
+		<include refid="search"/>
+		order by bonumber desc, boregdate desc
+		<include refid="paging_footer"/>
 	</select>
 	
+	<!-- 글갯수 계산 -->
+	<select id="countArticle" resultType="int">
+		select count(*) from chatting_board
+		<include refid="search"/>
+	</select>
+
+
 	<!-- 채팅방의 목록에서 선택했을때 그 선택된것의 상세보기 기능 -->
 	<select id="chattingInfo" resultType="com.test.first.mapper.dto.board.BoardInfoVO">
-		select * from chatting_board where bonumber = #{bonumber}
+		select * from
+		chatting_board where bonumber = #{bonumber}
 	</select>
-	
+
 	<!-- 조회수 증가처리용 -->
 	<update id="increaseViewcnt">
-		update chatting_board set bocount=bocount+1 where bonumber=#{bonumber};
+		update chatting_board set bocount=bocount+1 where
+		bonumber=#{bonumber};
 	</update>
-	
+
 	<!--채팅방 만들어서 입력시 -->
 	<insert id="chattingWrite">
-		insert into chatting_board (botitle,bomeetdate,bomeettime,boplace,boaddress,bocost,bocontent,bouname) 
-      			values (#{botitle},#{bomeetdate},#{bomeettime},#{boplace},#{boaddress},#{bocost},#{bocontent},#{bouname})
+		insert into chatting_board
+		(botitle,bomeetdate,bomeettime,boplace,boaddress,bocost,bocontent,bouname)
+		values
+		(#{botitle},#{bomeetdate},#{bomeettime},#{boplace},#{boaddress},#{bocost},#{bocontent},#{bouname})
 	</insert>
-	
+
 	<!-- 채팅방 정보 수정시 -->
 	<update id="chattingUpdate">
-		update chatting_board set botitle=#{botitle}, bomeetdate=#{bomeetdate}, bomeettime=#{bomeettime},boplace=#{boplace}, 
-						  boaddress=#{boaddress}, bocost=#{bocost}, bocontent=#{bocontent}, bouname=#{bouname} where bonumber=#{bonumber}
+		update chatting_board set botitle=#{botitle},
+		bomeetdate=#{bomeetdate}, bomeettime=#{bomeettime},boplace=#{boplace},
+		boaddress=#{boaddress}, bocost=#{bocost}, bocontent=#{bocontent},
+		bouname=#{bouname} where bonumber=#{bonumber}
 	</update>
-	
+
 	<!-- 채팅방 삭제시 -->
 	<delete id="chattingDelete">
 		delete from chatting_board where bonumber=#{bonumber}
 	</delete>
-   
+	
+	<!-- 동적 sql : 바뀌는 부분이 아님으로 고정으로 처리 -->
+	
+	<sql id="search">
+		 <choose>
+			
+			<when test='search_option == "place"'>
+				where boplace like concat('%',#{keyword},'%') or boaddress like concat('%',#{keyword},'%')
+			</when>
+			
+			 <when test='search_option == "all"'>
+				where bouname like concat('%',#{keyword},'%') or 
+					  bocontent like concat('%',#{keyword},'%') or 
+					  botitle like concat('%',#{keyword},'%')
+			</when>
+				
+			<otherwise>
+				where ${search_option} like concat('%',#{keyword},'%')
+			</otherwise>
+			
+		</choose> 
+	
+	 
+	 <!-- <if test='#{search_option == "place"}'>
+				where boplace like concat('%',#{keyword},'%') or boaddress like concat('%',#{keyword},'%')
+	 </if>
+	 
+	 <if test='#{search_option == "all"}'>
+				where bouname like concat('%',#{keyword},'%') or 
+					  bocontent like concat('%',#{keyword},'%') or 
+					  botitle like concat('%',#{keyword},'%')
+	</if> -->
+		
+	</sql>
+	
+	
+	<sql id="paging_header">
+		select a.*
+		from(
+	</sql>
+	
+	<sql id="paging_footer">
+		) a
+		where a.ROWNUM between #{start} and #{end}
+	</sql>
+
 </mapper>

@@ -52,7 +52,7 @@ public class MemberInfoController {
 	public String insertFirst(@ModelAttribute MemberInfoVO vo) {
 		System.out.println("insert");
 		memberinfoService.insertMember(vo);
-		return "main";
+		return "redirect:/member/main.do";
 	}
 	
 

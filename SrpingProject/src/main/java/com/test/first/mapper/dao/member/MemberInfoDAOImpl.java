@@ -28,7 +28,6 @@ public class MemberInfoDAOImpl implements MemberInfoDAO {
 	@Override
 	public void insertMember(MemberInfoVO vo) {
 		// TODO Auto-generated method stub
-		System.out.println("insert222222222");
 		sqlSession.insert("login.memInfoInsert", vo);
 	}
 
@@ -78,7 +77,6 @@ public class MemberInfoDAOImpl implements MemberInfoDAO {
 	@Override
 	public void updatePwd(String uid, String upw) {
 		// TODO Auto-generated method stub
-		System.out.println("2222");
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("uid", uid);
 		map.put("upw", upw);
