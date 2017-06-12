@@ -11,19 +11,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from chatting_board </select> -->
 
 	<select id="chattingList" resultType="com.test.first.mapper.dto.board.BoardInfoVO">
-		<include refid="paging_header"/>
-		select @rownum := @rownum+1 AS ROWNUM,
-		bonumber,botitle,bomeetdate,bomeettime,boplace,bocontent,b.boregdate,bouname,bocount
-		from chatting_board AS b, member_info AS m, (SELECT @rownum :=0) AS R
+	
+		select bonumber,botitle,bomeetdate,bomeettime,boplace,bocontent,b.boregdate,bouname,bocount
+		from chatting_board AS b, member_info AS m
 		<include refid="search"/>
-		order by bonumber desc, boregdate desc
-		<include refid="paging_footer"/>
+		order by bonumber desc,boregdate desc limit #{start}, #{end}
+		
 	</select>
 	
 	<!-- 글갯수 계산 -->
 	<select id="countArticle" resultType="int">
 		select count(*) from chatting_board
-		<include refid="search"/>
+		 <include refid="searchCount"/>
 	</select>
 
 
@@ -66,10 +65,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 <choose>
 			
 			<when test='search_option == "place"'>
+				where b.bouname = m.uname and(boplace like concat('%',#{keyword},'%') or boaddress like concat('%',#{keyword},'%'))
+			</when>
+			
+			<when test='search_option == "all"'>
+				where b.bouname = m.uname and(
+					  bouname like concat('%',#{keyword},'%') or 
+					  bocontent like concat('%',#{keyword},'%') or 
+					  botitle like concat('%',#{keyword},'%'))
+			</when>
+				
+			<otherwise>
+				where b.bouname = m.uname and (${search_option} like concat('%',#{keyword},'%'))
+			</otherwise>
+			
+	</choose> 
+		
+	</sql>
+	
+	<sql id="searchCount">
+		 <choose>
+			
+			<when test='search_option == "place"'>
 				where boplace like concat('%',#{keyword},'%') or boaddress like concat('%',#{keyword},'%')
 			</when>
 			
-			 <when test='search_option == "all"'>
+			<when test='search_option == "all"'>
 				where bouname like concat('%',#{keyword},'%') or 
 					  bocontent like concat('%',#{keyword},'%') or 
 					  botitle like concat('%',#{keyword},'%')
@@ -79,30 +100,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				where ${search_option} like concat('%',#{keyword},'%')
 			</otherwise>
 			
-		</choose> 
-	
-	 
-	 <!-- <if test='#{search_option == "place"}'>
-				where boplace like concat('%',#{keyword},'%') or boaddress like concat('%',#{keyword},'%')
-	 </if>
-	 
-	 <if test='#{search_option == "all"}'>
-				where bouname like concat('%',#{keyword},'%') or 
-					  bocontent like concat('%',#{keyword},'%') or 
-					  botitle like concat('%',#{keyword},'%')
-	</if> -->
+	</choose> 
 		
 	</sql>
 	
 	
-	<sql id="paging_header">
-		select a.*
-		from(
-	</sql>
 	
-	<sql id="paging_footer">
-		) a
-		where a.ROWNUM between #{start} and #{end}
-	</sql>
 
 </mapper>

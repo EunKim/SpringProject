@@ -37,20 +37,21 @@ public class ChattingBoardController {
 		//페이지 나누기 관련 처리
 		Pager pager = new Pager(count,curPage);
 		int start = pager.getPageBegin();
-		int end = pager.getPageEnd();
-		
-		System.out.println("start" + start + "end" + end);
+		//end : limit에서 갯수만 나타내기 위해서 PAGE_SCALE(목록)에 뿌려질 갯수만 지정
+		int end = pager.PAGE_SCALE;
 		
 		List<BoardInfoVO> list = chattingBoardService.ChattingBoardList(start,end,search_option,keyword);
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("board/chattingBoard_info");
+		
 		Map<String,Object> map = new HashMap<String, Object>();
 		map.put("list",list);
-		map.put("count",list.size());
+		//map.put("count",list.size());
 		map.put("search_option",search_option);
 		map.put("keyword",keyword);
 		map.put("pager", pager);
+		
+		ModelAndView mav = new ModelAndView();
 		mav.addObject("map",map);
+		mav.setViewName("board/chattingBoard_info");
 		
 		return mav;
 	}
@@ -103,10 +104,23 @@ public class ChattingBoardController {
 		return "redirect:/board/list.do";
 	}
 	
+	//채팅방에서 삭제 할시
 	@RequestMapping("board/deletchat.do")
 	public String deleteChat(int bonumber){
 		chattingBoardService.deleteChatting(bonumber);
 		return "redirect:/board/list.do";
+	}
+	
+	//실시간 jsp용으로 들어갈때
+	@RequestMapping("board/chatting.do")
+	public ModelAndView chatting(@RequestParam int bonumber){
+		System.out.println(bonumber);
+		ModelAndView mav = new ModelAndView();
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("bonumber", bonumber);
+		mav.setViewName("board/chatting");
+		mav.addObject("map",map);
+		return mav;
 	}
 	
 }

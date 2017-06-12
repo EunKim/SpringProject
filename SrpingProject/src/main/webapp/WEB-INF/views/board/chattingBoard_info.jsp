@@ -23,6 +23,7 @@
 			   		  +"&search_option=${map.search_option}"
 			   		  +"&keyword=${map.keyword}";
    }
+   
 </script>
 
 <body>
@@ -32,6 +33,7 @@
    <div style="width: 1000px; margin-left: 23%">
       <h4 align="left">글 목록</h4>
       
+      <div style="float:left; ">
       <!-- 검색 폼 -->
       <form name="formSearch" method="post" action="${path}/board/list.do">
       		<select name="search_option">
@@ -45,16 +47,17 @@
       			<c:out value="${map.search_option=='place'?'selected':''}"/>>장소명+주소</option>
       		</select>
       		<input name="keyword" value="${map.keyword}">
-      		<input type="submit" vlaue="조회">
+      		<input type="submit" value="조회">
       </form>
-      
-      
+
+	<div style="float: left; margin-left: 500px">
       <c:if test="${sessionScope.uid != null}">
          <button type="button" class="btn btn-primary"
             style="background: #bbbbbb; height: 30px; width: 80px; padding: 0px; margin-left: 91%" 
             id="btnWrite">글쓰기</button>
       </c:if>
-      
+      </div>
+      </div>
       <table class="table table-striped table-hover">
          <tr style= "background-color: rgba( 255, 0, 0, 0.1);">
             <!-- <th>글 번호</th> -->
@@ -71,11 +74,12 @@
          </tr>
 
          <c:forEach var="row" items="${map.list}">
-            <tr>
+            <tr onClick="location.href = '${path}/board/viewList.do?bonumber=${row.bonumber}'" style="cursor:pointer;">
                <%-- <th>${row.bonumber}</th> --%>
                <th rowspan="2" style="text-align: center; vertical-align: middle;">${row.bonumber}</th>
-               <th width="25%"><a
-                  href="${path}/board/viewList.do?bonumber=${row.bonumber}" style="display: block;">${row.botitle}</a></th>
+               <%-- <th width="25%"><a
+                  href="${path}/board/viewList.do?bonumber=${row.bonumber}" style="display: block;">${row.botitle}</a></th> --%>
+               <th width="25%">${row.botitle}</th>
                <%-- <th>${row.bomeetdate}</th>
                <th>${row.bomeettime}</th>
                <th>${row.boplace}</th>
@@ -85,7 +89,7 @@
                <th style="text-align: center;">${row.boregdate}</th>
                <th style="text-align: center;">${row.bocount}</th>
             </tr>
-            <tr>
+            <tr  onClick="location.href = '${path}/board/viewList.do?bonumber=${row.bonumber}'" style="cursor:pointer;">
                <th colspan="4" style="border-top-color: #ffffff;">
                   <div>
                      <div style="margin-left: 1%; width: 5%; float: left;"><img src="${pageContext.request.contextPath}/resources/images/arrow2.png" height="15" width="15" style="margin-left: 10%; margin-right: 10%"></div>
@@ -101,35 +105,37 @@
             </tr>
          </c:forEach>
          
-             <tr style="text-align: center;">
+          <tr style="text-align: center;">
          	<td colspan="6">
          	
-         		<%-- <c:if test="${map.pager.curBlock > 1}">
+         		 <c:if test="${map.pager.curBlock > 1}">
          			<a href="javascript:list('1')">[처음]</a>
          		</c:if>
-         		 <c:if test="${map.pager.curBlock > 1">
-         			<a href="javascript:list('${map.pager.prevPage')">[이전]</a>
-         		</c:if>  --%>
+         		
+         		 <c:if test="${map.pager.curBlock > 1}">
+         			<a href="javascript:list('${map.pager.prevPage}')">[이전]</a>
+         		</c:if>
+         		
          		
          		<c:forEach var="num" begin="${map.pager.blockBegin}" end="${map.pager.blockEnd}">
          		<c:choose>
          			<c:when test="${num == map.pager.curPage}">
-         			<span style="color:blue">${num}</span>
+         			<span style="color:blue">${num}</span>&nbsp;
          			</c:when>
          			<c:otherwise>
          			<a href="javascript:list('${num}')">${num}</a>&nbsp;
          			</c:otherwise>
          		</c:choose>
          		</c:forEach>
-         		<%-- <c:if test="${map.pager.curBlock <= map.pager.totBlock}">
+         		
+         		<c:if test="${map.pager.curBlock <= map.pager.totBlock}">
          			<a href="javascript:list('${map.pager.nextPage}')">[다음]</a>
          		</c:if>
          		<c:if test="${map.pager.curPage <= map.pager.totPage}">
          			<a href="javascript:list('${map.pager.totPage}')">[끝]</a>
-         		</c:if>  --%>
+         		</c:if>  
          	</td>
          </tr>
-
       </table>
    </div>
 </body>

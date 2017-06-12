@@ -30,6 +30,11 @@
             document.chattingForm.submit();
          }
       });
+      
+      //채팅방 들어갈시
+      $("#btnStartChat").click(function() {
+    	  location.href="${path}/board/chatting.do?bonumber=${dto.bonumber}";
+       });
 
 
    });
@@ -143,8 +148,7 @@
             <c:if test="${sessionScope.uname != dto.bouname}">
                <div class="form-group">
                   <div class="col-lg-10 col-lg-offset-2">
-                     <button class="btn btn-primary" type="button" id="btnStartChat">채팅방
-                        들어가기</button>
+                     <button class="btn btn-primary" type="button" id="btnStartChat">채팅방 들어가기</button>
                   </div>
                </div>
             </c:if>
