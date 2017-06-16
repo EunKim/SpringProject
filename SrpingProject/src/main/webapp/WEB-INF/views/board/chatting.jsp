@@ -15,15 +15,32 @@
 <script
    src="http://cdn.jsdelivr.net/webshim/1.12.4/extras/modernizr-custom.js"></script>
 <script src="http://cdn.jsdelivr.net/webshim/1.12.4/polyfiller.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/moment.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/resources/js/ko.js" type="text/javascript"></script>
 <style>
+
+		.message-bubble {
+            padding: 10px 0 10px 0;
+            text-align: center;
+        }
+ 
+        .message-bubble:nth-child(even) {
+            background-color: #F5F5F5;
+        }
+ 
+        .message-bubble > * {
+            padding-left: 10px;
+        }
+        
         .message-bubble1 {
             padding: 10px 0 10px 0;
             text-align: right;
-        }
- 
-        .message-bubble1:nth-child(even) {
             background-color: #F5F5F5;
         }
+ 
+        /* .message-bubble1:nth-child(even) {
+            background-color: #F5F5F5;
+        } */
  
         .message-bubble1 > * {
             padding-left: 10px;
@@ -34,9 +51,9 @@
             text-align: left;
         }
  
-        .message-bubble2:nth-child(even) {
+        /* .message-bubble2:nth-child(even) {
             background-color: #F5F5F5;
-        }
+        } */
  
         .message-bubble2 > * {
             padding-left: 10px;
@@ -60,6 +77,7 @@
     </style>
 
 </head>
+
 <body>
    <%@ include file="../include/menu.jsp"%>
 
@@ -67,38 +85,8 @@
       <form class="form-horizontal" style="width: 40%; text-align: center;" name="chatting" >
 
          <fieldset>
-            <legend>실시간 </legend>
+            <legend>실시간 +${map.bonumber}  </legend>
 
-
-           <!--  <div class="form-group">
-               <label class="col-lg-2 control-label" for="inputContent">본문</label>
-               <div class="col-lg-10" style="text-align: center;">
-                  <textarea class="form-control" id="bocontent" name="bocontent" rows="5" ></textarea>
-               </div>
-            </div> -->
-
-
-
-            <%-- <c:if test="${sessionScope.uname == dto.bouname}">
-               <div class="form-group">
-                  <div class="col-lg-10 col-lg-offset-2">
-                     <button class="btn btn-primary" type="button" id="btnWriteUpdate">글
-                        수정</button>
-                     <button class="btn btn-primary" type="button" id="btnWriteDelete">글
-                        삭제</button>
-                     <button class="btn btn-primary" type="button" id="btnStartChat">채팅방
-                        들어가기</button>
-                  </div>
-               </div>
-            </c:if>
-
-            <c:if test="${sessionScope.uname != dto.bouname}">
-               <div class="form-group">
-                  <div class="col-lg-10 col-lg-offset-2">
-                     <button class="btn btn-primary" type="button" id="btnStartChat">채팅방 들어가기</button>
-                  </div>
-               </div>
-            </c:if> --%>
 
          </fieldset>
       </form>
@@ -112,50 +100,60 @@
             <div class="panel-body">
                 <div class="chat-panel container">
                 </div>
-                <div class="panel-footer">
-                    <div class="input-group">
-                        <input type="text" class="messageText form-control">
-                    	<input type="hidden" id=bonumber name="bonumber" value="${sessionScope.uid}">
-                        <span class="input-group-btn"><button class="sendBtn btn btn-default" type="button">Send</button></span>
-                    </div>
+                <div>
+                	<input type="text" class="messageText form-control" id="messageText" style="float: left; width: 900px;">
+                   	<button class="sendBtn btn btn-default" type="button" id="sendBtn"  style="float: right;">Send</button>
+                   	<input type="hidden" id=bouname name="bouname" value="${sessionScope.uname}">
+                    	<input type="hidden" id=indate name="indate" value=" ">
+                    	<input type="hidden" id=flag name="flag" value="0">
+                    	<input type="hidden" id=result name="result" value="참">
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-   </div>
+ </div>
 <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
 <script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyDFKg5XQ96_GlzvZ94jDN8REec--EHqLfU",
-    authDomain: "testproject-63e17.firebaseapp.com",
-    databaseURL: "https://testproject-63e17.firebaseio.com",
-    projectId: "testproject-63e17",
-    storageBucket: "testproject-63e17.appspot.com",
-    messagingSenderId: "396844116514"
-  };
-  firebase.initializeApp(config);
+
   
- // var bocontent = document.getElementById('bocontent');
-  //var messageRef = firebase.database().ref().child('text');
-  //var bonumber = "${dto.bonumber}"
-  var messageRef = firebase.database().ref('${map.bonumber}');
-  //var sessionuid = ${sessionScope.uid};
+//Initialize Firebase
+var config = {
+  apiKey: "AIzaSyDFKg5XQ96_GlzvZ94jDN8REec--EHqLfU",
+  authDomain: "testproject-63e17.firebaseapp.com",
+  databaseURL: "https://testproject-63e17.firebaseio.com",
+  projectId: "testproject-63e17",
+  storageBucket: "testproject-63e17.appspot.com",
+  messagingSenderId: "396844116514"
+};
+firebase.initializeApp(config);
+
+
+var messageRef = firebase.database().ref('${map.bonumber}');
+
+ 
+ 
+
+var output = moment().format('YYYY MM Do, a h:mm:ss'); 
+document.getElementById('indate').value = output;
+
+
   
   messageRef.on('value', function () {
       var chat = '';
       messageRef.on('child_added', function (snapshot) {
-          // console.log(snapshot.val());
-          if($("#bonumber").val() == snapshot.val().userid){
+          
+    	  if($("#bouname").val() == snapshot.val().uname){
         	  chat += "<div class='row message-bubble1'><span>";
-              chat += snapshot.val().userid;
+              chat += snapshot.val().uname;
+              chat += " : ";
               chat += snapshot.val().message;
               chat += "</span></div>"; 
           }else{
         	  chat += "<div class='row message-bubble2'><span>";
-              chat += snapshot.val().userid;
+              chat += snapshot.val().uname;
+              chat += " : ";
               chat += snapshot.val().message;
               chat += "</span></div>";
           }
@@ -166,29 +164,41 @@
       $('.chat-panel').html(chat);
       // 스크롤을 마지막으로 내려줌
       $('.chat-panel').scrollTop($('.chat-panel')[0].scrollHeight);
-  });
-
- $('.messageText').on('keyup', function (event) {
+  }) 
+ 
+  
+  //엔터키를 입력했을때 
+ $("#messageText").on('keydown', function (event) {
 	  if (event.keyCode == 13) {
-        messageRef.push().set({
-       	  message : $('.messageText').val(),
-       	  userid : $("#bonumber").val()
-         });
-      
-         $(this).val('');
-     }
+		  if($("#messageText").val() == ''){
+			  alert('내용을 입력하세요');
+		  }else{
+			  messageRef.push().set({
+		       	  message : $("#messageText").val().trim(),
+		       	  uname : $("#bouname").val(),
+		       	  flag :  $("#flag").val()
+		         });
+		      
+		         $(this).val('');
+		     }
+		  }  
  });
 
  // Send Button 에 클릭이벤트 적용
- $('.sendBtn').on('click', function () {
+ $("#sendBtn").on('click', function () {
+	 alert($("#messageText").val());
      // push() 로 넣을 경우 key 값을 임의로 생성해줌
-      messageRef.push().set({
-      message : $('.messageText').val(),
-      userid : $("#bonumber").val()
-      
-     }); 
-   
-     $(this).val('');
+	  if($("#messageText").val() == ''){
+		  alert('내용을 입력하세요');
+	  }else{
+		  messageRef.push().set({
+	       	  message : $("#messageText").val(),
+	       	  uname : $("#bouname").val(),
+	       	  flag :  $("#flag").val()
+	         });
+		  $("#messageText").val(' ');
+	     } 
+	
  });
 
  

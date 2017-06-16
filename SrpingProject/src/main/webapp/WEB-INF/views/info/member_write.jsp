@@ -41,7 +41,7 @@
 function selGender(x) {
    m = document.getElementById('male');
    f = document.getElementById('female');
-   input = document.getElementById('ugender');
+   input = document.getElementById('gender');
 
    //mtoggle과 ftoggle 전역변수 선언
    if (typeof selGender.mtoggle == 'undefined'
@@ -172,17 +172,17 @@ function checkBirth(x){
          //이름(닉네임)중복 검사를 했는지 안했는지 확인
          if($("#isCheckedName").val() == "N"){
             alert("이름(닉네임)중복검사를 먼저 해주세요.");
-            $("#uname").focus();
+            $("#member_name").focus();
             return;
          }
          
          //성별 선택을 안했을시
-         var ugender = $("#ugender").val();
+         var gender = $("#gender").val();
         
-         if(ugender == ''){
+         if(gender == ''){
             alert('성별을 꼭 선택해주세요');
             //document.getElementById('errorUgender').innerHTML='* 성별을 선택하세요.';
-            $("#ugender").focus();
+            $("#gender").focus();
             return;
          }
          
@@ -190,7 +190,7 @@ function checkBirth(x){
          var uyear = $("#uyear").val();
          var umonth = $("#umonth").val();
          var uday = $("#uday").val();
-         var ubirth =  document.getElementById('ubirth');
+         var birth =  document.getElementById('birth');
          
          for(var a=0; a<errorArray.length; a++){
             if(errorArray[a] != ''){
@@ -204,7 +204,7 @@ function checkBirth(x){
                $("#uyear").focus();
                return;
          }
-         $('#ubirth').val(uyear+'-'+umonth+'-'+uday);
+         $('#birth').val(uyear+'-'+umonth+'-'+uday);
         
         //비밀번호 확인
          var pw = $("#pw").val();
@@ -230,17 +230,17 @@ function checkBirth(x){
      $("#btnConfirmId").click(function(){
          
         var reuid = /^[a-z0-9]{6,20}$/;
-         var uuid = $("#uuid").val();
+         var uid = $("#uid").val();
          
          //아이디 유효성 검사(6~20자리 사이로 소문자,숫자만 인식)
-         if(reuid.test(uuid) != true){
+         if(reuid.test(uid) != true){
             //alert('아이디를 다시 작성해주세요');
             document.getElementById('errorUid').innerHTML='* 아이디를 다시 작성해 주세요.';
-            $("#uuid").focus();
+            $("#uid").focus();
             return;
          }else{//유효성 검사에서 통과하면 아이디 중복 체크
             var url = "${path}/member/selectId.do";
-            $.post(url, {uid : uuid}, function(json){
+            $.post(url, {member_id : uid}, function(json){
                console.log(json);
                alert(json.msg);
                document.getElementById('errorUid').innerHTML='';
@@ -254,20 +254,20 @@ function checkBirth(x){
       
       //이름(닉네임) 중복 확인
       $("#btnConfirmName").click(function(){
-         var uname =$("#uname").val();
+         var member_name =$("#member_name").val();
          var blank_pattern = /^\s+|\s+$/g;
          var blank_pattern2 = /[\s]/g;
          
          //공백 처리
-         if(uname == "" || uname == " " || uname==null || (blank_pattern.test(uname) == true) || (blank_pattern.test(uname) == true) ){
+         if(member_name == "" || member_name == " " || member_name==null || (blank_pattern.test(member_name) == true) || (blank_pattern.test(member_name) == true) ){
             //alert('이름(닉네임)을 다시 작성해주세요.');
             document.getElementById('errorUname').innerHTML='* 이름(닉네임)을 다시 작성하세요.';
-            $("#uname").focus();
+            $("#member_name").focus();
             return;
             
          }else{//이름 내역 성공시
             var url="${path}/member/selectName.do";
-            $.post(url, {uname:uname}, function(json){
+            $.post(url, {member_name:member_name}, function(json){
                console.log(json);
                alert(json.msg);
                document.getElementById('errorUname').innerHTML='';
@@ -300,7 +300,7 @@ function checkBirth(x){
             <div class="form-group" style="margin-bottom: 15px">
                <label class="control-label" for="inputID" style="float: left; width: 100px; margin-right: 20px">아이디</label>
                <div style="width: 370px; float: left; margin-right: -10px;">
-                  <input class="form-control" id="uuid" name="uid" type="text"
+                  <input class="form-control" id="uid" name="member_id" type="text"
                      placeholder="* 소문자나 숫자로 6자리~20자리 사이"> <input
                      type="hidden" name="isCheckedId" id="isCheckedId" value="N">
                </div>
@@ -311,7 +311,7 @@ function checkBirth(x){
             <div class="form-group">
                <label class="control-label" for="inputPassword" style="float: left; width: 100px; margin-right: 20px;">비밀번호</label>
                <div style="width: 485px; float: left;">
-                  <input class="form-control" id="pw" name="upw" type="password"
+                  <input class="form-control" id="pw" name="member_pw" type="password"
                      placeholder="* 소문자나 숫자로 6자리~20자리 사이">
                </div>
                <p id="errorUpw" style="color: red; float:left; margin: 10px 120px -5px;"></p>
@@ -329,7 +329,7 @@ function checkBirth(x){
             <div class="form-group" style="margin-bottom: 15px">
                <label class="control-label" for="inputName" style="float: left; width: 100px; margin-right: 20px">이름</label>
                <div style="width: 370px; float: left; margin-right: -10px;">
-                  <input class="form-control" id="uname" name="uname" type="text"
+                  <input class="form-control" id="member_name" name="member_name" type="text"
                      placeholder="*이름 or 닉네임을 15자 이내로 입력해주세요"> <input
                      type="hidden" name="isCheckedName" id="isCheckedName" value="N" />
                </div>
@@ -340,7 +340,7 @@ function checkBirth(x){
 
             <div class="form-group">
                <label class="control-label" style="float: left; width: 100px; margin-right: 20px">성별</label> 
-               <input type="hidden" id="ugender" name="ugender" value="">
+               <input type="hidden" id="gender" name="gender" value="">
                <div style="float: left;">
                <div class="my_button button1" id="male" onclick="selGender(this)">남     성</div>
                <div class="my_button button1" id="female" onclick="selGender(this)">여     성</div>
@@ -349,7 +349,7 @@ function checkBirth(x){
 
             <div class="form-group">
                <label class="control-label" for="inputBirth" style="float: left; width: 100px; margin-right: 20px">생년월일</label>
-               <input type="hidden" id="ubirth" name="ubirth" value="">
+               <input type="hidden" id="birth" name="birth" value="">
                 <div style="float: left; width: 165px; padding-right: 10px;">
                   <input class="form-control" type="number" id="uyear" name="uyear"
                      onchange="checkBirth(this)" placeholder="년도">

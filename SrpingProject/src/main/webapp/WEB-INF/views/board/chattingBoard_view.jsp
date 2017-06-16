@@ -19,7 +19,7 @@
    $(document).ready(function() {
       //수정 버튼
       $("#btnWriteUpdate").click(function() {
-         location.href = "${path}/board/updateBoard.do?bonumber=${dto.bonumber}";
+         location.href = "${path}/board/updateBoard.do?board_num=${dto.board_num}";
 
       });
 
@@ -30,11 +30,11 @@
             document.chattingForm.submit();
          }
       });
-      
+
       //채팅방 들어갈시
       $("#btnStartChat").click(function() {
-    	  location.href="${path}/board/chatting.do?bonumber=${dto.bonumber}";
-       });
+         location.href = "${path}/board/chatting.do?board_num=${dto.board_num}";
+      });
 
 
    });
@@ -45,94 +45,90 @@
    <%@ include file="../include/menu.jsp"%>
 
    <div align="center" style="margin-top: 30px;">
-      <form class="form-horizontal" style="width: 40%; text-align: center;"
-         name="chattingForm" >
-
+      <form class="form-horizontal" style="width: 600px;" method="post"
+         name="chattingForm">
          <fieldset>
-            <legend>상세보기</legend>
-
-            <div class="form-group">
-               <label class="col-lg-2 control-label" for="inputTitle">제목</label>
-               <div class="col-lg-10">
+            <legend style="float: left;">상세보기</legend>
+            <div class="form-group" style="margin-bottom: 15px">
+               <label class="control-label"
+                  style="float: left; width: 100px; margin-right: 20px">제목</label>
+               <div style="width: 500px; float: left; margin-right: 20px;">
                   <input type="hidden" id=bonumber name="bonumber"
-                     value="${dto.bonumber}"> <input class="form-control"
-                     id="botitle" name="botitle" type="text" value="${dto.botitle}"
+                     value="${dto.board_num}"> <input class="form-control"
+                     id="botitle" name="botitle" type="text" value="${dto.title}"
                      readonly>
                </div>
             </div>
-
-            <div class="form-group">
-               <label class="col-lg-2 control-label" for="inputMeetingDate"
-                  style="font-size: 13px;">만날날짜</label>
-               <div class="col-lg-10">
+            <div class="form-group" style="margin-bottom: 15px">
+               <label class="control-label" for="inputMeetingDate"
+                  style="float: left; width: 100px; margin-right: 20px;">만날날짜</label>
+               <div style="width: 190px; float: left; margin-right: 2px;">
                   <input class="form-control" id="bomeetdate" name="bomeetdate"
-                     type="text" value="${dto.bomeetdate}" readonly>
+                     type="text" value="${dto.tour_date}" readonly>
                </div>
-            </div>
-
-            <div class="form-group">
-               <label class="col-lg-2 control-label" for="inputMeetingTime"
-                  style="font-size: 13px;">만날시간</label>
-               <div class="col-lg-10">
+               <label class="control-label" for="inputMeetingTime"
+                  style="float: left; width: 100px; margin-right: 20px;">만날시간</label>
+               <div style="width: 190px; float: left;">
                   <input class="form-control" id="bomeettime" name="bomeettime"
-                     type="text" value="${dto.bomeettime}" readonly>
+                     type="text" value="${dto.tour_time}" readonly>
                </div>
             </div>
 
-            <div class="form-group">
-               <label class="col-lg-2 control-label" for="inputMeetingPlace"
-                  style="font-size: 13px;">장소명</label>
-               <div class="col-lg-10">
-                  <input class="form-control" id="boplace" name="boplace"
-                     type="text" value="${dto.boplace}" readonly>
-               </div>
-            </div>
-
-            <div class="form-group">
-               <label class="col-lg-2 control-label" for="inputMeetingPlace"
-                  style="font-size: 13px;">상세주소</label>
-               <div class="col-lg-10">
+            <div class="form-group" style="margin-bottom: 15px">
+               <label class="control-label" for="inputMeetingPlace"
+                  style="float: left; width: 100px; margin-right: 20px">상세주소</label>
+               <div style="width: 500px; float: left; margin-right: 20px;">
                   <input class="form-control" id="boaddress" name="boaddress"
-                     type="text" value="${dto.boaddress}" readonly>
+                     type="text" value="${dto.location}" readonly>
                </div>
             </div>
 
+            <div class="form-group" style="margin-bottom: 15px;">
+               <label class="control-label" for="inputMeetingPlace"
+                  style="float: left; width: 100px; margin-right: 20px">장소명</label>
+               <div style="width: 500px; float: left; margin-right: 20px;">
+                  <input class="form-control" id="boplace" name="boplace"
+                     type="text" value="${dto.place_name}" readonly>
+               </div>
+            </div>
 
-            <div class="form-group">
-               <label class="col-lg-2 control-label" for="inputCost">비용</label>
-               <div class="col-lg-10">
+            <div class="form-group" style="margin-bottom: 15px">
+               <label class="control-label" for="inputCost"
+                  style="float: left; width: 100px; margin-right: 20px">비용</label>
+               <div style="width: 500px; float: left; margin-right: 20px;">
                   <input class="form-control" id="bocost" name="bocost" type="text"
-                     value="${dto.bocost}" readonly>
+                     value="${dto.cost}" readonly>
                </div>
             </div>
 
-            <div class="form-group">
-               <label class="col-lg-2 control-label" for="inputContent">본문</label>
-               <div class="col-lg-10">
+            <div class="form-group" style="margin-bottom: 15px">
+               <label class="control-label" for="inputContent"
+                  style="width: 100px; float: left; margin-right: 20px;">본문</label>
+               <div style="width: 500px; float: left; margin-right: 20px;">
                   <textarea class="form-control" id="bocontent" name="bocontent"
-                     rows="3" readonly>${dto.bocontent}</textarea>
+                     rows="4" readonly>${dto.contents}</textarea>
                </div>
             </div>
 
-
-            <div class="form-group">
-               <label class="col-lg-2 control-label" for="inputWriter">작성자</label>
-               <div class="col-lg-10">
+            <div class="form-group" style="margin-bottom: 15px">
+               <label class="control-label" for="inputWriter"
+                  style="width: 100px; float: left; margin-right: 20px;">작성자</label>
+               <div style="width: 500px; float: left; margin-right: 20px;">
                   <input class="form-control" id="bouname" name="bouname"
-                     type="text" value="${dto.bouname}" readonly>
+                     type="text" value="${dto.member_id}" readonly>
                </div>
             </div>
 
-            <div class="form-group">
-               <label class="col-lg-2 control-label" for="inputWriteDate"
-                  style="font-size: 13px;">작성날짜</label>
-               <div class="col-lg-10">
+            <div class="form-group" style="margin-bottom: 15px">
+               <label class="control-label" for="inputWriteDate"
+                  style="width: 100px; float: left; margin-right: 20px;">작성날짜</label>
+               <div style="width: 500px; float: left; margin-right: 20px;">
                   <input class="form-control" id="boregdate" name="boregdate"
-                     type="text" value="${dto.boregdate}" readonly>
+                     type="text" value="${dto.board_datetime}" readonly>
                </div>
             </div>
 
-            <c:if test="${sessionScope.uname == dto.bouname}">
+            <c:if test="${sessionScope.member_name == dto.member_id}">
                <div class="form-group">
                   <div class="col-lg-10 col-lg-offset-2">
                      <button class="btn btn-primary" type="button" id="btnWriteUpdate">글
@@ -145,10 +141,11 @@
                </div>
             </c:if>
 
-            <c:if test="${sessionScope.uname != dto.bouname}">
+            <c:if test="${sessionScope.member_name != dto.member_id}">
                <div class="form-group">
                   <div class="col-lg-10 col-lg-offset-2">
-                     <button class="btn btn-primary" type="button" id="btnStartChat">채팅방 들어가기</button>
+                     <button class="btn btn-primary" type="button" id="btnStartChat">채팅방
+                        들어가기</button>
                   </div>
                </div>
             </c:if>

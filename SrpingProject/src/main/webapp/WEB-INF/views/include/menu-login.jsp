@@ -12,6 +12,7 @@
 </div> --%>
 
 
+
 <header id="fh5co-header" role="banner">
    <nav class="navbar navbar-default" role="navigation">
    
@@ -32,7 +33,7 @@
                   </div>   
                <div id="fh5co-navbar" class="navbar-collapse collapse">
                   <ul class="nav navbar-nav navbar-right">
-                     <li class="active"><a href="${path}"><span>Home
+                     <li class="active" ><a href="${path}" style="color:#C63A44;"><span>Home
                               <span class="border"></span>
                         </span></a></li>
                       <li><a href="${path}/member/newlogin.do"><span>회원가입 <span class="border"></span></span></a></li>
@@ -59,18 +60,18 @@
             <legend style="color: #777777;"><span class="glyphicon glyphicon-lock"></span>LOGIN<span class="close"></span></legend>
             <div class="form-group">
                <div style="width: 290px; margin: 5px 0px -10px;">
-                  <input class="form-control" id="uid" name="uid" type="text" placeholder="아이디">
+                  <input class="form-control" id="member_id" name="member_id" type="text" placeholder="아이디">
                </div>
             </div>
             <div class="form-group">
                <div style="width: 290px;">
-                  <input class="form-control" id="upw" name="upw" type="password" placeholder="비밀번호">
+                  <input class="form-control" id="member_pw" name="member_pw" type="password" placeholder="비밀번호">
                </div>
             </div>
             <div id="login_fail" style="float:left; margin: -20px 30px 5px; color: red;" ><!-- spanner --></div>
             <div class="form-group">
                <div style="width: 290px; margin-top: 10px ">
-                  <input type="submit" class="form-control" style="background-color: #f78181;" id="loginbtn" value = "로 그 인">
+                  <input type="submit" class="form-control" style="background-color: #269489; color: #ffffff;" id="loginbtn" value = "로 그 인">
                </div>
             </div>
             <div style="float: right; margin: -20px 30px 0px;" id="newlogin">회원가입</div><br/>
@@ -90,8 +91,8 @@ var modal = document.getElementById('myModal');
 
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName('close')[0];
-var id = document.getElementById('uid');
-var pw = document.getElementById('upw');
+var id = document.getElementById('member_id');
+var pw = document.getElementById('member_pw');
 var fail = document.getElementById('login_fail');
 
 // When the user clicks the button, open the modal 
@@ -134,13 +135,13 @@ $(document).ready(function() {
       // 'this' refers to the current submitted form  
       //var str = $(this).serialize();
       
-      var uid = $("#uid").val();
-      var upw = $("#upw").val();
+      var member_id = $("#member_id").val();
+      var member_pw = $("#member_pw").val();
       
       $.ajax({
          type : "post",
          url: "${path}/member/login_check.do",  // Send the login info to this page
-         data : "uid="+uid+"&upw="+upw,
+         data : "member_id="+member_id+"&member_pw="+member_pw,
          success : function(message) {
             if (message) // LOGIN OK?
              {
@@ -152,7 +153,7 @@ $(document).ready(function() {
              } else {
                 
                 document.getElementById('login_fail').innerHTML = '* 아이디 혹은 비밀번호가 틀렸습니다.'; 
-                $("#uid").focus();
+                $("#member_id").focus();
              } 
          }
       });
@@ -218,6 +219,13 @@ $(document).ready(function() {
     color: #000;
     text-decoration: none;
     cursor: pointer;
+}
+
+#loginbtn:hover,
+#loginbtn:focus{
+  outline: none;
+  box-shadow: none !important;
+  border: 2px solid #1a645c;
 }
 
 /* .modal-header {

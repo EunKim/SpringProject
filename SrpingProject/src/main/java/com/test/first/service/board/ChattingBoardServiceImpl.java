@@ -28,14 +28,14 @@ public class ChattingBoardServiceImpl implements ChattingBoardService {
 	
 	//채팅방 목록-> 상세보기로 들어가는 단계
 	@Override
-	public BoardInfoVO viewInfo(int bonumber) {
-		return chattingBoardDAO.viewInfo(bonumber);
+	public BoardInfoVO viewInfo(int board_num) {
+		return chattingBoardDAO.viewInfo(board_num);
 	}
 
 	//특정 채팅방의 조회수가 증가할수 있도록하기 위해
 	@Override
-	public void increaseViewcnt(int bonumber) {
-		chattingBoardDAO.increaseViewcnt(bonumber);
+	public void increaseViewcnt(int board_num) {
+		chattingBoardDAO.increaseViewcnt(board_num);
 	}
 
 	//채팅방을 입력해서 처리하는 부분
@@ -53,8 +53,8 @@ public class ChattingBoardServiceImpl implements ChattingBoardService {
 
 	//채팅방에서 삭제처리 시도시
 	@Override
-	public void deleteChatting(int bonumber) {
-		chattingBoardDAO.deleteChatting(bonumber);
+	public void deleteChatting(int board_num) {
+		chattingBoardDAO.deleteChatting(board_num);
 	}
 
 	

@@ -12,8 +12,8 @@
 <script>
 var pwd;
 window.onload = function(){
-	document.getElementById('uid').value = opener.document.getElementById('uid').value;
-	pwd = opener.document.getElementById('CheckedPwd').value;
+	document.getElementById('member_id').value = opener.document.getElementById('member_id').value;
+	pwd = opener.document.getElementById('member_pw').value;
 }
 
 
@@ -22,8 +22,8 @@ $(document).ready(function(){
 	$('#btnPwdUpdate').click(function(){
 		
 		var bupw=$("#bupw").val();
-		var uid=$("#uid").val();
-		var upw=$("#upw").val();
+		var member_id=$("#member_id").val();
+		var member_pw=$("#member_pw").val();
 		var conupw=$("#conupw").val();
 		
 		if(bupw != pwd){
@@ -32,20 +32,20 @@ $(document).ready(function(){
 			return;
 		}
 		
-		if(upw.length < 6){
+		if(member_pw.length < 6){
 			alert("새비밀번호를 6자 이상 입력하세요");
-			$("#upw").focus();
+			$("#member_pw").focus();
 			return;
 		}
 		
 		var repw =/^[a-z0-9]{6,20}$/;
-		if(repw.test(upw) == false){
+		if(repw.test(member_pw) == false){
 			alert("새비밀번호를 소문자 혹은 숫자만 입력해주세요.");
-			$("#upw").focus();
+			$("#member_pw").focus();
 			return;
 		}
 		
-		if(upw != conupw){
+		if(member_pw != conupw){
 	        alert("비밀번호를 다시 한번 확인하세요.")
 	        $("#conupw").focus();
 	       return; 
@@ -54,12 +54,12 @@ $(document).ready(function(){
 		$.ajax({
 	         type : "post",
 	         url: "${path}/member/update_pwd.do",  // Send the login info to this page
-	         data : "uid="+uid+"&upw="+upw,
+	         data : "member_id="+member_id+"&member_pw="+member_pw,
 	         success : function(message) {
 	        	 if (message) // LOGIN OK?
 	             {
 	                alert('비밀번호를 수정하였습니다.');
-	                opener.document.getElementById('upw').value = document.getElementById('upw').value;
+	                opener.document.getElementById('member_pw').value = document.getElementById('member_pw').value;
 	               
 	             } else {
 	            	alert('비밀번호수정을 실패하였습니다.'); 
@@ -69,7 +69,7 @@ $(document).ready(function(){
 	        	
 		 	
 	      });
-		opener.document.getElementById('upw').value = document.getElementById('upw').value;
+		opener.document.getElementById('member_pw').value = document.getElementById('member_pw').value;
 		window.close();
 		
 		//document.formPwd.action="${path}/member/update_pwd.do";
@@ -99,7 +99,7 @@ $(document).ready(function(){
 				<div class="form-group">
 					<label class="col-lg-2 control-label" for="inputID">기존비밀번호</label>
 					<div class="col-lg-5">
-						<input type="hidden" name="uid" id="uid" />
+						<input type="hidden" name=member_id id="member_id" />
 						<input class="form-control" id="bupw" name="bupw" type="password">
 					</div>
 				</div>
@@ -107,7 +107,7 @@ $(document).ready(function(){
 				<div class="form-group">
 					<label class="col-lg-2 control-label" for="inputPassword">비밀번호</label>
 					<div class="col-lg-5">
-						<input class="form-control" id="upw" name="upw" type="password">
+						<input class="form-control" id="member_pw" name="member_pw" type="password">
 					</div>
 				</div>
 				

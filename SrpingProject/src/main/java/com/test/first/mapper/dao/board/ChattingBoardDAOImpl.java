@@ -28,6 +28,13 @@ public class ChattingBoardDAOImpl implements ChattingBoardDAO {
 		map.put("start", start);
 		map.put("end", end);
 		
+		System.out.println("start1 : " + start);
+		System.out.println("end1 : " + end);
+		System.out.println("search_option1 : " + search_option);
+		System.out.println("keyword1 : " + keyword);
+		System.out.println("sqlsession : " + sqlSession.selectList("chattingBoard.chattingList",map));
+		
+		
 		return sqlSession.selectList("chattingBoard.chattingList",map);
 	}
 	
@@ -43,14 +50,14 @@ public class ChattingBoardDAOImpl implements ChattingBoardDAO {
 	
 	//글목록에서 -> 누르면 상세로 보기로 넘어가는 부분
 	@Override
-	public BoardInfoVO viewInfo(int bonumber) {
-		return sqlSession.selectOne("chattingBoard.chattingInfo",bonumber);
+	public BoardInfoVO viewInfo(int board_num) {
+		return sqlSession.selectOne("chattingBoard.chattingInfo",board_num);
 	}
 
 	//조회수를 볼때마다 증가시킬수 있게하는것
 	@Override
-	public void increaseViewcnt(int bonumber) {
-		sqlSession.update("chattingBoard.increaseViewcnt",bonumber);
+	public void increaseViewcnt(int board_num) {
+		sqlSession.update("chattingBoard.increaseViewcnt",board_num);
 	}
 
 	//채팅방을 만들기 위해서 입력을 하는 부분.
@@ -68,8 +75,8 @@ public class ChattingBoardDAOImpl implements ChattingBoardDAO {
 
 	//채팅방 삭제 버튼 클릭시
 	@Override
-	public void deleteChatting(int bonumber) {
-		sqlSession.delete("chattingBoard.chattingDelete",bonumber);
+	public void deleteChatting(int board_num) {
+		sqlSession.delete("chattingBoard.chattingDelete",board_num);
 	}
 
 	

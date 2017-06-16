@@ -8,9 +8,13 @@
 
 <header id="fh5co-header" role="banner">
 	<nav class="navbar navbar-default" role="navigation">
-	<div id="loginshow" style="display: inline-block; text-align: center; height: 5%;  margin-left: 1230px; margin-top: 10px;">
-	<a href="${path}/member/viewuser.do?uid=${sessionScope.uid}" style="color: blue; margin-right: 18px;">${sessionScope.uname} 접속중</a>
-	<a href="${path}/member/logout.do">로그아웃</a>
+	<div id="loginshow" style="display: inline-block; text-align: center; height: 5%;  margin-left: 1050px; margin-top: 10px;width: 20%;">
+	<div style="width: 250px; float: left; text-align: right;">
+	<a href="${path}/member/viewuser.do?member_id=${sessionScope.member_id}" style="color: #5DC9BC; margin-right: 6px;">${sessionScope.member_name} 접속중</a>
+	</div>
+	<div style="width: 110px; float: right; text-align: left;">
+	<a href="${path}/member/logout.do" style="margin-left: 13px;">로그아웃</a>
+	</div>
 	</div>
 		<div class="container">
 			<div class="row">
@@ -27,7 +31,7 @@
 					</div>
 					<div id="fh5co-navbar" class="navbar-collapse collapse">
 						<ul class="nav navbar-nav navbar-right">
-							<li class="active"><a href="${path}"><span>Home
+							<li class="active"><a href="${path}" style="color:#C63A44;"><span>Home
 										<span class="border"></span>
 								</span></a></li>
 							<li style="display: none;"><a

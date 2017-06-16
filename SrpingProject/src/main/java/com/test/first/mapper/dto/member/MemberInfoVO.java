@@ -2,60 +2,49 @@ package com.test.first.mapper.dto.member;
 
 public class MemberInfoVO {
 	
-	private int unumber;
-	private String uid;
-	private String upw;
-	private String uname;
-	private String ugender;
-	private String ubirth;
+	private String member_id;
+	private String member_pw;
+	private String member_name;
+	private String gender;
+	private String birth;
 	
 	
-	public String getUbirth() {
-		return ubirth;
+	public String getMember_id() {
+		return member_id;
 	}
-	public void setUbirth(String ubirth) {
-		this.ubirth = ubirth;
+	public void setMember_id(String member_id) {
+		this.member_id = member_id;
 	}
-	public int getUnumber() {
-		return unumber;
+	public String getMember_pw() {
+		return member_pw;
 	}
-	public void setUnumber(int unumber) {
-		this.unumber = unumber;
+	public void setMember_pw(String member_pw) {
+		this.member_pw = member_pw;
 	}
-	public String getUid() {
-		return uid;
+	public String getMember_name() {
+		return member_name;
 	}
-	public void setUid(String uid) {
-		this.uid = uid;
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
 	}
-	public String getUpw() {
-		return upw;
+	public String getGender() {
+		return gender;
 	}
-	public void setUpw(String upw) {
-		this.upw = upw;
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
-	public String getUname() {
-		return uname;
+	public String getBirth() {
+		return birth;
 	}
-	public void setUname(String uname) {
-		this.uname = uname;
+	public void setBirth(String birth) {
+		this.birth = birth;
 	}
-	public String getUgender() {
-		return ugender;
-	}
-	public void setUgender(String ugender) {
-		this.ugender = ugender;
-	}
+	
 	@Override
 	public String toString() {
-		return "MemberInfoVO [unumber=" + unumber + ", uid=" + uid + ", upw=" + upw + ", uname=" + uname + ", ugender="
-				+ ugender + ", ubirth=" + ubirth + "]";
+		return "MemberInfoVO [member_id=" + member_id + ", member_pw=" + member_pw + ", member_name=" + member_name
+				+ ", gender=" + gender + ", birth=" + birth + "]";
 	}
-	
-
-	
-
-	
 	
 	
 

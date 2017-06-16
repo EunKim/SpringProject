@@ -7,7 +7,6 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -42,9 +41,14 @@ public class ChattingBoardController {
 		
 		List<BoardInfoVO> list = chattingBoardService.ChattingBoardList(start,end,search_option,keyword);
 		
+	/*	System.out.println("start : " + start);
+		System.out.println("end : " + end);
+		System.out.println("search_option : " + search_option);
+		System.out.println("keyword : " + keyword);*/
+		
 		Map<String,Object> map = new HashMap<String, Object>();
 		map.put("list",list);
-		//map.put("count",list.size());
+		map.put("count",list.size());
 		map.put("search_option",search_option);
 		map.put("keyword",keyword);
 		map.put("pager", pager);
@@ -58,13 +62,13 @@ public class ChattingBoardController {
 
 	//채팅 목록에서 눌렀을때에 상세보기로 할수 있게 하는것.
 	@RequestMapping(value="board/viewList.do",method=RequestMethod.GET)
-	public ModelAndView chattingInfo(@RequestParam int bonumber )throws Exception{
+	public ModelAndView chattingInfo(@RequestParam int board_num )throws Exception{
 		//조회수 증가처리
-		chattingBoardService.increaseViewcnt(bonumber);
+		chattingBoardService.increaseViewcnt(board_num);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("board/chattingBoard_view");
-		mav.addObject("dto", chattingBoardService.viewInfo(bonumber));
+		mav.addObject("dto", chattingBoardService.viewInfo(board_num));
 		return mav;
 	}
 	
@@ -89,11 +93,11 @@ public class ChattingBoardController {
 
 	//글에서 수정 버튼 누를시 수정할수 있는 폼으로 이동
 	@RequestMapping(value="board/updateBoard.do",method=RequestMethod.GET)
-	public ModelAndView updateboard(@RequestParam int bonumber )throws Exception{
+	public ModelAndView updateboard(@RequestParam int board_num )throws Exception{
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("board/chattingBoard_update");
-		mav.addObject("dto", chattingBoardService.viewInfo(bonumber));
+		mav.addObject("dto", chattingBoardService.viewInfo(board_num));
 		return mav;
 	}
 	
@@ -106,22 +110,25 @@ public class ChattingBoardController {
 	
 	//채팅방에서 삭제 할시
 	@RequestMapping("board/deletchat.do")
-	public String deleteChat(int bonumber){
-		chattingBoardService.deleteChatting(bonumber);
+	public String deleteChat(int board_num){
+		chattingBoardService.deleteChatting(board_num);
 		return "redirect:/board/list.do";
 	}
 	
 	//실시간 jsp용으로 들어갈때
 	@RequestMapping("board/chatting.do")
-	public ModelAndView chatting(@RequestParam int bonumber){
-		System.out.println(bonumber);
+	public ModelAndView chatting(@RequestParam int board_num){
 		ModelAndView mav = new ModelAndView();
 		Map<String,Object> map = new HashMap<String, Object>();
-		map.put("bonumber", bonumber);
+		map.put("board_num", board_num);
 		mav.setViewName("board/chatting");
 		mav.addObject("map",map);
 		return mav;
 	}
+	
+	
+	/*@RequestMapping("chatting/flag.do")*/
+	
 	
 }
 

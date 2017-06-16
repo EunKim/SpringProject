@@ -36,7 +36,7 @@ function selGender(x) {
       window.onload = null
       m = document.getElementById('male');
       f = document.getElementById('female');
-      input = document.getElementById('ugender');
+      input = document.getElementById('gender');
 
       //mtoggle과 ftoggle 전역변수 선언
       if (typeof selGender.mtoggle == 'undefined'
@@ -83,11 +83,76 @@ window.onload = function(){
    }
 }
 
+//생년월일 유효성 검사
+var errorArray = ['','',''];      
+
+function checkBirth(x){
+   
+   if(x.id == 'uyear'){
+
+      var conYear = /^[0-9]{4}$/;
+      
+      if(conYear.test(x.value) == true && parseInt(x.value) >= 1930) {
+         errorArray[0] = '';
+      } else {
+         errorArray[0] = '* 생년을 4자리 형식으로 입력하십시오.';
+      }
+      
+   } else if(x.id == 'umonth'){
+      
+      var conMonth = /^[0-9]{1,2}$/;
+      
+      if(conMonth.test(x.value) == true && (x.value) <= 12 && (x.value) > 0) {
+         errorArray[1] = '';
+      } else {
+         errorArray[1] = '* 1~12월 사이의 값을 입력하십시오.';
+      }
+      
+   } else if(x.id == 'uday'){
+      var conDay = /^[0-9]{1,2}$/;
+      
+      if(conDay.test(x.value) == true && (x.value) <= 31 && (x.value) > 0){
+         errorArray[2] = '';
+      }else {
+         errorArray[2] = '* 1~31 사이의 값을 입력하십시오.';
+        }
+   }
+   
+   //월, 일 0d 패턴
+   if((x.value) < 10){
+      if((x.value).length == 1){
+         x.value = 0 + x.value; 
+      }   
+   }
+   
+   
+   for(var i=0; i<errorArray.length; i++) {
+      if(errorArray[i] != ''){
+         document.getElementById('errorUbirth').innerHTML = errorArray[i];
+         return ;
+      }
+      
+      document.getElementById('errorUbirth').innerHTML = '';
+   }
+   
+   
+}
+
 $(document).ready(function(){
    
    var pwdwindow;
    //수정 버튼
    $("#btnUpdateEnd").click(function(){
+	   
+	 //이름(닉네임)중복 검사를 했는지 안했는지 확인
+       if($("#isCheckedName").val() == "N"){
+          alert("이름(닉네임)중복검사를 먼저 해주세요.");
+          $("#member_name").focus();
+          return;
+       }
+	   
+	   
+	   
       if(confirm("수정하시겠습까?")){
          document.formUpdate.action="${path}/member/updateuser.do";
          document.formUpdate.submit();
@@ -98,9 +163,47 @@ $(document).ready(function(){
    $("#btnpwd").click(function(){
       var pwdwindow;
       pwdwindow = window.open("${path}/member/updatepwd.do", "window", "width=450, height=500");
-      //pwdwindow.document.getElementById("PwdInput").value = ${dto.upw};
+      //pwdwindow.document.getElementById("PwdInput").value = ${dto.member_pw};
 
    });
+   
+   
+   //이름(닉네임) 중복 확인
+   $("#btnConfirmName").click(function(){
+      var member_name =$("#member_name").val();
+      var blank_pattern = /^\s+|\s+$/g;
+      var blank_pattern2 = /[\s]/g;
+      
+      //공백 처리
+      if(member_name == "" || member_name == " " || member_name==null || (blank_pattern.test(member_name) == true) || (blank_pattern.test(member_name) == true) ){
+         alert('이름(닉네임)을 다시 작성해주세요.');
+         //document.getElementById('errorUname').innerHTML='* 이름(닉네임)을 다시 작성하세요.';
+         $("#member_name").focus();
+         return;
+         
+      }else{//이름 내역 성공시
+         var url="${path}/member/selectName.do";
+         $.post(url, {member_name:member_name}, function(json){
+            console.log(json);
+            alert(json.msg);
+            //document.getElementById('errorUname').innerHTML='';
+            if(json.code == 99){
+            	//document.getElementById('isCheckedName').innerHTML = "Y";
+               $("#isCheckedName").val("Y");
+            }
+         });
+      }
+      
+   });
+   
+ //생일 정보를 가져와서 - 기준으로 분리해서 
+   var string = $('#birth').val();
+   var strArray = string.split('-');
+   
+   //각각의 해당되는곳에 값을 넣어 놓고
+   document.getElementById('uyear').value = strArray[0];
+   document.getElementById('umonth').value = strArray[1]; 
+   document.getElementById('uday').value = strArray[2]; 
    
       
 });
@@ -110,72 +213,71 @@ $(document).ready(function(){
    
    <%@ include file="../include/menu.jsp"%>
    
-   <div align="center" style="margin-top: 30px;">
-      <form class="form-horizontal" style="width: 40%; text-align: center;"
-         name="formUpdate">
-
+   <div align="center">
+      <form class="form-horizontal" style="width: 600px;" name="formUpdate" method="post">
          <fieldset>
-            <legend style="text-align:left; font-size: 30px; font-style: bold;">수정창</legend>
+            <legend align="left">수정창!</legend>
+            
+            <div class="form-group" style="margin-bottom: 15px">
+               <label class="control-label" for="inputID" style="float: left; width: 100px; margin-right: 20px">아이디</label>
+               <div style="width: 395px; float: left; margin-right: -10px;">
+                  <input class="form-control" id="member_id" name="member_id" type="text" value="${dto.member_id}" readonly> 
+               </div>
+            </div>
 
-            <div class="form-group">
-               <label class="col-lg-2 control-label" for="inputID">아이디</label>
-               <div class="col-lg-10">
-                  <input class="form-control" id="uid" name="uid" type="text"
-                     value="${dto.uid}" readonly>
+            <div class="form-group" style="margin-bottom: -3px">
+               <label class="control-label" for="inputPassword" style="float: left; width: 100px; margin-right: 20px;">비밀번호</label>
+               <div style="width: 395px; float: left; margin-right: -7px;">
+                  <input class="form-control" id="member_pw" name="member_pw" type="password"  value="${dto.member_pw}" readonly >
+               </div>
+               <button class="btn btn-primary" type="button" id="btnpwd" style="padding: 12px 10px">수정하기</button> 
+            </div>
+
+            <div class="form-group" style="margin-bottom: -3px">
+               <label class="control-label" for="inputName" style="float: left; width: 100px; margin-right: 20px">이름</label>
+               <div style="width: 395px; float: left; margin-right: -10px;">
+                   <input class="form-control" id="member_name" name="member_name" type="text" value="${dto.member_name}">
+                   <input type="hidden" name="isCheckedName" id="isCheckedName" value="N" />
+               </div>
+               <button class="btn btn-primary" type="button" id="btnConfirmName" style="padding: 12px 10px">중복확인</button> 
+            </div>
+
+             <div class="form-group">
+               <label  class="control-label" for="inputPassword" style="float: left; width: 100px; padding-left:5px; margin-right: -9px;">성별</label> 
+               <input type="hidden" id="gender" name="gender" value="${dto.gender}">
+               <div style="width: 100%; height: 10px;">
+               <div class="my_button button1" id="male" onclick="selGender(this)">남     성</div>
+               <div class="my_button button1" id="female" onclick="selGender(this)" >여     성</div>
                </div>
             </div>
 
             <div class="form-group">
-               <label class="col-lg-2 control-label" for="inputPassword" style="font-size: 13px;">비밀번호</label>
-               <div class="col-lg-8">
-                  <input type="hidden" name="CheckedPwd" id="CheckedPwd" value="${dto.upw}" />
-                  <input class="form-control" id="upw" name="upw" type="password" value="${dto.upw}">
+               <label class="control-label" for="inputBirth" style="float: left; width: 100px; margin-right: 20px">생년월일</label>
+                <input type="hidden" id="birth" name="birth" value="${dto.birth}" readonly>
+                <div style="float: left; width: 170px; padding-right: 10px;">
+                  <input class="form-control" type="number" id="uyear" name="uyear"
+                     onchange="checkBirth(this)" placeholder="년도">
                </div>
-               <button class="btn btn-primary" type="button" id="btnpwd" style="margin-bottom: -5px; margin-left: -30px;">수정하기</button>
-            </div> 
-
-            <div class="form-group">
-               <label class="col-lg-2 control-label" for="inputName">이름</label>
-               <div class="col-lg-10">
-                  <input class="form-control" id="uname" name="uname" type="text"
-                     value="${dto.uname}">
+               <div style="float: left; width: 170px; padding-right: 10px;">
+                  <input class="form-control" type="number" id="umonth" name="umonth"
+                     onchange="checkBirth(this)" placeholder="월">
                </div>
-            </div>
-
-            <div class="form-group">
-               <label class="col-lg-2 control-label">성별</label> 
-               <input type="hidden" id="ugender" name="ugender" value="">
-               <input type="hidden" id="checkgender" name="checkgender" value="${dto.ugender}">
-               <div class="my_button button1" id="male" onclick="selGender(this)"
-                  readonly>남 성</div>
-               <div class="my_button button1" id="female"
-                  onclick="selGender(this)" readonly>여 성</div>
-            </div>
-
-
-            <div class="form-group">
-               <label class="col-lg-2 control-label" for="inputBirth">생일</label>
-               <div class="col-lg-10">
-                  <!-- <input class="form-control" name="uname" type="text" placeholder="이름 or 닉네임을 15자 이내로 입력."> -->
-                  <div style="margin-top: 10px;">
-                     <input type="date" id="ubirth" name="ubirth"
-                        value="${dto.ubirth}" >
-                  </div>
+               <div style="float: left; width: 170px; padding-right: 10px;">
+                  <input class="form-control" type="number" id="uday" name="uday"
+                     onchange="checkBirth(this)" placeholder="일">
                </div>
+               <p id="errorUbirth" style="color: red; float:left; margin: 10px 120px -5px;"></p>
             </div>
-
-
+            
             <div class="form-group">
-               <div class="col-lg-10 col-lg-offset-2" style="margin-top: 20px;">
+               <div>
                   <button class="btn btn-primary" type="button" id="btnUpdateEnd">수정완료</button>
                </div>
             </div>
          </fieldset>
+         
       </form>
-      <h2 style="text-align: center; color: blue;">${messageUpdate}</h2>
-      <h2 style="text-align: center; color: red;">${messageDelete}</h2>
-
    </div>
-
+   
 </body>
 </html>

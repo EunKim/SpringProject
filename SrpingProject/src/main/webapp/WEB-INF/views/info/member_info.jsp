@@ -26,7 +26,7 @@
 		<c:forEach var="row" items="${list}">
 			<tr>
 				<th>${row.unumber}</th>
-				<th><a href="${path}/member/viewuser.do?uid=${row.uid}">${row.uid}</a></th>
+				<th><a href="${path}/member/viewuser.do?member_id=${row.member_id}">${row.member_id}</a></th>
 				<th>${row.upw}</th>
 				<th>${row.uname}</th>
 				<th>${row.ugender}</th>

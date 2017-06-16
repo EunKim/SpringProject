@@ -269,7 +269,7 @@ html, body, #map-canvas {
 		$('#CheckAddress').click(function(){
 			//var str = $('#checkplace').val();
 			//alert(str);
-			opener.document.getElementById('boaddress').value = document.getElementById('checkplace').value;
+			opener.document.getElementById('location').value = document.getElementById('checkplace').value;
 			window.close();
 		});
 	});

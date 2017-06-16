@@ -21,7 +21,7 @@
 
 
 <c:choose>
-	<c:when test="${sessionScope.uid == null}"><!--로그인처리가 안된것으로 인식  -->
+	<c:when test="${sessionScope.member_id == null}"><!--로그인처리가 안된것으로 인식  -->
 		<%@ include file="menu-login.jsp" %>
 	</c:when>
 	<c:otherwise>
