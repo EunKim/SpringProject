@@ -6,58 +6,96 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
 <mapper namespace="chattingBoard">
 
-   <!-- 채팅방의 전체 목록을 보여주는 쿼리 -->
-   <!-- <select id="chattingList" resultType="com.test.first.mapper.dto.board.BoardInfoVO"> 
-      select * from chatting_board </select> -->
-
-   <select id="chattingList" resultType="com.test.first.mapper.dto.board.BoardInfoVO">
+   <!--채팅방 만들어서 입력시 -->
+   <insert id="insertBoard">	
+      insert into board
+      (member_id, title, contents, cost, location, board_datetime, tour_date, tour_time)
+      values
+      ((select member_id from member where member_id=#{member_id}),#{title},#{contents},#{cost},#{location},
+		#{board_datetime},#{tour_date},#{tour_time})
+   </insert>
    
-      select bonumber,botitle,bomeetdate,bomeettime,boplace,bocontent,b.boregdate,bouname,bocount
-      from chatting_board AS b, member_info AS m
+   <!-- 채팅방의 전체 목록을 보여주는 쿼리 -->
+   <select id="selectBoard" resultType="com.test.first.mapper.dto.board.BoardInfoVO">
+	  select * from board, member
       <include refid="search"/>
-      order by bonumber desc,boregdate desc limit #{start}, #{end}
-      
+      order by board_num, board_datetime desc limit #{start}, #{end}   
    </select>
    
    <!-- 글갯수 계산 -->
    <select id="countArticle" resultType="int">
-      select count(*) from chatting_board
-       <include refid="searchCount"/>
+      select count(*) from board 
+      <include refid="searchCount"/>
    </select>
-
-
+   
    <!-- 채팅방의 목록에서 선택했을때 그 선택된것의 상세보기 기능 -->
-   <select id="chattingInfo" resultType="com.test.first.mapper.dto.board.BoardInfoVO">
-      select * from
-      chatting_board where bonumber = #{bonumber}
+   <select id="selectBoardId" resultType="com.test.first.mapper.dto.board.BoardInfoVO" >
+      select * from board  where board_num= #{board_num}
    </select>
-
-   <!-- 조회수 증가처리용 -->
-   <update id="increaseViewcnt">
-      update chatting_board set bocount=bocount+1 where
-      bonumber=#{bonumber};
+   
+    <!-- 조회수 증가처리용 -->
+   <update id="increaseHits">
+      update board set hits=hits+1 where board_num=#{board_num};
    </update>
-
-   <!--채팅방 만들어서 입력시 -->
-   <insert id="chattingWrite">	
-      insert into chatting_board
-      (botitle,bomeetdate,bomeettime,boplace,boaddress,bocost,bocontent,bouname)
-      values
-      (#{botitle},#{bomeetdate},#{bomeettime},#{boplace},#{boaddress},#{bocost},#{bocontent},#{bouname})
-   </insert>
-
-   <!-- 채팅방 정보 수정시 -->
-   <update id="chattingUpdate">
-      update chatting_board set botitle=#{botitle},
-      bomeetdate=#{bomeetdate}, bomeettime=#{bomeettime},boplace=#{boplace},
-      boaddress=#{boaddress}, bocost=#{bocost}, bocontent=#{bocontent},
-      bouname=#{bouname} where bonumber=#{bonumber}
+   
+    <!-- 채팅방 정보 수정시 -->
+   <update id="updateBoard">
+      update board set
+		 title=#{title}, contents=#{contents}, cost=#{cost},
+		 place_name=#{place_name},
+		 location=#{location},
+		 tour_date=#{tour_date},
+		 tour_time=#{tour_time}
+		 where
+		 board_num=#{board_num}
    </update>
-
-   <!-- 채팅방 삭제시 -->
-   <delete id="chattingDelete">
-      delete from chatting_board where bonumber=#{bonumber}
+   
+    <!-- 채팅방 삭제시 -->
+   <delete id="deleteBoard">
+    	delete from board where board_num=#{board_num}
    </delete>
+   
+   
+   
+   <!-- 게시글 전체목록_모바일 -->
+	<select id="selectBoard_mo" resultType="com.test.first.mapper.dto.board.BoardInfoVO">
+		select * from board order by board_num, board_datetime desc;
+	</select>
+
+	<!-- 게시글 검색 목록(전체)_모바일 -->
+	<select id="selectBoardAll" resultType="com.test.first.mapper.dto.board.BoardInfoVO">
+		select * from board, member 
+		where member.member_id = board.member_id and (member_id like concat('%',#{keyword},'%') 
+			     			 or member.member_name like concat('%',#{keyword},'%')
+ 							 or title like concat('%',#{keyword},'%') 
+                             or contents like concat('%',#{keyword},'%') 
+        order by board_num, board_datetime desc;
+	</select>
+
+	<!-- 게시글 검색 목록(사용자 id)_모바일 -->
+	<select id="selectBoardId_mo" resultType="com.test.first.mapper.dto.board.BoardInfoVO">
+		select * from board where member_id like concat('%',#{keyword},'%') limit #{start}, #{end}
+	</select>
+
+
+	<!-- 게시글 검색 목록(제목)_모바일 -->
+	<select id="selectBoardTitle" resultType="com.test.first.mapper.dto.board.BoardInfoVO" parameterType="String">
+  		select * from board where title like concat('%',#{keyword},'%')
+	</select>
+
+
+	<!-- 게시글 검색 목록(사용자 이름)_모바일 -->
+	<select id="selectBoardName" resultType="com.test.first.mapper.dto.board.BoardInfoVO" parameterType="String">
+		select member.member_name * from board, member where member.member_id = board and member.member_name like concat('%',#{keyword},'%')
+	</select>
+
+
+	<!-- 게시글 검색 목록(장소명)_모바일 -->
+	<select id="selectBoardLocation" resultType="com.test.first.mapper.dto.board.BoardInfoVO" parameterType="String">
+		select * from board where place_name like concat('%',#{keyword},'%') or location like concat('%',#{keyword},'%')) order by board_num, board_datetime desc
+	</select>
+   
+   
    
    <!-- 동적 sql : 바뀌는 부분이 아님으로 고정으로 처리 -->
    
@@ -65,18 +103,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
        <choose>
          
          <when test='search_option == "place"'>
-            where b.bouname = m.uname and(boplace like concat('%',#{keyword},'%') or boaddress like concat('%',#{keyword},'%'))
-         </when>
+			where member.member_id = board.member_id and(place_name like concat('%',#{keyword},'%') or location like concat('%',#{keyword},'%'))
+		 </when>
          
          <when test='search_option == "all"'>
-            where b.bouname = m.uname and(
-                 bouname like concat('%',#{keyword},'%') or 
-                 bocontent like concat('%',#{keyword},'%') or 
-                 botitle like concat('%',#{keyword},'%'))
-         </when>
+				
+			where member.member_id = board.member_id 
+				and (member.member_name like concat('%',#{keyword},'%')
+					or title like concat('%',#{keyword},'%') 
+					or contents like concat('%',#{keyword},'%')) 
+
+			</when>
             
          <otherwise>
-            where b.bouname = m.uname and (${search_option} like concat('%',#{keyword},'%'))
+            where member.member_id = board.member_id and (${search_option} like concat('%',#{keyword},'%'))
          </otherwise>
          
    </choose> 
@@ -87,13 +127,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
        <choose>
          
          <when test='search_option == "place"'>
-            where boplace like concat('%',#{keyword},'%') or boaddress like concat('%',#{keyword},'%')
+            where place_name like concat('%',#{keyword},'%') or location like concat('%',#{keyword},'%')
          </when>
          
          <when test='search_option == "all"'>
-            where bouname like concat('%',#{keyword},'%') or 
-                 bocontent like concat('%',#{keyword},'%') or 
-                 botitle like concat('%',#{keyword},'%')
+            where member.member_name like concat('%',#{keyword},'%')
+					or title like concat('%',#{keyword},'%') 
+					or contents like concat('%',#{keyword},'%')
          </when>
             
          <otherwise>
@@ -108,3 +148,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    
 
 </mapper>
+
+
+<!-- <select id="chattingList" resultType="com.test.first.mapper.dto.board.BoardInfoVO"> 
+      select * from chatting_board </select> -->

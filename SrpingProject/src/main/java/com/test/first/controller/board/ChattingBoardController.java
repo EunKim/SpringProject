@@ -23,7 +23,36 @@ public class ChattingBoardController {
 	@Inject
 	ChattingBoardService chattingBoardService;
 	
-
+	//글 목록에서 -> 글쓰기 버튼을 눌러서 글을 작성할수 있는 폼으로 이동하는것
+	@RequestMapping("board/writeform.do")
+	public String writeform(){
+		return "board/chattingBoard_write";
+	}
+	
+	//글 쓰기에서 상세 주소의 지도 선택시 지도쪽으로 이동
+	@RequestMapping("board/googlemap.do")
+	public String googlemap(){
+		return "include/googlemap";
+	}
+	
+	//실시간 jsp용으로 들어갈때
+	@RequestMapping("board/chatting.do")
+	public ModelAndView chatting(@RequestParam int board_num){
+		ModelAndView mav = new ModelAndView();
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("board_num", board_num);
+		mav.setViewName("board/chatting");
+		mav.addObject("map",map);
+		return mav;
+	}
+	
+	//채팅방만드는 형식을 다 채우고 -> 확인 버튼을 누를시
+	@RequestMapping("board/writeList.do")
+	public String insertChat(@ModelAttribute BoardInfoVO vo){
+		chattingBoardService.insertChatting(vo);
+		return "redirect:/board/list.do";
+	}
+	
 	// 메인에서 -> 글목록 누를시 나타나는 채팅방 목록 리스트
 	@RequestMapping("board/list.do")
 	public ModelAndView chattingList(@RequestParam(defaultValue="1")int curPage,
@@ -72,25 +101,6 @@ public class ChattingBoardController {
 		return mav;
 	}
 	
-	//글 목록에서 -> 글쓰기 버튼을 눌러서 글을 작성할수 있는 폼으로 이동하는것
-	@RequestMapping("board/writeform.do")
-	public String writeform(){
-		return "board/chattingBoard_write";
-	}
-	
-	//채팅방만드는 형식을 다 채우고 -> 확인 버튼을 누를시
-	@RequestMapping("board/writeList.do")
-	public String insertChat(@ModelAttribute BoardInfoVO vo){
-		chattingBoardService.insertChatting(vo);
-		return "redirect:/board/list.do";
-	}
-	
-	//글 쓰기에서 상세 주소의 지도 선택시 지도쪽으로 이동
-	@RequestMapping("board/googlemap.do")
-	public String googlemap(){
-		return "include/googlemap";
-	}
-
 	//글에서 수정 버튼 누를시 수정할수 있는 폼으로 이동
 	@RequestMapping(value="board/updateBoard.do",method=RequestMethod.GET)
 	public ModelAndView updateboard(@RequestParam int board_num )throws Exception{
@@ -114,22 +124,7 @@ public class ChattingBoardController {
 		chattingBoardService.deleteChatting(board_num);
 		return "redirect:/board/list.do";
 	}
-	
-	//실시간 jsp용으로 들어갈때
-	@RequestMapping("board/chatting.do")
-	public ModelAndView chatting(@RequestParam int board_num){
-		ModelAndView mav = new ModelAndView();
-		Map<String,Object> map = new HashMap<String, Object>();
-		map.put("board_num", board_num);
-		mav.setViewName("board/chatting");
-		mav.addObject("map",map);
-		return mav;
-	}
-	
-	
-	/*@RequestMapping("chatting/flag.do")*/
-	
-	
+		
 }
 
 

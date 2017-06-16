@@ -144,6 +144,15 @@ $(document).ready(function(){
    //수정 버튼
    $("#btnUpdateEnd").click(function(){
 	   
+	   var birth;
+	    //생일 정보를 가져와서 합침
+	      birth = document.getElementById('uyear').value + '-'
+	                  + document.getElementById('umonth').value  + '-'
+	                  + document.getElementById('uday').value; 
+	    
+	      $('#birth').val(birth);
+	   
+	   
 	 //이름(닉네임)중복 검사를 했는지 안했는지 확인
        if($("#isCheckedName").val() == "N"){
           alert("이름(닉네임)중복검사를 먼저 해주세요.");

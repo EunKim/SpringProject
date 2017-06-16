@@ -15,12 +15,19 @@ public class ChattingBoardServiceImpl implements ChattingBoardService {
 	@Inject
 	ChattingBoardDAOImpl chattingBoardDAO;
 
+	//채팅방을 입력해서 처리하는 부분
+	@Override
+	public void insertChatting(BoardInfoVO vo) {
+		chattingBoardDAO.insertChatting(vo);
+	}
+	
 	//채팅 방 목록 보여주는 단계
 	@Override
 	public List<BoardInfoVO> ChattingBoardList(int start, int end,String search_option, String keyword) {
 		return chattingBoardDAO.ChattingBoardList(start, end, search_option,keyword);
 	}
-
+	
+	//글 갯수 체크시 사용
 	@Override
 	public int countArticle(String search_option, String keyword) {
 		return chattingBoardDAO.countArticle(search_option, keyword);
@@ -36,12 +43,6 @@ public class ChattingBoardServiceImpl implements ChattingBoardService {
 	@Override
 	public void increaseViewcnt(int board_num) {
 		chattingBoardDAO.increaseViewcnt(board_num);
-	}
-
-	//채팅방을 입력해서 처리하는 부분
-	@Override
-	public void insertChatting(BoardInfoVO vo) {
-		chattingBoardDAO.insertChatting(vo);
 	}
 
 	//채팅방에서 수정버튼 클릭시
