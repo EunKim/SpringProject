@@ -32,8 +32,6 @@
 %>
 <script type="text/javascript">
 
-
-
 window.onload = function(){
    m = document.getElementById('male');
    f = document.getElementById('female');
@@ -93,7 +91,7 @@ $(document).ready(function(){
    
    <%@ include file="../include/menu.jsp"%>
    
-  	  <div align="center">
+       <div align="center">
       <form class="form-horizontal" style="width: 600px;" name="formUpdate" method="post">
          <fieldset>
             <legend align="left">INFO!</legend>
@@ -124,8 +122,8 @@ $(document).ready(function(){
                <label  class="control-label" for="inputPassword" style="float: left; width: 100px; padding-left:5px; margin-right: -9px;">성별</label> 
                <input type="hidden" id="gender" name="gender" value="${dto.gender}">
                <div style="width: 100%; height: 10px;">
-               <div class="my_button button1" id="male" onclick="selGender(this)">남     성</div>
-               <div class="my_button button1" id="female" onclick="selGender(this)" >여     성</div>
+               <div class="my_button button1" id="male">남     성</div>
+               <div class="my_button button1" id="female">여     성</div>
                </div>
             </div>
 

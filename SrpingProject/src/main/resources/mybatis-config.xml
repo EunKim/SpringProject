@@ -7,6 +7,7 @@
 	<mappers>
 		<mapper resource="Mappers/memberMapper.xml" />
 		<mapper resource="Mappers/boardMapper.xml" />
+		<mapper resource="Mappers/chattingListMapper.xml" />
 	</mappers>
 	
 	

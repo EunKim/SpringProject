@@ -1,3 +1,7 @@
+<%@page import="com.test.first.mapper.dto.board.BoardInfoVO"%>
+<%@page import="java.util.Locale"%>
+<%@page import="java.sql.Timestamp"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -56,7 +60,6 @@
 
 <body>
    <%@ include file="../include/menu.jsp"%>
-	   
 
      <div style="width: 1000px; margin-left: 23%; margin-top: 60px">
       <h4 class="control-label" align="left">글 목록</h4>
@@ -103,22 +106,18 @@
          </tr>
 
          <c:forEach var="row" items="${map.list}">
-            <tr onClick="location.href = '${path}/board/viewList.do?bonumber=${row.board_num}'" style="cursor:pointer;">
+            <tr onClick="location.href = '${path}/board/viewList.do?board_num=${row.board_num}'" style="cursor:pointer;">
                <%-- <th>${row.bonumber}</th> --%>
                <th rowspan="2" style="text-align: center; vertical-align: middle;">${row.board_num}</th>
                <%-- <th width="25%"><a
                   href="${path}/board/viewList.do?bonumber=${row.bonumber}" style="display: block;">${row.botitle}</a></th> --%>
                <th width="25%">${row.title}</th>
-               <%-- <th>${row.bomeetdate}</th>
-               <th>${row.bomeettime}</th>
-               <th>${row.boplace}</th>
-               <th>${row.bocost}</th> --%>
-               <%-- <th>${row.bocontent}</th> --%>
-               <th style="text-align: center;">${row.member_id}</th>
-               <th style="text-align: center;">${row.board_datetime}</th>
+              
+               <th style="text-align: center;">${row.member_name}</th>
+               <th style="text-align: center;" ><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${row.board_datetime}"/></th>
                <th style="text-align: center;">${row.hits}</th>
             </tr>
-            <tr  onClick="location.href = '${path}/board/viewList.do?bonumber=${row.board_num}'" style="cursor:pointer;">
+            <tr  onClick="location.href = '${path}/board/viewList.do?board_num=${row.board_num}'" style="cursor:pointer;">
                <th colspan="4" style="border-top-color: #ffffff;">
                   <div>
                      <div style="margin-left: 1%; width: 5%; float: left;"><img src="${pageContext.request.contextPath}/resources/images/arrow2.png" height="15" width="15" style="margin-left: 10%; margin-right: 10%"></div>
@@ -127,19 +126,10 @@
                      <div style="margin-left: 5%; width: 40%; float: left;">만날 장소 : ${row.place_name}</div>
                   </div>
                </th>
-               <%-- <th><img src="${pageContext.request.contextPath}/resources/images/arrow.png" height="15" width="15" style="margin-left: 10%; margin-right: 10%">만날 일자 : ${row.bomeetdate}</th>
-               <th style="padding-left: 5%">만날 시간 : ${row.bomeettime}</th>
-               <th colspan="2" style="padding-left: 5%">만날 장소 : ${row.boplace}</th> --%>
-               <!-- <th>비용 : ${row.bocost}</th> -->
+              
             </tr>
          </c:forEach>
          
-          <!-- <tr style="text-align: center;">
-         	<td colspan="6" style="background-color: #000000;">
-         		
-         
-         	</td>
-         </tr> -->
       </table>
       
       <div class="center">

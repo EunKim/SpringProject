@@ -44,6 +44,12 @@ public class MemberInfoController {
 		return "info/updatepwd";
 	}
 	
+	//회원정보 수정시 이름 수정하기를 눌렀을때 나타나는 창의 jsp
+	@RequestMapping("member/updateName.do")
+	public String updateName(){
+	     return "info/updateName";
+	}
+	
 	// 메인에서 -> 회원가입 확인버튼 누른다음에 회원정보가 db에 입력이 되면 로그인 하는 부분으로 이동.
 	@RequestMapping("member/insertlist.do")
 	public String insertFirst(@ModelAttribute MemberInfoVO vo) {

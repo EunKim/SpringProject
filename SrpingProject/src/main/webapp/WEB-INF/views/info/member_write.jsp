@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ page import="java.text.SimpleDateFormat" %>
-<%@	page import="java.io.*, java.util.Date, java.util.Enumeration" %> 
+<%@   page import="java.io.*, java.util.Date, java.util.Enumeration" %> 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -32,7 +32,7 @@
 <title>Insert title here</title>
 <%@ include file="../include/header.jsp"%>
 <%
-	request.setCharacterEncoding("UTF-8");
+   request.setCharacterEncoding("UTF-8");
 %>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
 <script type="text/javascript">
@@ -282,18 +282,18 @@ function checkBirth(x){
  
 </script>
 </head>
-	<!-- 오늘 날짜 구하는것 -->
-	<%
-		Date today = new Date();
-		SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
-		
-		String yyyyMMddToday =  DATE_FORMAT.format(today);
-	%>
+   <!-- 오늘 날짜 구하는것 -->
+   <%
+      Date today = new Date();
+      SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+      
+      String yyyyMMddToday =  DATE_FORMAT.format(today);
+   %>
 <body>
-	
-	<%@ include file="../include/menu.jsp"%>
-	
-	  <div align="center">
+   
+   <%@ include file="../include/menu.jsp"%>
+   
+     <div align="center">
       <form class="form-horizontal" style="width: 600px;" name="formwrite" method="post">
          <fieldset>
             <legend align="left">JOIN!</legend>

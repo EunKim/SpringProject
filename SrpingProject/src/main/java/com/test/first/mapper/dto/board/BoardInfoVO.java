@@ -1,12 +1,13 @@
 package com.test.first.mapper.dto.board;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class BoardInfoVO {
 	
 	private int board_num;
 	private String member_id;
-	private Date board_datetime;
+	private String member_name;
+	private Timestamp board_datetime;
 	private String title;
 	private String contents;
 	private String tour_date;
@@ -16,6 +17,14 @@ public class BoardInfoVO {
 	private String place_name;
 	private int hits;
 	
+	
+	
+	public String getMember_name() {
+		return member_name;
+	}
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
+	}
 	public int getBoard_num() {
 		return board_num;
 	}
@@ -28,10 +37,10 @@ public class BoardInfoVO {
 	public void setMember_id(String member_id) {
 		this.member_id = member_id;
 	}
-	public Date getBoard_datetime() {
+	public Timestamp getBoard_datetime() {
 		return board_datetime;
 	}
-	public void setBoard_datetime(Date board_datetime) {
+	public void setBoard_datetime(Timestamp board_datetime) {
 		this.board_datetime = board_datetime;
 	}
 	public String getTitle() {
@@ -85,11 +94,13 @@ public class BoardInfoVO {
 	
 	@Override
 	public String toString() {
-		return "BoardInfoVO [board_num=" + board_num + ", member_id=" + member_id + ", board_datetime=" + board_datetime
-				+ ", title=" + title + ", contents=" + contents + ", tour_date=" + tour_date + ", tour_time="
-				+ tour_time + ", cost=" + cost + ", location=" + location + ", place_name=" + place_name + ", hits="
-				+ hits + "]";
+		return "BoardInfoVO [board_num=" + board_num + ", member_id=" + member_id + ", member_name=" + member_name
+				+ ", board_datetime=" + board_datetime + ", title=" + title + ", contents=" + contents + ", tour_date="
+				+ tour_date + ", tour_time=" + tour_time + ", cost=" + cost + ", location=" + location + ", place_name="
+				+ place_name + ", hits=" + hits + "]";
 	}
+	
+	
 	
 	
 	

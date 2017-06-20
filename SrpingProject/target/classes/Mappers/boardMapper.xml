@@ -9,28 +9,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    <!--채팅방 만들어서 입력시 -->
    <insert id="insertBoard">	
       insert into board
-      (member_id, title, contents, cost, location, board_datetime, tour_date, tour_time)
+      (member_id, title, contents, cost, location, place_name, tour_date, tour_time)
       values
-      ((select member_id from member where member_id=#{member_id}),#{title},#{contents},#{cost},#{location},
-		#{board_datetime},#{tour_date},#{tour_time})
+      ((select member_id from member where member_id=#{member_id}),#{title},#{contents},#{cost},#{location},#{place_name},
+		#{tour_date},#{tour_time})
    </insert>
    
    <!-- 채팅방의 전체 목록을 보여주는 쿼리 -->
    <select id="selectBoard" resultType="com.test.first.mapper.dto.board.BoardInfoVO">
-	  select * from board, member
+	  select * from board_v
       <include refid="search"/>
       order by board_num, board_datetime desc limit #{start}, #{end}   
    </select>
    
    <!-- 글갯수 계산 -->
    <select id="countArticle" resultType="int">
-      select count(*) from board 
+      select count(*) from board_v
       <include refid="searchCount"/>
    </select>
    
    <!-- 채팅방의 목록에서 선택했을때 그 선택된것의 상세보기 기능 -->
    <select id="selectBoardId" resultType="com.test.first.mapper.dto.board.BoardInfoVO" >
-      select * from board  where board_num= #{board_num}
+      select * from board_v where board_num= #{board_num}
    </select>
    
     <!-- 조회수 증가처리용 -->
@@ -39,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    </update>
    
     <!-- 채팅방 정보 수정시 -->
-   <update id="updateBoard">
+   <update id="updateBoard" >
       update board set
 		 title=#{title}, contents=#{contents}, cost=#{cost},
 		 place_name=#{place_name},
@@ -86,7 +86,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 게시글 검색 목록(사용자 이름)_모바일 -->
 	<select id="selectBoardName" resultType="com.test.first.mapper.dto.board.BoardInfoVO" parameterType="String">
-		select member.member_name * from board, member where member.member_id = board and member.member_name like concat('%',#{keyword},'%')
+		select member_name * from board, member where member.member_id = board and member.member_name like concat('%',#{keyword},'%')
 	</select>
 
 
@@ -103,20 +103,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
        <choose>
          
          <when test='search_option == "place"'>
-			where member.member_id = board.member_id and(place_name like concat('%',#{keyword},'%') or location like concat('%',#{keyword},'%'))
+			where (place_name like concat('%',#{keyword},'%') or location like concat('%',#{keyword},'%'))
 		 </when>
          
-         <when test='search_option == "all"'>
-				
-			where member.member_id = board.member_id 
-				and (member.member_name like concat('%',#{keyword},'%')
+         <when test='search_option == "all"'>	
+			where member_name like concat('%',#{keyword},'%')
 					or title like concat('%',#{keyword},'%') 
-					or contents like concat('%',#{keyword},'%')) 
+					or contents like concat('%',#{keyword},'%') 
 
 			</when>
             
          <otherwise>
-            where member.member_id = board.member_id and (${search_option} like concat('%',#{keyword},'%'))
+            where (${search_option} like concat('%',#{keyword},'%'))
          </otherwise>
          
    </choose> 
@@ -131,7 +129,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          </when>
          
          <when test='search_option == "all"'>
-            where member.member_name like concat('%',#{keyword},'%')
+            where member_name like concat('%',#{keyword},'%')
 					or title like concat('%',#{keyword},'%') 
 					or contents like concat('%',#{keyword},'%')
          </when>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="chattingList">
+
+	<!-- 채팅방 입장 시 -->
+	<insert id="insertList" >
+		insert into
+		chat_member(room_num, chat_member_id, enter_time) values(#{room_num},
+		#{chat_member_id}, round(unix_timestamp(curtime(4))*1000))
+	</insert>
+
+	<!-- 채팅멤버 리스트 출력 -->
+	<select id="selectList" parameterType="Integer"
+		resultType="com.test.first.mapper.dto.chat.ChattingListVO">
+		select * from chat_member_v where room_num=#{room_num}
+	</select>
+
+	<!-- 특정 채팅 멤버 확인 -->
+	<select id="selectListMember" resultType="int">
+		select count(*) from
+		chat_member where room_num=#{room_num} and chat_member_id=#{chat_member_id}
+	</select>
+
+	<!-- 채팅방 나가기 -->
+	<delete id="deleteList" parameterType="com.test.first.mapper.dto.chat.ChattingListVO">
+		delete from chat_member
+		where
+		member_id=#{member_id} and room_num=#{room_num}
+	</delete>
+	
+	<!--채팅방 별 참여 멤버 리스트(아이디와 이름)출력
+select chat_member_id, member_name 
+from chat_member_v 
+where room_num = #{room_num}; -->
+
+
+</mapper>
