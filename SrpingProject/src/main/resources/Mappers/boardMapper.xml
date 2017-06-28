@@ -19,7 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    <select id="selectBoard" resultType="com.test.first.mapper.dto.board.BoardInfoVO">
 	  select * from board_v
       <include refid="search"/>
-      order by board_num, board_datetime desc limit #{start}, #{end}   
+      order by board_num desc limit #{start}, #{end}   
    </select>
    
    <!-- 글갯수 계산 -->
@@ -33,9 +33,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       select * from board_v where board_num= #{board_num}
    </select>
    
+	<!-- 내가 쓴 최신 게시글 5개 뽑아내기 -->
+	<select id="postingByMeLimit4" resultType="com.test.first.mapper.dto.board.BoardInfoVO">
+		select * from board where member_id = #{member_id} order by board_num desc limit 4
+	</select> 
+	
+	<!-- 내가 쓴 게시글 목록 -->
+	<select id="postingByMe" resultType="com.test.first.mapper.dto.board.BoardInfoVO">
+		select * from board where member_id = #{member_id} order by board_num desc limit #{start}, #{end} 
+	</select> 
+	
+	<!-- 내가 쓴 게시글 목록 갯수 -->
+	<select id="postingCountByMe" resultType="int">
+		select count(*) from board where member_id = #{member_id}
+	</select> 
+   
     <!-- 조회수 증가처리용 -->
    <update id="increaseHits">
-      update board set hits=hits+1 where board_num=#{board_num};
+      update board set hits=hits+1 where board_num=#{board_num}
    </update>
    
     <!-- 채팅방 정보 수정시 -->
@@ -59,7 +74,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    
    <!-- 게시글 전체목록_모바일 -->
 	<select id="selectBoard_mo" resultType="com.test.first.mapper.dto.board.BoardInfoVO">
-		select * from board order by board_num, board_datetime desc;
+		select * from board order by board_num desc;
 	</select>
 
 	<!-- 게시글 검색 목록(전체)_모바일 -->
@@ -69,7 +84,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			     			 or member.member_name like concat('%',#{keyword},'%')
  							 or title like concat('%',#{keyword},'%') 
                              or contents like concat('%',#{keyword},'%') 
-        order by board_num, board_datetime desc;
+        order by board_num desc;
 	</select>
 
 	<!-- 게시글 검색 목록(사용자 id)_모바일 -->
@@ -92,7 +107,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 게시글 검색 목록(장소명)_모바일 -->
 	<select id="selectBoardLocation" resultType="com.test.first.mapper.dto.board.BoardInfoVO" parameterType="String">
-		select * from board where place_name like concat('%',#{keyword},'%') or location like concat('%',#{keyword},'%')) order by board_num, board_datetime desc
+		select * from board where place_name like concat('%',#{keyword},'%') or location like concat('%',#{keyword},'%')) order by board_num desc
 	</select>
    
    

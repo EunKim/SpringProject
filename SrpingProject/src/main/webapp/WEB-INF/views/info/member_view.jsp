@@ -5,7 +5,7 @@
 <head>
 <style type="text/css">
 .my_button {
-   background-color: #f44336;
+   background-color: #1f7870;
    color: white;
    padding: 7px 32px;
    width: 38%;
@@ -38,11 +38,11 @@ window.onload = function(){
    genderValue = document.getElementById('gender').value;
    
    if(genderValue == 'male'){
-      m.style.background = '#f44336';
+      m.style.background = '#1f7870';
       m.style.color = '#ffffff';
       m.style.border = '#ffffff';
    }else if(genderValue == 'female'){
-      f.style.background = '#f44336'
+      f.style.background = '#1f7870'
       f.style.color = '#ffffff';
       f.style.border = '#ffffff';
    }
@@ -90,8 +90,8 @@ $(document).ready(function(){
 <body>
    
    <%@ include file="../include/menu.jsp"%>
-   
-       <div align="center">
+
+   <div align="center">
       <form class="form-horizontal" style="width: 600px;" name="formUpdate" method="post">
          <fieldset>
             <legend align="left">INFO!</legend>
@@ -106,7 +106,7 @@ $(document).ready(function(){
             <div class="form-group" style="margin-bottom: 15px">
                <label class="control-label" for="inputPassword" style="float: left; width: 100px; margin-right: 20px;">비밀번호</label>
                <div style="width: 485px; float: left;">
-                  <input class="form-control" id="member_pw" name="member_pw" type="password"  value="${dto.member_pw}" readonly >
+                  <input class="form-control" id="member_pw" name="member_pw" type="password" value="${dto.member_pw}" readonly >
                </div>
             </div>
 
@@ -155,6 +155,5 @@ $(document).ready(function(){
          
       </form>
    </div>
-
 </body>
 </html>

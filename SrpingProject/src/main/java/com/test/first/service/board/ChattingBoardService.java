@@ -27,5 +27,14 @@ public interface ChattingBoardService {
 	
 	//채팅방 삭제처리
 	public void deleteChatting(int board_num);
+	
+	//내가 쓴 게시글 목록
+	public List<BoardInfoVO> postingByMe(String member_id, int start, int end);
+	
+	//내가 쓴 최신 게시글 5개
+	public List<BoardInfoVO> postingByMeLimit4(String member_id);
+	
+	//내가 쓴 게시글 갯수
+	public int postingCountByMe(String member_id);
 
 }

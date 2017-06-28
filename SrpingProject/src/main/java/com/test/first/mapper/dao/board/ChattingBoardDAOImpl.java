@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.swing.text.html.HTMLDocument.Iterator;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -34,14 +35,33 @@ public class ChattingBoardDAOImpl implements ChattingBoardDAO {
 		map.put("start", start);
 		map.put("end", end);
 		
-		System.out.println("start1 : " + start);
-		System.out.println("end1 : " + end);
-		System.out.println("search_option1 : " + search_option);
-		System.out.println("keyword1 : " + keyword);
 		System.out.println("sqlsession : " + sqlSession.selectList("chattingBoard.selectBoard",map));
 		
 		
 		return sqlSession.selectList("chattingBoard.selectBoard",map);
+	}
+	
+	//내가 쓴 최신 게시글 5개 뽑아내기 
+	public List<BoardInfoVO> postingByMeLimit4(String member_id){
+		
+		return sqlSession.selectList("chattingBoard.postingByMeLimit4",member_id);
+	}
+	
+	//내가 쓴 게시글 목록
+	public List<BoardInfoVO> postingByMe(String member_id, int start, int end){
+		Map<String,Object> map = new HashMap<String, Object>();
+		
+		map.put("member_id", member_id);
+		map.put("start", start);
+		map.put("end", end);
+		
+		return sqlSession.selectList("chattingBoard.postingByMe",map);
+	}
+	
+	//내가 쓴 게시글 총 갯수
+	public int postingCountByMe(String member_id){
+	
+		return sqlSession.selectOne("chattingBoard.postingCountByMe", member_id);
 	}
 	
 	//글 갯수 체크시 사용

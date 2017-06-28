@@ -55,16 +55,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update member set member_pw=#{member_pw} where member_id=#{member_id}
 	</update>
 	
-	
-	
-
 	<!--회원탈퇴_모바일 -->
 	<delete id="deleteMember_mo" parameterType="com.test.first.mapper.dto.member.MemberInfoVO">
 		delete from member where member_id=#{member_id}
-	</delete>
-	
-
-	
+	</delete>	
 </mapper>
 
 

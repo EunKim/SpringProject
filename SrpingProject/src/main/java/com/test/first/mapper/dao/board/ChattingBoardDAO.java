@@ -26,5 +26,13 @@ public interface ChattingBoardDAO {
 	
 	//채팅방 삭제처리
 	public void deleteChatting(int board_num);
-
+	
+	//내가 쓴 포스팅 최신글 5개
+	public List<BoardInfoVO> postingByMeLimit4(String member_id);
+	
+	//내가 쓴 게시글 총 수
+	public int postingCountByMe(String member_id);
+	
+	//내가 쓴 게시글 총 목록
+	public List<BoardInfoVO> postingByMe(String member_id, int start, int end);
 }

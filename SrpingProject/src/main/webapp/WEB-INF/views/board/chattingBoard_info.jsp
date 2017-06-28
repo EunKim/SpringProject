@@ -132,7 +132,7 @@
          
       </table>
       
-      <div class="center">
+      <div class="center" align="center">
       	<div class="pagination">
          		 <c:if test="${map.pager.curBlock > 1}">
          			<a href="javascript:list('1')"> << </a>

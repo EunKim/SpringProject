@@ -5,7 +5,7 @@
 <head>
 <style type="text/css">
 .my_button {
-   background-color: #f44336;
+   background-color: #1f7870;
    color: white;
    padding: 7px 32px;
    width: 38%;
@@ -146,7 +146,7 @@ $(document).ready(function(){
         }
         
       $("#male").toggleClass('button1', mtoggle = !mtoggle);
-      $("#gender").val('male'); 
+      $("#gender").val('남'); 
    });
    
    $("#female").click(function(){
@@ -155,7 +155,7 @@ $(document).ready(function(){
        }
       
        $("#female").toggleClass('button1', ftoggle = !ftoggle);
-       $("#gender").val('female');
+       $("#gender").val('여');
    });
    
    

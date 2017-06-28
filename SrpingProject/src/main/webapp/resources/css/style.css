@@ -8260,4 +8260,37 @@ a > img.fh5co-align-center {
   margin-right: auto;
 }
 
+.card {
+	border: 2px solid #C63A44;
+	background-color: white;
+	padding: 20px 15px 0px 50px;
+	width: 380px;
+	height: 320px;
+	border-radius: 7px;
+	float: left;
+}
+
+.material-icons {
+	vertical-align: -14%
+}
+
+.under {
+	padding: 5px 10px;
+	margin: 5px;
+	box-sizing: border-box;
+	border: none;
+	border-bottom: 1px solid #999;
+	color: #444444;
+}
+
+.mylabel {
+	padding: 5px 10px 5px;
+	margin: 5px;
+	box-sizing: border-box;
+	color: #777777;
+	width: 80px;
+	float: left;
+	padding-right: 6px;
+}
+
 /*# sourceMappingURL=style.css.map */

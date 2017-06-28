@@ -87,7 +87,7 @@
 var modal = document.getElementById('myModal');
 
 // Get the button that opens the modal
-//var login = document.getElementById("login");
+var login = document.getElementById("login");
 
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName('close')[0];
@@ -96,9 +96,9 @@ var pw = document.getElementById('member_pw');
 var fail = document.getElementById('login_fail');
 
 // When the user clicks the button, open the modal 
-/* login.onclick = function() {
+login.onclick = function() {
     modal.style.display = "block";
-} */
+}
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
@@ -121,10 +121,10 @@ window.onclick = function(event) {
 $(document).ready(function() {
 
    // Launch MODAL BOX if the Login Link is clicked
-   $("#login").click(function() {
+  /*  $("#login").click(function() {
       modal.style.display = "block";
    });
-   
+    */
    $("#newlogin").click(function (){
      location.href="${path}/member/newlogin.do";
    });

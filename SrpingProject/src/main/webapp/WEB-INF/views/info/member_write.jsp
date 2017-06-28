@@ -9,7 +9,7 @@
 <!-- 성별 박스 style효과 -->
 <style type="text/css">
 .my_button {
-   background-color: #f44336;
+   background-color: #1f7870;
    color: white;
    padding: 7px 32px;
    width: 240px;
@@ -52,7 +52,7 @@ function selGender(x) {
 
    if (x.id == 'male') {
       selGender.mtoggle = x.classList.toggle('button1');
-      input.value = 'male';
+      input.value = '남';
    //   m.innerHTML = selGender.mtoggle + " " + selGender.ftoggle;
 
       if (selGender.ftoggle == false) {
@@ -61,7 +61,7 @@ function selGender(x) {
 
    } else if (x.id == 'female') {
       selGender.ftoggle = x.classList.toggle('button1');
-      input.value = 'female';
+      input.value = '여';
    //   f.innerHTML = selGender.mtoggle + " " + selGender.ftoggle;
 
       if (selGender.mtoggle == false) {
