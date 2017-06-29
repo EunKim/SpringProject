@@ -74,7 +74,7 @@
                      <c:out value="${map.search_option=='all'?'selected':''}"/>>전체검색</option>
                   <option value="title"
                      <c:out value="${map.search_option=='botitle'?'selected':''}"/>>제목</option>
-                  <option value="member_id"
+                  <option value="member_name"
                      <c:out value="${map.search_option=='bouname'?'selected':''}"/>>이름</option>
                   <option value="place"
                      <c:out value="${map.search_option=='place'?'selected':''}"/>>장소명+주소</option>

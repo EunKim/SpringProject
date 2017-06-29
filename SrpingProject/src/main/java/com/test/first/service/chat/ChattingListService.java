@@ -1,6 +1,20 @@
 package com.test.first.service.chat;
 
+import java.util.List;
+
+import com.test.first.mapper.dto.board.BoardInfoVO;
+
 public interface ChattingListService {
+	
+	
+	//특정 id가 참여하고있는 채팅방의 갯수
+	public int countMeList(String chat_member_id);
+		
+	//특정 id가 참여하고 있는 채팅방의 정보들
+	public List<BoardInfoVO> infoMyChattingList(String chat_member_id);
+	
+	
+	
 	
 	//해당되는 방번호에 해당되는 멤버아이디를 가진 사람이 있는지 없는지 확인 (처음 입장 유무를 확인하기 위해)
 	public boolean confirmChatMember(int room_num, String chat_member_id);

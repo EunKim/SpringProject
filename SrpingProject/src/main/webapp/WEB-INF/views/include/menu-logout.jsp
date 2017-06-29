@@ -41,7 +41,10 @@
 								href="${path}/member/login.do"><span>로그인 <span
 										class="border"></span>
 								</span></a></li>
-							<li><a href="${path}/board/list.do"><span> 글 목록 <span class="border"></span></span></a></li>
+							<li><a href="${path}/board/list.do"><span>게시글<span class="border"></span></span></a></li>
+							 <li><a href="#" data-toggle="chat" data-collapse-slidebar="1"  id="main"> Chat
+                     		<span class="badge badge-success chat-notifications-badge" onclick="openNav()">${sessionScope.memberChatCount}</span>
+                     		</a></li>
 						</ul>
 					</div>
 				</div>

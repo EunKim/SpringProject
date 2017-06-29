@@ -40,7 +40,7 @@
                      <li id="loginconfirm"><a id="login"><span> 로그인
                               <span class="border"></span>
                         </span></a></li>
-                     <li><a href="${path}/board/list.do"><span> 글 목록 <span class="border"></span></span></a></li>
+                     <li><a href="${path}/board/list.do"><span>게시글<span class="border"></span></span></a></li>
                   </ul>
                </div>
             </div>

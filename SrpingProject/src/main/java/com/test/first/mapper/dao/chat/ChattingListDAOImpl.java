@@ -1,6 +1,7 @@
 package com.test.first.mapper.dao.chat;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -8,11 +9,29 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.test.first.mapper.dto.board.BoardInfoVO;
+
 @Repository
 public class ChattingListDAOImpl implements ChattingListDAO {
 
 	@Inject
 	SqlSession sqlSession;
+	
+	//특정 id가 참여하고있는 채팅방의 갯수
+	@Override
+	public int countMeList(String chat_member_id) {
+		return sqlSession.selectOne("chattingList.countMeList", chat_member_id);
+	}
+	
+	//특정 id가 참여하고 있는 채팅방의 정보들
+	@Override
+	public List<BoardInfoVO> infoMyChattingList(String chat_member_id) {
+		return sqlSession.selectList("chattingList.chatMeList", chat_member_id);
+	}
+	
+	
+	
+	
 	
 	//채팅방의 멤버인지 아닌지 유무를 확인
 	@Override
@@ -41,5 +60,6 @@ public class ChattingListDAOImpl implements ChattingListDAO {
 		sqlSession.insert("chattingList.insertList", map);
 		
 	}
+
 
 }
