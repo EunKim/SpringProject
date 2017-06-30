@@ -5,25 +5,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="chattingList">
 
-	<!-- 내가 참여 하고있는 채팅방 목록의 갯수 -->
-	<select id="countMeList" resultType="int">
-		select  count(*) from chat_member_v where chat_member_id = #{chat_member_id};
-	</select>
-	
 	<!-- 내가 참여 하고 있는 채팅방의  정보들 -->
 	<select id="chatMeList" resultType="com.test.first.mapper.dto.board.BoardInfoVO">
 		select board_v.* from board_v,chat_member_v where room_num = board_num and chat_member_id = #{chat_member_id};
 	</select>
 	
-	
-	
-	
 	<!-- 내가 참여 하고있는 채팅방의 인원수 -->
-	<select id="countListMember">
+	<select id="countListMember" resultType="int">
 		
 	</select>
+	
+	
+	
+	
 
-
+	<!-- 내가 참여 하고있는 채팅방 목록의 갯수 -->
+	<select id="countMeList" resultType="int">
+		select  count(*) from chat_member_v where chat_member_id = #{chat_member_id};
+	</select>
 
 	<!-- 채팅방 입장 시 -->
 	<insert id="insertList" >

@@ -37,6 +37,7 @@ public class ChattingListController {
 		
 		//특정 id가 참여 하고있는 글의 정보
 		List<BoardInfoVO> list = chattingListSerivce.infoMyChattingList(chat_member_id);
+		System.out.println(list.get(0).getBoard_num());
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);

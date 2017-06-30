@@ -44,7 +44,7 @@ public class ChattingBoardController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("board_num", board_num);
 		map.put("member_id", member_id);
-		mav.setViewName("board/chatpage");
+		mav.setViewName("board/chatting");
 		mav.addObject("map", map);
 		return mav;
 	}
