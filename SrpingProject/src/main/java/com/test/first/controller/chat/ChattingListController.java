@@ -26,14 +26,16 @@ public class ChattingListController {
 		return "board/chatting";
 	}
 	
+	
 	//채팅목록에 갯수 및 채팅목록을 가져옴
 	@RequestMapping("chattingList/me.do")
 	@ResponseBody
-	public Object confirmChatLsit(String chat_member_id){
+	public Object confirmChatLsit( String chat_member_id){
 		System.out.println(chat_member_id + "@@@@@");
 		
 		//id가 참여하고 있는 글의 갯수
-		int countMeList  = chattingListSerivce.countMeList(chat_member_id);
+		//int countMeList  = chattingListSerivce.countMeList(chat_member_id);
+		
 		
 		//특정 id가 참여 하고있는 글의 정보
 		List<BoardInfoVO> list = chattingListSerivce.infoMyChattingList(chat_member_id);
@@ -48,11 +50,19 @@ public class ChattingListController {
 		return map;
 	}
 	
+	//해당되는 방에 정보가 없으면 처음은 정보 입력
+	public void chatMeberInsert(int room_num, String chat_member_id){
+		System.out.println("여기여기" + chat_member_id);
+		chattingListSerivce.insertChatMember(room_num, chat_member_id);
+	}
 	
-	/*//해당되는 방에 존재하는 회원인지 아닌지 확인
+	
+	
+	//해당되는 방에 존재하는 회원인지 아닌지 확인
 	@RequestMapping("chattingMember/confirm.do")
 	@ResponseBody
 	public boolean chatMemberConfirm(int room_num, String chat_member_id){
+		System.out.println("$$$$$" +room_num + chat_member_id);
 		boolean result = chattingListSerivce.confirmChatMember(room_num, chat_member_id);
 		if(result == false){
 			chatMeberInsert(room_num,chat_member_id);
@@ -60,11 +70,32 @@ public class ChattingListController {
 		return result;
 	}
 	
-	//해당되는 방에 정보가 없으면 처음은 정보 입력
 	
-	public void chatMeberInsert(int room_num, String chat_member_id){
-		System.out.println("여기여기" + chat_member_id);
-		chattingListSerivce.insertChatMember(room_num, chat_member_id);
+	
+	
+	
+
+	/*@RequestMapping("chattingList/mesub.do")
+	@ResponseBody
+	public Object confirmChatLsitSub(String chat_member_id){
+		System.out.println(chat_member_id + "@@@@@");
+		
+		//id가 참여하고 있는 글의 갯수
+		//int countMeList  = chattingListSerivce.countMeList(chat_member_id);
+	
+		//특정 id가 참여 하고있는 글의 정보
+		List<BoardInfoVO> list = chattingListSerivce.infoMyChattingList(chat_member_id);
+		System.out.println(list.get(0).getBoard_num());
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		//map.put("countMeList", countMeList);
+		
+		System.out.println("@@@@@" + list);
+		
+		return map;
 	}*/
+	
+	
 
 }

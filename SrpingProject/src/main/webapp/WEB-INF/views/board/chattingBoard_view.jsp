@@ -17,6 +17,10 @@
 <script src="http://cdn.jsdelivr.net/webshim/1.12.4/polyfiller.js"></script>
 <script type="text/javascript">
    $(document).ready(function() {
+
+	   //    
+       
+	   
       //수정 버튼
       $("#btnWriteUpdate").click(function() {
          location.href = "${path}/board/updateBoard.do?board_num=${dto.board_num}";
@@ -33,9 +37,55 @@
 
       //채팅방 들어갈시
       $("#btnStartChat").click(function() {
-         location.href = "${path}/board/chatting.do?board_num=${dto.board_num}&member_id=${sessionScope.member_id}";
-      });
-
+         //location.href = "${path}/board/chatting.do?board_num=${dto.board_num}&member_id=${sessionScope.member_id}";
+           var room_num = ${dto.board_num};
+           /*alert(room_num); */
+          var chat_id = $('#test1').val();
+		  //alert(room_num + chat_id);
+       	   
+    	 $.ajax({
+    	      type : "post",
+    	      url: "${path}/chattingMember/confirm.do",  
+    	      data : "room_num="+room_num+"&chat_member_id="+chat_id,
+    	      success : function(message) {
+    	         if (message) // LOGIN OK?
+    	          { 
+    	      	   alert('존재');
+    	      	 	$("#hi").toggle();
+    	      	 	//$("#hi").toggle();
+    	          } else {
+    	          	alert('존재x');
+    	          	$("#hi").toggle();
+    	         	center();
+    	         	//test();
+    	         	
+    	           	  
+    	         }
+    	         
+    	      }
+    	
+    	   });
+    	 
+      }); 
+	
+      
+      function center(){
+  		alert('33333');
+  		
+  		messageRef.push().set({
+	 		  align : 0,
+			  board_num : $('#board_number').val(),
+			  message : $("#chatinputid").val(),
+	       	  member_id : $("#memberId").val(),
+	       	  member_name : $("#member_name").val(),
+	       	  time : firebase.database.ServerValue.TIMESTAMP
+	     });
+  	 	
+  	}
+      
+      function test(){
+    	  alert('22222');
+      }
 
    });
 </script>
@@ -43,6 +93,7 @@
 </head>
 <body>
    <%@ include file="../include/menu.jsp"%>
+   <%@ include file="../board/chatpage.jsp"%>
 
    <div align="center" style="margin-top: 30px;">
       <form class="form-horizontal" style="width: 600px;" method="post"
@@ -53,7 +104,9 @@
                <label class="control-label"
                   style="float: left; width: 100px; margin-right: 20px">제목</label>
                <div style="width: 500px; float: left; margin-right: 20px;">
-                  <input type="hidden" id=board_num name="board_num"
+               <input type="hidden" id=test1 name="test1" value="${sessionScope.member_id}">
+                <input type="hidden" id=test2 name="test2" value="">  
+                 <input type="hidden" id=board_num name="board_num"
                      value="${dto.board_num}"> <input class="form-control"
                      id="botitle" name="botitle" type="text" value="${dto.title}"
                      readonly>
@@ -151,8 +204,10 @@
             </c:if>
 
          </fieldset>
+        
       </form>
-
+		  
+		 
       <%-- <h2 style="text-align: center; color: blue;">${messageUpdate}</h2>
       <h2 style="text-align: center; color: red;">${messageDelete}</h2> --%>
 

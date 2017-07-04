@@ -269,7 +269,9 @@ html, body, #map-canvas {
 		$('#CheckAddress').click(function(){
 			//var str = $('#checkplace').val();
 			//alert(str);
-			opener.document.getElementById('location').value = document.getElementById('checkplace').value;
+			var str = document.getElementById('checkplace').value;
+			
+			opener.document.getElementById('location').value = str.substring(5,str.length);
 			window.close();
 		});
 	});

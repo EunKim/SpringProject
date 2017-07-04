@@ -68,71 +68,15 @@
 $(document).ready(function(){
 	
 	
-	var chat_member_id = $('#memberId').val();
+	
+	var chat_member_id = $('#member_id').val();
 	
 	$("#hi").hide();
 	
     $("#floatChat").click(function(){
     	$("#hi").toggle();
-    	$.ajax({
-            type :"post",
-            url	 :"${path}/chattingList/me.do",  
-            data :"chat_member_id="+chat_member_id,
-            success : function(map) {
-            	values = map.list;
-            	var chat='';
-            	var i = 1;
-            	var board_num = 0;
-            	
-            	
-            	$.each(values, function(index,value){
-            		chat += "<li class='person' id='board_num' data-chat='person";
-            		chat += value.board_num;
-            		chat += "' value='";
-            		chat += value.board_num;
-            		chat += "'><span class='name chatspan'>";
-            	 	chat += value.title;
-            	 	chat += "</span><span class='time chatspan'>";
-            		chat += value.tour_date;
-            		chat += "</span><span class='preview chatspan'>";
-            		chat += "</span></li>";
-            	});
-            	
-            	$('.people').html(chat);
-            
-            	
-            	
-            	$('.person').click(function(){
-            		//alert($(this).val());
-    				$('#board_number').val($(this).val());
-    				//firebase($(this).val());
-                 });
-            	 
-               //여기다 넣으면 되긴하나 실시간x 
-          		
-            	 $('.left1 .person').mousedown(function(){
-         		    if ($(this).hasClass('.active')) {
-         		        return false;
-         		    } else {
-         		        var findChat = $(this).attr('data-chat');	
-         		        var personName = $(this).find('.name').text();
-         		        $('.right1 .top2 .name').html(personName);
-         		        $('.chat').removeClass('active-chat');
-         		        $('.left1 .person').removeClass('active');
-         		        $(this).addClass('active');
-         		        $('.chat[data-chat = '+findChat+']').addClass('active-chat');
-         		    } 
-         	});
-            	 
-            }
-         });
-        return false;
-        
     	
     });
-    
-
-	
     
 	var config = {
 			apiKey: "AIzaSyBypmjVqTjRDUHHnys_lqrY1t8RGNtVs2Q",
@@ -170,7 +114,7 @@ $(document).ready(function(){
 			chatmessage += "</span></div>"
 		}
 		
-		if($("#memberId").val() == snapshot.val().member_id){
+		if($("#member_id").val() == snapshot.val().member_id){
 			chatmessage += "<div class='bubble me'>";
 			chatmessage += snapshot.val().member_name;
 			chatmessage += " : ";
@@ -206,7 +150,7 @@ $(document).ready(function(){
     				  align : 0,
     				  board_num :  $('#board_number').val(), 
     				  message : $("#chatinputid").val().trim(),
-    		       	  member_id : $("#memberId").val(),
+    		       	  member_id : $("#member_id").val(),
     		       	  member_name : $("#member_name").val(),
     		       	  time :firebase.database.ServerValue.TIMESTAMP
     		         });
@@ -226,7 +170,7 @@ $(document).ready(function(){
     			  align : 0,
     			  board_num : $('#board_number').val(),
     			  message : $("#chatinputid").val(),
-    	       	  member_id : $("#memberId").val(),
+    	       	  member_id : $("#member_id").val(),
     	       	  member_name : $("#member_name").val(),
     	       	  time : firebase.database.ServerValue.TIMESTAMP
     	         });
@@ -235,9 +179,60 @@ $(document).ready(function(){
     });
     
    
-    	
-
     
+    $.ajax({
+        type :"post",
+        url	 :"${path}/chattingList/mesub.do",  
+        data :"chat_member_id=" + chat_member_id,
+        success : function(map) {
+        	values = map.list;
+        	var chat='';
+        	var i = 1;
+        	var board_num = 0;
+        	
+        	
+        	$.each(values, function(index,value){
+        		chat += "<li class='person' id='board_num' data-chat='person";
+        		chat += value.board_num;
+        		chat += "' value='";
+        		chat += value.board_num;
+        		chat += "'><span class='name chatspan'>";
+        	 	chat += value.title;
+        	 	chat += "</span><span class='time chatspan'>";
+        		chat += value.tour_date;
+        		chat += "</span><span class='preview chatspan'>";
+        		chat += "</span></li>";
+        	});
+        	
+        	$('.people').html(chat);
+        
+        	
+        	
+        	$('.person').click(function(){
+        		//alert($(this).val());
+				$('#board_number').val($(this).val());
+				//firebase($(this).val());
+             });
+        	 
+           //여기다 넣으면 되긴하나 실시간x 
+      		
+        	 $('.left1 .person').mousedown(function(){
+     		    if ($(this).hasClass('.active')) {
+     		        return false;
+     		    } else {
+     		        var findChat = $(this).attr('data-chat');	
+     		        var personName = $(this).find('.name').text();
+     		        $('.right1 .top2 .name').html(personName);
+     		        $('.chat').removeClass('active-chat');
+     		        $('.left1 .person').removeClass('active');
+     		        $(this).addClass('active');
+     		        $('.chat[data-chat = '+findChat+']').addClass('active-chat');
+     		    } 
+     	});
+        	 
+        }
+     });
+    return false;
     
     
     
@@ -255,7 +250,7 @@ $(document).ready(function(){
         <div class="left1">
             <div class="top1">
                 <input type="text" class="chatinput"/>
-                <input type="hidden" id=memberId name="memberId" value="${sessionScope.member_id}">
+                <input type="hidden" id=member_id name="member_id" value="${sessionScope.member_id}">
                 <input type="hidden" id=member_name name="member_name" value="${sessionScope.member_name}">
                 <input type="hidden" id=board_number name="board_number" value="">
            		<input type="hidden" id=test name="test" value="">
