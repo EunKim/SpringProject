@@ -56,7 +56,7 @@
     	          } else {
     	          	alert('존재x');
     	          	$("#hi").toggle();
-    	         	center();
+    	          	test3();
     	         	//test();
     	         	
     	           	  
@@ -69,19 +69,7 @@
       }); 
 	
       
-      function center(){
-  		alert('33333');
-  		
-  		messageRef.push().set({
-	 		  align : 0,
-			  board_num : $('#board_number').val(),
-			  message : $("#chatinputid").val(),
-	       	  member_id : $("#memberId").val(),
-	       	  member_name : $("#member_name").val(),
-	       	  time : firebase.database.ServerValue.TIMESTAMP
-	     });
-  	 	
-  	}
+      
       
       function test(){
     	  alert('22222');

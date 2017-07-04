@@ -69,6 +69,7 @@ $(document).ready(function(){
 	
 	
 	var chat_member_id = $('#memberId').val();
+	var in_num = $('#board_number').val();
 	
 	$("#hi").hide();
 	
@@ -147,10 +148,10 @@ $(document).ready(function(){
 			//var re_num = $('#board_number').val();
 			//$('#test').val($('#board_number').val());
 			//var in_num = re_num;
+			alert(in_num);
 			var messageRef = firebase.database().ref('36');
 			var offsetRef = firebase.database().ref(".info/serverTimeOffset");
 			var estimatedServerTimeMs;
-
 		
 		
 		messageRef.on('value', function () {
@@ -195,6 +196,24 @@ $(document).ready(function(){
 		$('.chat').scrollTop($('.chat')[0].scrollHeight);
 		
 	});
+		
+	function center(){
+	  		alert('33333');
+	  		
+	  		messageRef.push().set({
+		 		  align : 0,
+				  board_num : $('#board_num').val(),
+				  message : $("#chatinputid").val(),
+		       	  member_id : $("#memberId").val(),
+		       	  member_name : $("#member_name").val(),
+		       	  time : firebase.database.ServerValue.TIMESTAMP
+		     });
+	  	 	
+	 }
+	
+	/* function test3(){
+		alert('되느냐 안되느냐');
+	} */
     
     //엔터키를 입력했을때 
     $("#chatinputid").on('keydown', function (event) {
@@ -233,13 +252,6 @@ $(document).ready(function(){
     		  $("#chatinputid").val('');
     	 } 
     });
-    
-   
-    	
-
-    
-    
-    
     
     	
 });
