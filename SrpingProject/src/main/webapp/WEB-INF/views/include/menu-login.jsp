@@ -11,7 +11,33 @@
    <div href="${path}/member/logout.do"  style="color: white;">로그아웃</div>
 </div> --%>
 
+<style>
 
+#fh5co-header{
+	background-color : #1f7870;
+}
+#fh5co-header > .navbar{
+	background-color : #1f7870;
+}
+
+.navbar-default{
+	border-color: #1f7870;
+}
+
+#fh5co-header .navbar-brand{
+	width: 300px;
+	height: 100px;
+	background-color: #1f7870; 
+
+}
+
+.navbar-header{
+
+	margin-left: -50px;
+	margin-top: -20px;
+}
+
+</style>
 
 <header id="fh5co-header" role="banner">
    <nav class="navbar navbar-default" role="navigation">
@@ -28,19 +54,19 @@
                   <a href="#"
                      class="js-fh5co-nav-toggle fh5co-nav-toggle visible-xs-block"
                      data-toggle="collapse" data-target="#fh5co-navbar"
-                     aria-expanded="false" aria-controls="navbar"><i></i></a> <a
-                     class="navbar-brand" href="${path}">Clean</a>
+                     aria-expanded="false" aria-controls="navbar"><i></i></a> 
+                     <a class="navbar-brand" href="${path}" style="background-image: url(${pageContext.request.contextPath}/resources/images/mainicon.png);" ></a>
                   </div>   
                <div id="fh5co-navbar" class="navbar-collapse collapse">
                   <ul class="nav navbar-nav navbar-right">
-                     <li class="active" ><a href="${path}" style="color:#C63A44;"><span>Home
+                     <li class="active" ><a href="${path}" style="color:#fff;"><span>Home
                               <span class="border"></span>
                         </span></a></li>
-                      <li><a href="${path}/member/newlogin.do"><span>회원가입 <span class="border"></span></span></a></li>
-                     <li id="loginconfirm"><a id="login"><span> 로그인
+                      <li><a href="${path}/member/newlogin.do" style="color:#fff;"><span>회원가입 <span class="border"></span></span></a></li>
+                     <li id="loginconfirm"><a id="login" style="color:#fff; cursor: pointer;"><span> 로그인
                               <span class="border"></span>
                         </span></a></li>
-                     <li><a href="${path}/board/list.do"><span>게시글<span class="border"></span></span></a></li>
+                     <li><a href="${path}/board/list.do" style="color:#fff;"><span>모임<span class="border"></span></span></a></li>
                   </ul>
                </div>
             </div>
@@ -60,7 +86,7 @@
             <legend style="color: #777777;"><span class="glyphicon glyphicon-lock"></span>LOGIN<span class="close"></span></legend>
             <div class="form-group">
                <div style="width: 290px; margin: 5px 0px -10px;">
-                  <input class="form-control" id="member_id" name="member_id" type="text" placeholder="아이디">
+                  <input class="form-control" id="member_id" name="member_id" type="text" autocomplete=off placeholder="아이디">
                </div>
             </div>
             <div class="form-group">
@@ -70,12 +96,12 @@
             </div>
             <div id="login_fail" style="float:left; margin: -20px 30px 5px; color: red;" ><!-- spanner --></div>
             <div class="form-group">
-               <div style="width: 290px; margin-top: 10px ">
-                  <input type="submit" class="form-control" style="background-color: #269489; color: #ffffff;" id="loginbtn" value = "로 그 인">
+               <div style="width: 290px; margin-top: 10px; ">
+                  <input type="submit" class="form-control" style="background-color: #269489; color: #ffffff;" id="loginbtn"  value = "로 그 인">
                </div>
             </div>
-            <div style="float: right; margin: -20px 30px 0px;" id="newlogin">회원가입</div><br/>
-            <div style="float: right; margin: -20px 30px 5px" onclick="">아이디/비밀번호 분실</div>
+            <div style="float: right; margin: -20px 30px 0px; cursor: pointer;" id="newlogin">회원가입</div><br/>
+            <div style="float: right; margin: -20px 30px 5px; cursor: pointer;" onclick="">아이디/비밀번호 분실</div>
          </fieldset>
       </form>
       </div>

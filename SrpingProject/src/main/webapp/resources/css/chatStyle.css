@@ -82,6 +82,7 @@
 .container1 .left1 .people .person {
   position: relative;
   width: 100%;
+  height:90px;	
   padding: 12px 10% 16px;
   cursor: pointer;
   background-color: #fff;
@@ -112,15 +113,26 @@
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: 600;
 }
+
+.container1 .left1 .people .person .delete {
+  font-size: 14px;
+  position: absolute;
+  right: 5%;
+  padding: 0 0 5px 5px;
+  color: #000000;
+}
+
 .container1 .left1 .people .person .time {
   font-size: 14px;
   position: absolute;
   top: 16px;
-  right: 10%;
+  right: 5%;
   padding: 0 0 5px 5px;
   color: #999;
   background-color: #fff;
 }
+
+
 .container1 .left1 .people .person .preview {
   font-size: 14px;
   display: inline-block;
@@ -162,6 +174,7 @@
 .container1 .right1 .top2 .chatspan {
   font-size: 15px;
   color: #999;
+  
 }
 .container1 .right1 .top2 .chatspan .name {
   color: #1a1a1a;
@@ -366,52 +379,11 @@
   background-repeat: no-repeat;
   background-position: center;
 }
-.container1 .right1 .bubble {
-  font-size: 16px;
-  position: relative;
-  display: inline-block;
-  clear: both;
-  margin-bottom: 8px;
-  padding: 13px 14px;
-  vertical-align: top;
-  border-radius: 5px;
-}
-.container1 .right1 .bubble:before {
-  position: absolute;
-  top: 19px;
-  display: block;
-  width: 8px;
-  height: 6px;
-  content: '\00a0';
-  -webkit-transform: rotate(29deg) skew(-35deg);
-          transform: rotate(29deg) skew(-35deg);
-}
-.container1 .right1 .bubble.you {
-  float: left;
-  color: #fff;
-  background-color: #5DC9BC;
-  -ms-flex-item-align: start;
-      align-self: flex-start;
-  -webkit-animation-name: slideFromLeft;
-  animation-name: slideFromLeft;
-}
-.container1 .right1 .bubble.you:before {
-  left: -3px;
-  background-color: #5DC9BC;
-}
-.container1 .right1 .bubble.me {
-  float: right !important;
-  color: #1a1a1a;
-  background-color: #eceff1;
-  -ms-flex-item-align: end;
-      align-self: flex-end;
-  -webkit-animation-name: slideFromRight;
-  animation-name: slideFromRight;
-}
-.container1 .right1 .bubble.me:before {
-  right: -3px;
-  background-color: #eceff1;
-}
+
+
+/* 공백 */
+
+
 .container1 .right1 .conversation-start {
   position: relative;
   width: 100%;

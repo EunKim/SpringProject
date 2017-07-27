@@ -29,12 +29,14 @@
 }
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>WITH BEA</title>
 <%@ include file="../include/header.jsp"%>
+
 <%
    request.setCharacterEncoding("UTF-8");
 %>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
+
 <script type="text/javascript">
 
 /* 성별 */
@@ -257,9 +259,10 @@ function checkBirth(x){
          var member_name =$("#member_name").val();
          var blank_pattern = /^\s+|\s+$/g;
          var blank_pattern2 = /[\s]/g;
+         var han = /[ㄱ-ㅎ가-힣]/g;
          
          //공백 처리
-         if(member_name == "" || member_name == " " || member_name==null || (blank_pattern.test(member_name) == true) || (blank_pattern.test(member_name) == true) ){
+         if(member_name == "" || member_name == " " || member_name==null || (blank_pattern.test(member_name) == true) || (blank_pattern.test(member_name) == true) || (han.test(member_name) != true) ){
             //alert('이름(닉네임)을 다시 작성해주세요.');
             document.getElementById('errorUname').innerHTML='* 이름(닉네임)을 다시 작성하세요.';
             $("#member_name").focus();
@@ -292,11 +295,12 @@ function checkBirth(x){
 <body>
    
    <%@ include file="../include/menu.jsp"%>
+   <%@ include file="../include/sessionSuccess.jsp"%>
    
      <div align="center">
       <form class="form-horizontal" style="width: 600px;" name="formwrite" method="post">
          <fieldset>
-            <legend align="left">JOIN!</legend>
+            <legend style="text-align: center;">회원가입</legend>
             <div class="form-group" style="margin-bottom: 15px">
                <label class="control-label" for="inputID" style="float: left; width: 100px; margin-right: 20px">아이디</label>
                <div style="width: 370px; float: left; margin-right: -10px;">
@@ -305,7 +309,7 @@ function checkBirth(x){
                      type="hidden" name="isCheckedId" id="isCheckedId" value="N">
                </div>
                <button class="btn btn-primary" type="button" id="btnConfirmId" style="padding: 12px 10px">중복 확인</button>   
-               <p id="errorUid" style="color: red; float:left; margin: 10px 120px -5px;"></p>
+               <p id="errorUid" style="color: red; float:left; margin: -1px 120px -2px;"></p>
             </div>
 
             <div class="form-group">
@@ -314,7 +318,7 @@ function checkBirth(x){
                   <input class="form-control" id="pw" name="member_pw" type="password"
                      placeholder="* 소문자나 숫자로 6자리~20자리 사이">
                </div>
-               <p id="errorUpw" style="color: red; float:left; margin: 10px 120px -5px;"></p>
+               <p id="errorUpw" style="color: red; float:left; margin: 15px 120px -15px;"></p>
             </div>
 
             <div class="form-group">
@@ -323,7 +327,7 @@ function checkBirth(x){
                   <input class="form-control" id="repw" name="repw" type="password"
                      placeholder="* 비밀번호를  재입력 해주세요">
                </div>
-               <p id="errorReUpw" style="color: red; float:left; margin: 10px 120px -5px;"></p>
+               <p id="errorReUpw" style="color: red; float:left; margin: 15px 120px -15px;"></p>
             </div>
 
             <div class="form-group" style="margin-bottom: 15px">
@@ -335,7 +339,7 @@ function checkBirth(x){
                </div>
                <button class="btn btn-primary" type="button" id="btnConfirmName"
                  style="padding: 12px 10px">중복 확인</button>
-               <p id="errorUname" style="color: red; float:left; margin: 10px 120px -5px;"></p>
+               <p id="errorUname" style="color: red; float:left; margin: 1px 120px -3px;"></p>
             </div>
 
             <div class="form-group">

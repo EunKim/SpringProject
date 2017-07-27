@@ -131,6 +131,7 @@ h1, h2, h3, h4, h5, h6 {
 	float: left;
 	width: 100%;
 	position:relative;
+	background-color : #1f7870;
 	
 	z-index: 99;
 	padding-bottom: .5em;
@@ -141,7 +142,7 @@ h1, h2, h3, h4, h5, h6 {
 		padding-left: 40px;
 		padding-right: 40px;
 		margin-bottom: 0;
-		background: $brand-white;
+		background: #1f7870;
 		font-size: 13px;
 		border: transparent;
 		@media screen and (max-width: $screen-xs) {
@@ -178,7 +179,6 @@ h1, h2, h3, h4, h5, h6 {
 		display: block;
 		padding-bottom: 1em;
 		font-family: $font-robotoslab;
-		background: $brand-primary;
 		color: $brand-white;
 	}
 }
@@ -200,6 +200,7 @@ h1, h2, h3, h4, h5, h6 {
 .fh5co-intro {
 
 	padding: 7em 0;
+	height: 500px;
 	@media screen and (max-width: $screen-sm) {
 		padding: 4em 0;
 	}
@@ -241,7 +242,8 @@ h1, h2, h3, h4, h5, h6 {
 			display: block;
 		}
 		.fh5co-portfolio-description,
-		.fh5co-portfolio-figure {
+		.fh5co-portfolio-figure, 
+		.fh5co-portfolio-figure2{
 			width: 50%;
 			@media screen and (max-width: $screen-sm) {
 				display: block;
@@ -249,6 +251,16 @@ h1, h2, h3, h4, h5, h6 {
 			}
 		}
 		.fh5co-portfolio-figure {
+			background-repeat: no-repeat;
+			background-size: cover;
+			background-position: center center;
+			overflow: hidden;
+			@media screen and (max-width: $screen-sm) {
+				height: 400px;
+			}
+		}
+		
+		.fh5co-portfolio-figure2 {
 			background-repeat: no-repeat;
 			background-size: cover;
 			background-position: center center;

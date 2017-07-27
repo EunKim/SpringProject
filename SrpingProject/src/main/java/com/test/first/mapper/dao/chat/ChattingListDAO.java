@@ -12,6 +12,11 @@ public interface ChattingListDAO {
 	//특정 id가 참여하고 있는 채팅방의 정보들
 	public List<BoardInfoVO> infoMyChattingList(String chat_member_id);
 	
+	//내가 입장한 시간에 대한 정보만 가지고 나올때
+	public long insertTime(int room_num, String chat_member_id);
+	
+	//채팅방에서 나가기 클릭했을시
+	public void deleteChatList(int room_num, String chat_member_id);
 	
 	
 	

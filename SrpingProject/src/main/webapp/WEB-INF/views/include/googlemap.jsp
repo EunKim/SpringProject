@@ -28,7 +28,7 @@ html, body, #map-canvas {
 	async defer></script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>WITH BEA</title>
 </head>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
 <script type="text/javascript">
@@ -42,7 +42,8 @@ html, body, #map-canvas {
 
 		autocomplete = new google.maps.places.Autocomplete((document
 				.getElementById('autocomplete')), {
-			types : [ 'geocode' ]
+			types : [ 'geocode' ],
+			componentRestrictions : {country:'KR'}
 			
 		});
 
@@ -82,17 +83,20 @@ html, body, #map-canvas {
         }
       }
 
+     
+     
+      
 	//지도를 기본적으로 생성 해주고, 안에 여러개의 기본으로 찍어줄 지역을 배열로 담아 놓음
 	function initialize() {
 		var mapOptions = {
-			zoom : 15,
+			zoom : 16,
 			center : new google.maps.LatLng(37.497985, 127.027664), //서울
 			mapTypeId : google.maps.MapTypeId.ROADMAP
 		};
 		map = new google.maps.Map(document.getElementById('map-canvas'),
 				mapOptions);
 		
-		var addressList = new Array('전주', '대구', '광주', '부산', '포항', '강릉', '강남역');
+		var addressList = new Array('서울특별시 서초구 서초대로74길 33');
 		for ( var j in addressList) {
 			codeAddress(addressList[j]);
 		}
@@ -107,6 +111,7 @@ html, body, #map-canvas {
 		
 	}
 
+	
 	//여러 지역 기본으로 찍었을때
 	function codeAddress(address) {
 		geocoder = new google.maps.Geocoder();

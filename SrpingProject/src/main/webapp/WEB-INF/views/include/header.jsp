@@ -6,6 +6,26 @@
 <!-- 컨텍스트 경로 -->
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+<script language="javascript">
+//not event f5  event.clientY < 0
+//event.altKey When press Alt +F4 
+//event.ctrlKey When press Ctrl +F4 
+//event.clientY 107 or 129 is  Alt F4 postion on window screen it may change base on screen resolution 
+ $(window).bind('beforeunload', function() {
+    if ((event.clientY < 0) ||(event.altKey) ||(event.ctrlKey)||((event.clientY < 129) && (event.clientY>107))) { 
+   $.ajax({
+    url : "${path}/member/logout.do"  //스프링시큐리티 에서 적용시켜놓은 custom logout url
+   }); 
+        }
+ }); 
+</script>
+
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.ico" type="image/x-icon">
+<link rel="icon" href="${pageContext.request.contextPath}/resources/images/favicon.ico" type="image/x-icon">
+
+
+
 <link rel="stylesheet"
    href="${pageContext.request.contextPath}/resources/Bootstrap/bootstrap.css"
    type="text/css">
@@ -95,6 +115,8 @@
 <script src="login-register.js" type="text/javascript"></script>
 
 <%-- <script src="${pageContext.request.contextPath}/resources/js/jquery.js"></script> --%>
+
+
 
 
 

@@ -25,7 +25,7 @@
 }
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>WITH BEA</title>
 <%@ include file="../include/header.jsp"%>
 <%
    request.setCharacterEncoding("UTF-8");
@@ -177,7 +177,7 @@ $(document).ready(function(){
       <form class="form-horizontal" style="width: 600px;" name="formUpdate"
          method="post">
          <fieldset>
-            <legend align="left">수정창!</legend>
+            <legend style="text-align: center;">회원정보 수정</legend>
 
             <div class="form-group" style="margin-bottom: 15px">
                <label class="control-label" for="inputID"

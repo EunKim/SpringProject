@@ -35,7 +35,7 @@
 }
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>WITH BEA</title>
 <%@ include file="../include/header.jsp"%>
 <%
    request.setCharacterEncoding("UTF-8");
@@ -60,9 +60,9 @@
 
 <body>
    <%@ include file="../include/menu.jsp"%>
-
+	
      <div style="width: 1000px; margin-left: 23%; margin-top: 60px">
-      <h4 class="control-label" align="left">글 목록</h4>
+      <h4 class="control-label" align="left">모임 목록</h4>
       <div>
          <!-- 검색 폼 -->
          <form class="form-horizontal" name="formSearch" method="post"
@@ -94,7 +94,7 @@
          <tr style= "background-color:#8DC9BB; color: #000000;">
             <!-- <th>글 번호</th> -->
             <th width="8%" style="text-align: center;">글번호</th>
-            <th width="60%" style="text-align: center;">제  목</th>
+            <th width="60%" style="text-align: center;">모 임 제  목</th>
             <!-- <th>만날 날짜</th> -->
             <!-- <th>만날 시간</th> -->
             <!-- <th>만날 장소</th> -->
@@ -131,7 +131,7 @@
          </c:forEach>
          
       </table>
-      
+       
       <div class="center" align="center">
       	<div class="pagination">
          		 <c:if test="${map.pager.curBlock > 1}">
@@ -162,6 +162,8 @@
          		</c:if>  
          		</div>
   		 </div>
+  		 
+  		 <%@ include file="../board/otherchatpage.jsp"%>
 	</div>
 </body>
 </html>

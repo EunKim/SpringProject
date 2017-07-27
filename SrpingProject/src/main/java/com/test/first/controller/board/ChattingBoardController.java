@@ -98,6 +98,7 @@ public class ChattingBoardController {
 		// 조회수 증가처리
 		chattingBoardService.increaseViewcnt(board_num);
 
+		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("board/chattingBoard_view");
 		mav.addObject("dto", chattingBoardService.viewInfo(board_num));

@@ -29,7 +29,27 @@ public class ChattingListDAOImpl implements ChattingListDAO {
 		return sqlSession.selectList("chattingList.chatMeList", chat_member_id);
 	}
 	
+	//특정방의 나의 입장시간을 가지고 나올떄
+	@Override
+	public long insertTime(int room_num, String chat_member_id) {
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("room_num", room_num);
+		map.put("chat_member_id", chat_member_id);
+		
+		return sqlSession.selectOne("chattingList.insertTime", map);
+	}
 	
+	//채팅방 나가기 클릭시 삭제 처리
+	@Override
+	public void deleteChatList(int room_num, String chat_member_id) {
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("room_num", room_num);
+		map.put("chat_member_id", chat_member_id);
+		
+		sqlSession.delete("chattingList.deleteList", map);
+	}
 	
 	
 	
@@ -60,6 +80,10 @@ public class ChattingListDAOImpl implements ChattingListDAO {
 		sqlSession.insert("chattingList.insertList", map);
 		
 	}
+
+	
+
+	
 
 
 }

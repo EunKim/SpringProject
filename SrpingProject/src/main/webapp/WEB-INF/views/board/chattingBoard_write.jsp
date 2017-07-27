@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>WITH BEA</title>
 <link href="${pageContext.request.contextPath}/resources/css/jquery-ui-1.10.0.custom.css" rel="stylesheet" type="text/css">
 <%@ include file="../include/header.jsp"%>
 <%@ include file="../include/sessionCheck.jsp"%>
@@ -123,7 +123,7 @@ $(document).ready(function(){
          style="width: 600px;" method="post">
 
          <fieldset>
-            <legend style="float: left;">Write</legend>
+            <legend style="float: left;">모임 글 쓰기</legend>
             <div class="form-group" style="margin-bottom: 15px">
                <label class="control-label"
                   style="float: left; width: 100px; margin-right: 20px">제목</label>
@@ -208,11 +208,11 @@ $(document).ready(function(){
 
          </fieldset>
       </form>
-
+	
       <%-- <h2 style="text-align: center; color: blue;">${messageUpdate}</h2>
       <h2 style="text-align: center; color: red;">${messageDelete}</h2> --%>
 
    </div>
-
+	
 </body>
 </html>

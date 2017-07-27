@@ -31,7 +31,6 @@ public class ChattingListController {
 	@RequestMapping("chattingList/me.do")
 	@ResponseBody
 	public Object confirmChatLsit( String chat_member_id){
-		System.out.println(chat_member_id + "@@@@@");
 		
 		//id가 참여하고 있는 글의 갯수
 		//int countMeList  = chattingListSerivce.countMeList(chat_member_id);
@@ -45,29 +44,50 @@ public class ChattingListController {
 		map.put("list", list);
 		//map.put("countMeList", countMeList);
 		
-		System.out.println("@@@@@" + list);
 		
 		return map;
 	}
 	
 	//해당되는 방에 정보가 없으면 처음은 정보 입력
 	public void chatMeberInsert(int room_num, String chat_member_id){
-		System.out.println("여기여기" + chat_member_id);
 		chattingListSerivce.insertChatMember(room_num, chat_member_id);
 	}
-	
 	
 	
 	//해당되는 방에 존재하는 회원인지 아닌지 확인
 	@RequestMapping("chattingMember/confirm.do")
 	@ResponseBody
 	public boolean chatMemberConfirm(int room_num, String chat_member_id){
-		System.out.println("$$$$$" +room_num + chat_member_id);
+		
 		boolean result = chattingListSerivce.confirmChatMember(room_num, chat_member_id);
 		if(result == false){
 			chatMeberInsert(room_num,chat_member_id);
 		}
 		return result;
+	}
+	
+	
+	//방번호를 클릭할때마다 실시간으로 다시 돌려주는 컨트롤러
+	@RequestMapping("chattingList/room_number.do")
+	@ResponseBody
+	public Object returnroomNumber(int board_number, String chat_member_id){
+		
+		Long insertTime = chattingListSerivce.insertTime(board_number, chat_member_id);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("board_number", board_number);
+		map.put("insertTime", insertTime);
+		
+		return map;
+		
+		
+	}
+	
+	//채팅방 나가기 처리
+	@RequestMapping("chattingList/deleteChat.do")
+	public String deleteChatList(int board_number, String chat_member_id){
+		chattingListSerivce.deleteChatList(board_number, chat_member_id);
+		return "redirect:/member/main.do";
 	}
 	
 	
@@ -80,10 +100,10 @@ public class ChattingListController {
 	public Object confirmChatLsitSub(String chat_member_id){
 		System.out.println(chat_member_id + "@@@@@");
 		
-		//id가 참여하고 있는 글의 갯수
+		//id媛� 李몄뿬�븯怨� �엳�뒗 湲��쓽 媛��닔
 		//int countMeList  = chattingListSerivce.countMeList(chat_member_id);
 	
-		//특정 id가 참여 하고있는 글의 정보
+		//�듅�젙 id媛� 李몄뿬 �븯怨좎엳�뒗 湲��쓽 �젙蹂�
 		List<BoardInfoVO> list = chattingListSerivce.infoMyChattingList(chat_member_id);
 		System.out.println(list.get(0).getBoard_num());
 		

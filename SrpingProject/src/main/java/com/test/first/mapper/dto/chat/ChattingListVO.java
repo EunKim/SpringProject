@@ -4,6 +4,7 @@ public class ChattingListVO {
 	
 	private int room_num;
 	private String chat_member_id;
+	private String chat_member_name;
 	private int enter_time;
 	
 	public int getRoom_num() {
@@ -23,6 +24,12 @@ public class ChattingListVO {
 	}
 	public void setEnter_time(int enter_time) {
 		this.enter_time = enter_time;
+	}
+	public String getChat_member_name() {
+		return chat_member_name;
+	}
+	public void setChat_member_name(String chat_member_name) {
+		this.chat_member_name = chat_member_name;
 	}
 	
 	

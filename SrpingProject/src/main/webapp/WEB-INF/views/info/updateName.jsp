@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>WITH BEA</title>
 <%@ include file="../include/header.jsp"%>
 <%request.setCharacterEncoding("UTF-8"); %>
 </head>
@@ -17,9 +17,10 @@ $(document).ready(function(){
        var member_name =$("#member_name").val();
          var blank_pattern = /^\s+|\s+$/g;
          var blank_pattern2 = /[\s]/g;
+         var han = /[ㄱ-ㅎ가-힣]/g;
          
          //공백 처리
-         if(member_name == "" || member_name==null || (blank_pattern.test(member_name) == true) || (blank_pattern.test(member_name) == true) ){
+         if(member_name == "" || member_name==null || (blank_pattern.test(member_name) == true) || (blank_pattern.test(member_name) == true)  || (han.test(member_name) != true ){
             alert('이름(닉네임)을 다시 작성해주세요.');
             //document.getElementById('errorUname').innerHTML='* 이름(닉네임)을 다시 작성하세요.';
             $("#member_name").focus();

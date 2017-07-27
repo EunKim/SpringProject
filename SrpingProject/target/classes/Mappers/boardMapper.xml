@@ -71,47 +71,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    </delete>
    
    
-   
-   <!-- 게시글 전체목록_모바일 -->
-	<select id="selectBoard_mo" resultType="com.test.first.mapper.dto.board.BoardInfoVO">
-		select * from board order by board_num desc;
-	</select>
-
-	<!-- 게시글 검색 목록(전체)_모바일 -->
-	<select id="selectBoardAll" resultType="com.test.first.mapper.dto.board.BoardInfoVO">
-		select * from board, member 
-		where member.member_id = board.member_id and (member_id like concat('%',#{keyword},'%') 
-			     			 or member.member_name like concat('%',#{keyword},'%')
- 							 or title like concat('%',#{keyword},'%') 
-                             or contents like concat('%',#{keyword},'%') 
-        order by board_num desc;
-	</select>
-
-	<!-- 게시글 검색 목록(사용자 id)_모바일 -->
-	<select id="selectBoardId_mo" resultType="com.test.first.mapper.dto.board.BoardInfoVO">
-		select * from board where member_id like concat('%',#{keyword},'%') limit #{start}, #{end}
-	</select>
-
-
-	<!-- 게시글 검색 목록(제목)_모바일 -->
-	<select id="selectBoardTitle" resultType="com.test.first.mapper.dto.board.BoardInfoVO" parameterType="String">
-  		select * from board where title like concat('%',#{keyword},'%')
-	</select>
-
-
-	<!-- 게시글 검색 목록(사용자 이름)_모바일 -->
-	<select id="selectBoardName" resultType="com.test.first.mapper.dto.board.BoardInfoVO" parameterType="String">
-		select member_name * from board, member where member.member_id = board and member.member_name like concat('%',#{keyword},'%')
-	</select>
-
-
-	<!-- 게시글 검색 목록(장소명)_모바일 -->
-	<select id="selectBoardLocation" resultType="com.test.first.mapper.dto.board.BoardInfoVO" parameterType="String">
-		select * from board where place_name like concat('%',#{keyword},'%') or location like concat('%',#{keyword},'%')) order by board_num desc
-	</select>
-   
-   
-   
    <!-- 동적 sql : 바뀌는 부분이 아님으로 고정으로 처리 -->
    
    <sql id="search">

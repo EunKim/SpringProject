@@ -69,7 +69,7 @@ $(document).ready(function(){
 	
 	
 	var chat_member_id = $('#memberId').val();
-	var in_num = $('#board_number').val();
+	
 	
 	$("#hi").hide();
 	
@@ -132,89 +132,6 @@ $(document).ready(function(){
     	
     });
     
-
-	
-    
-	var config = {
-			apiKey: "AIzaSyBypmjVqTjRDUHHnys_lqrY1t8RGNtVs2Q",
-		    authDomain: "btest8-a7c48.firebaseapp.com",
-		    databaseURL: "https://btest8-a7c48.firebaseio.com",
-		    projectId: "btest8-a7c48",
-		    storageBucket: "btest8-a7c48.appspot.com",
-		    messagingSenderId: "984348937282"
-			};
-			firebase.initializeApp(config); 
-			
-			//var re_num = $('#board_number').val();
-			//$('#test').val($('#board_number').val());
-			//var in_num = re_num;
-			alert(in_num);
-			var messageRef = firebase.database().ref('36');
-			var offsetRef = firebase.database().ref(".info/serverTimeOffset");
-			var estimatedServerTimeMs;
-		
-		
-		messageRef.on('value', function () {
-			alert(88888);
-		  	 var chatin = '';
-		  	 var chatmessage = '';
-		  	 chatin += "<div class='chat' style='position:relative; overflow: scroll;' data-chat='person";
-			 chatin += 36;
-			 chatin += "'>";	
-		messageRef.on('child_added', function (snapshot) {
-		//alert(5555);
-
-		if(snapshot.val().message == ""){
-			chatmessage += "<div class='conversation-start'><span class='chatspan'>";
-			chatmessage += snapshot.val().member_name;
-			chatmessage += "님 입장 ";
-			chatmessage += "</span></div>"
-		}
-		
-		if($("#memberId").val() == snapshot.val().member_id){
-			chatmessage += "<div class='bubble me'>";
-			chatmessage += snapshot.val().member_name;
-			chatmessage += " : ";
-			chatmessage += snapshot.val().message;
-			chatmessage += "</div>"; 
-		}else{
-			chatmessage += "<div class='bubble you'>";
-			chatmessage += snapshot.val().member_name;
-			chatmessage += " : ";
-			chatmessage += snapshot.val().message;
-			chatmessage += "</div>";
-	 	 }
-		
-		
-		
-	});
-		chatin += "</div>";
-		
-		$('.ins').html(chatin);
-		$('.chat').html(chatmessage);
-		// 스크롤을 마지막으로 내려줌
-		$('.chat').scrollTop($('.chat')[0].scrollHeight);
-		
-	});
-		
-	function center(){
-	  		alert('33333');
-	  		
-	  		messageRef.push().set({
-		 		  align : 0,
-				  board_num : $('#board_num').val(),
-				  message : $("#chatinputid").val(),
-		       	  member_id : $("#memberId").val(),
-		       	  member_name : $("#member_name").val(),
-		       	  time : firebase.database.ServerValue.TIMESTAMP
-		     });
-	  	 	
-	 }
-	
-	/* function test3(){
-		alert('되느냐 안되느냐');
-	} */
-    
     //엔터키를 입력했을때 
     $("#chatinputid").on('keydown', function (event) {
     	  if (event.keyCode == 13) {
@@ -269,7 +186,8 @@ $(document).ready(function(){
                 <input type="text" class="chatinput"/>
                 <input type="hidden" id=memberId name="memberId" value="${sessionScope.member_id}">
                 <input type="hidden" id=member_name name="member_name" value="${sessionScope.member_name}">
-                <input type="hidden" id=board_number name="board_number" value="">
+                <input type="hidden" id=insert_name name="insert_name" value="────────${sessionScope.member_name}님 입장 ────────">
+                <input type="hidden" id=board_number name="board_number" value="${dto.board_num}">
            		<input type="hidden" id=test name="test" value="">
                 <a href="javascript:;" class="search"></a>
             </div>
@@ -301,9 +219,80 @@ $(document).ready(function(){
 
 <script>
 
+var config = {
+		apiKey: "AIzaSyBypmjVqTjRDUHHnys_lqrY1t8RGNtVs2Q",
+	    authDomain: "btest8-a7c48.firebaseapp.com",
+	    databaseURL: "https://btest8-a7c48.firebaseio.com",
+	    projectId: "btest8-a7c48",
+	    storageBucket: "btest8-a7c48.appspot.com",
+	    messagingSenderId: "984348937282"
+		};
+		firebase.initializeApp(config); 
+		
+		var in_num = $('#board_number').val();
+		//alert($('#board_number').val());
+		var messageRef = firebase.database().ref(in_num);
+		var offsetRef = firebase.database().ref(".info/serverTimeOffset");
+		var estimatedServerTimeMs;
+	
+	
+	messageRef.on('value', function () {
+		alert(88888);
+		 var chatin = '';
+	  	 var chatmessage = '';
+	  	 chatin += "<div class='chat' style='position:relative; overflow: scroll;' data-chat='person";
+		 chatin += $('#board_number').val();
+		 chatin += "'>";	
+	messageRef.on('child_added', function (snapshot) {
+	//alert(5555);
 
+	if(snapshot.val().member_id == "info"){
+		chatmessage += "<div class='conversation-start'><span class='chatspan'>";
+		chatmessage += snapshot.val().member_name;
+		chatmessage += "</span></div>"
+	}else{
+		if($("#memberId").val() == snapshot.val().member_id){
+			chatmessage += "<div class='bubble me'>";
+			chatmessage += snapshot.val().member_name;
+			chatmessage += " : ";
+			chatmessage += snapshot.val().message;
+			chatmessage += "</div>"; 
+		}else{
+			chatmessage += "<div class='bubble you'>";
+			chatmessage += snapshot.val().member_name;
+			chatmessage += " : ";
+			chatmessage += snapshot.val().message;
+			chatmessage += "</div>";
+	 	 }
+	}
+	
+	
+	
+	
+	
+});
+	chatin += "</div>";
+	
+	$('.ins').html(chatin);
+	$('.chat').html(chatmessage);
+	// 스크롤을 마지막으로 내려줌
+	$('.chat').scrollTop($('.chat')[0].scrollHeight);
+	
+});
 
-
+function center(){
+		alert('33333');
+		
+		messageRef.push().set({
+ 		  align : 2,
+		  board_num : $("#board_number").val(),
+		  message : $("#chatinputid").val(),
+       	  member_id : "info",
+       	  member_name : $("#insert_name").val(),
+       	  time : firebase.database.ServerValue.TIMESTAMP
+     });
+	 	
+}
 			 
 			
 			 

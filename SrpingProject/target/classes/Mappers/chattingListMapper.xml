@@ -10,11 +10,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select board_v.* from board_v,chat_member_v where room_num = board_num and chat_member_id = #{chat_member_id};
 	</select>
 	
-	<!-- 내가 참여 하고있는 채팅방의 인원수 -->
-	<select id="countListMember" resultType="int">
-		
+	<!-- 내가 입장한 시간 -->
+	<select id="insertTime" resultType="long">
+		select enter_time from chat_member where chat_member_id = #{chat_member_id} and room_num = #{room_num};
 	</select>
 	
+	<!-- 채팅방 나가기 -->
+	<delete id="deleteList" parameterType="com.test.first.mapper.dto.chat.ChattingListVO">
+		delete from chat_member
+		where
+		chat_member_id = #{chat_member_id} and room_num=#{room_num}
+	</delete>
 	
 	
 	
@@ -43,12 +49,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		chat_member where room_num=#{room_num} and chat_member_id=#{chat_member_id}
 	</select>
 
-	<!-- 채팅방 나가기 -->
-	<delete id="deleteList" parameterType="com.test.first.mapper.dto.chat.ChattingListVO">
-		delete from chat_member
-		where
-		member_id=#{member_id} and room_num=#{room_num}
-	</delete>
+	
 	
 	<!--채팅방 별 참여 멤버 리스트(아이디와 이름)출력
 select chat_member_id, member_name 

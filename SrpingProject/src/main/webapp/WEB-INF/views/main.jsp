@@ -7,8 +7,28 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Insert title here</title>
+<title>WITH BEA</title>
+<style type="text/css">
+.phhoto1{
+	width:50%;
+	border-radius: 10px;
+	
+}
 
+.fh5co-intro{
+	margin-top: -65px;
+	height: 700px;
+}
+
+#fh5co-portfolio{
+	background-color: #e6e5e5;
+}
+
+#fh5co-portfolio .fh5co-portfolio-item .fh5co-portfolio-figure{
+
+	border-radius: 10px;
+}
+</style>
 </head>
 <body>
    <%@ include file="include/menu.jsp"%>
@@ -27,80 +47,37 @@
 </script>
    </c:if>
       <div id="fh5co-main">
-      <div class="fh5co-intro text-center">
-         <div class="container">
-            <div class="row">
-               <div class="col-md-8 col-md-offset-2">
-                  <h1 class="intro-lead">Make something you love</h1>
-                  <p class="">
-                     100% Free HTML5 Template by <a href="http://freehtml5.co/"
-                        target="_blank">FREEHTML5.co</a>
-                  </p>
-               </div>
-            </div>
-         </div>
+      <div class="fh5co-intro text-center" style="background-image: url(${pageContext.request.contextPath}/resources/images/mainimage.png);">
+        
       </div>
    <div id="fh5co-portfolio">
-      <div class="fh5co-portfolio-item ">
+      <div class="fh5co-portfolio-item" style="height: 485px;">
          <div class="fh5co-portfolio-figure animate-box"
-            style="background-image: url(${pageContext.request.contextPath}/resources/images/work_1.jpg);"></div>
-         <div class="fh5co-portfolio-description">
-            <h2>Project First</h2>
-            <p>Far far away, behind the word mountains, far from the
-               countries Vokalia and Consonantia, there live the blind texts.
-               Separated they live in Bookmarksgrove right at the coast of the
-               Semantics, a large language ocean. A small river named Duden flows
-               by their place and supplies it with the necessary regelialia.</p>
-            <p>
-               <a href="#" class="btn btn-primary">Read the casetudy</a>
-            </p>
-         </div>
+            style="background-image: url(${pageContext.request.contextPath}/resources/images/mypageimage.png); margin-right: 5px;"></div>
+         <div class="phhoto1 animate-box"  style="background-image: url(${pageContext.request.contextPath}/resources/images/moim.png);" > </div>
       </div>
-      <div class="fh5co-portfolio-item fh5co-img-right">
+      
+      
+      <div class="fh5co-portfolio-item fh5co-img-right" style="height: 485px; margin-top: 40px;">
          <div class="fh5co-portfolio-figure animate-box"
-            style="background-image: url(${pageContext.request.contextPath}/resources/images/work_2.jpg);"></div>
-         <div class="fh5co-portfolio-description">
-            <h2>Project Second</h2>
-            <p>Far far away, behind the word mountains, far from the
-               countries Vokalia and Consonantia, there live the blind texts.
-               Separated they live in Bookmarksgrove right at the coast of the
-               Semantics, a large language ocean. A small river named Duden flows
-               by their place and supplies it with the necessary regelialia.</p>
-            <p>
-               <a href="#" class="btn btn-primary">Read the casetudy</a>
-            </p>
-         </div>
+            style="background-image: url(${pageContext.request.contextPath}/resources/images/chatinfo.png); margin-right: -3px;"></div>
+            <div class="phhoto1 animate-box"  style="background-image: url(${pageContext.request.contextPath}/resources/images/chatimage.png); margin-left: -2px;" > </div>
       </div>
-      <div class="fh5co-portfolio-item ">
+      
+      
+      <div class="fh5co-portfolio-item " style="height: 485px; margin-top: 40px;">
          <div class="fh5co-portfolio-figure animate-box"
-            style="background-image: url(${pageContext.request.contextPath}/resources/images/work_3.jpg);"></div>
-         <div class="fh5co-portfolio-description">
-            <h2>Project Third</h2>
-            <p>Far far away, behind the word mountains, far from the
-               countries Vokalia and Consonantia, there live the blind texts.
-               Separated they live in Bookmarksgrove right at the coast of the
-               Semantics, a large language ocean. A small river named Duden flows
-               by their place and supplies it with the necessary regelialia.</p>
-            <p>
-               <a href="#" class="btn btn-primary">Read the casetudy</a>
-            </p>
-         </div>
+            style="background-image: url(${pageContext.request.contextPath}/resources/images/beaconinfo.png); margin-right: 5px;"></div>
+          <div class="phhoto1 animate-box"  style="background-image: url(${pageContext.request.contextPath}/resources/images/map.png);" > </div>
       </div>
-      <div class="fh5co-portfolio-item fh5co-img-right">
+      
+      
+       <div class="fh5co-portfolio-item fh5co-img-right" style="height: 485px; margin-top: 40px;">
          <div class="fh5co-portfolio-figure animate-box"
-            style="background-image: url(${pageContext.request.contextPath}/resources/images/work_4.jpg);"></div>
-         <div class="fh5co-portfolio-description">
-            <h2>Project Fourth</h2>
-            <p>Far far away, behind the word mountains, far from the
-               countries Vokalia and Consonantia, there live the blind texts.
-               Separated they live in Bookmarksgrove right at the coast of the
-               Semantics, a large language ocean. A small river named Duden flows
-               by their place and supplies it with the necessary regelialia.</p>
-            <p>
-               <a href="#" class="btn btn-primary">Read the casetudy</a>
-            </p>
-         </div>
+            style="background-image: url(${pageContext.request.contextPath}/resources/images/cardinfo.png); margin-right: -3px;"></div>
+            <div class="phhoto1 animate-box"  style="background-image: url(${pageContext.request.contextPath}/resources/images/card.png); margin-left: -2px;" > </div>
       </div>
+      
    </div>
 
    <div id="fh5co-team">
@@ -108,63 +85,47 @@
          <div class="row">
             <div class="col-md-10 col-md-offset-1">
                <div class="row">
-                  <h2 class="section-lead text-center">Leadership</h2>
+                  <h2 class="section-lead text-center">활용성</h2>
                   <div
                      class="col-md-3 col-sm-6 col-xs-6 col-xxs-12 fh5co-staff to-animate">
                      <figure> <img
-                        src="${pageContext.request.contextPath}/resources/images/user.jpg"
+                        src="${pageContext.request.contextPath}/resources/images/group.png"
                         alt="Free HTML5 Template by FREEHTML5.co" class="img-responsive">
                      </figure>
-                     <h3>Will Barrow</h3>
-                     <p>Far far away, behind the word mountains, far from the
-                        countries Vokalia and Consonantia, there live the blind texts.</p>
-                     <ul class="fh5co-social">
-                        <li><a href="#"><i class="icon-twitter"></i></a></li>
-                        <li><a href="#"><i class="icon-github"></i></a></li>
-                     </ul>
+                     <h3></h3>
+                     <p>새로운 사람들을 모아 새로운 이야기를 만들 수 있습니다.</p>
+                    
                   </div>
                   <div
                      class="col-md-3 col-sm-6 col-xs-6 col-xxs-12 fh5co-staff to-animate">
                      <figure> <img
-                        src="${pageContext.request.contextPath}/resources/images/user_2.jpg"
+                        src="${pageContext.request.contextPath}/resources/images/road.png"
                         alt="Free HTML5 Template by FREEHTML5.co" class="img-responsive">
                      </figure>
-                     <h3>Max Conversion</h3>
-                     <p>Far far away, behind the word mountains, far from the
-                        countries Vokalia and Consonantia, there live the blind texts.</p>
-                     <ul class="fh5co-social">
-                        <li><a href="#"><i class="icon-twitter"></i></a></li>
-                        <li><a href="#"><i class="icon-github"></i></a></li>
-                     </ul>
+                     <h3></h3>
+                     <p>조그만 비콘을 이용해 커다란 결제의 편리함을 얻을수<br/> 있습니다.</p>
+                     
                   </div>
                   <div class="clearfix visible-sm-block visible-xs-block"></div>
                   <div
                      class="col-md-3 col-sm-6 col-xs-6 col-xxs-12 fh5co-staff to-animate">
                      <figure> <img
-                        src="${pageContext.request.contextPath}/resources/images/user_3.jpg"
+                        src="${pageContext.request.contextPath}/resources/images/distribute.png"
                         alt="Free HTML5 Template by FREEHTML5.co" class="img-responsive">
                      </figure>
-                     <h3>Hanson Deck</h3>
-                     <p>Far far away, behind the word mountains, far from the
-                        countries Vokalia and Consonantia, there live the blind texts.</p>
-                     <ul class="fh5co-social">
-                        <li><a href="#"><i class="icon-twitter"></i></a></li>
-                        <li><a href="#"><i class="icon-github"></i></a></li>
-                     </ul>
+                     <h3></h3>
+                     <p>함께 즐기기만 하면 됩니다. 돈을 보내거나 받을 필요가<br/> 없습니다.</p>
+                     
                   </div>
                   <div
                      class="col-md-3 col-sm-6 col-xs-6 col-xxs-12 fh5co-staff to-animate">
                      <figure> <img
-                        src="${pageContext.request.contextPath}/resources/images/user.jpg"
+                        src="${pageContext.request.contextPath}/resources/images/question.png"
                         alt="Free HTML5 Template by FREEHTML5.co" class="img-responsive">
                      </figure>
-                     <h3>Sue Shei</h3>
-                     <p>Far far away, behind the word mountains, far from the
-                        countries Vokalia and Consonantia, there live the blind texts.</p>
-                     <ul class="fh5co-social">
-                        <li><a href="#"><i class="icon-twitter"></i></a></li>
-                        <li><a href="#"><i class="icon-github"></i></a></li>
-                     </ul>
+                     <h3></h3>
+                     <p>비콘 주변의 다양한 정보를<br/> 제공합니다.</p>
+                     
                   </div>
                </div>
             </div>
@@ -172,7 +133,7 @@
       </div>
    </div>
 
-   <div id="fh5co-services">
+   <!-- <div id="fh5co-services">
       <div class="container">
          <div class="row">
             <div class="col-md-10 col-md-offset-1">
@@ -180,7 +141,7 @@
                   <h2 class="section-lead text-center">Features</h2>
                   <div class="col-md-4 col-sm-6 col-xs-6 col-xxs-12 fh5co-service">
                      <div class="fh5co-icon to-animate">
-                        <i class="icon-present"></i>
+                        <i class="icon-people"></i>
                      </div>
                      <div class="fh5co-desc">
                         <h3>100% Free</h3>
@@ -191,7 +152,7 @@
                   </div>
                   <div class="col-md-4 col-sm-6 col-xs-6 col-xxs-12 fh5co-service">
                      <div class="fh5co-icon to-animate">
-                        <i class="icon-eye"></i>
+                        <i class="icon-phone"></i>
                      </div>
                      <div class="fh5co-desc">
                         <h3>Retina Ready</h3>
@@ -203,7 +164,7 @@
                   <div class="clearfix visible-sm-block visible-xs-block"></div>
                   <div class="col-md-4 col-sm-6 col-xs-6 col-xxs-12 fh5co-service">
                      <div class="fh5co-icon to-animate">
-                        <i class="icon-crop"></i>
+                        <i class="icon-location-pin"></i>
                      </div>
                      <div class="fh5co-desc">
                         <h3>Fully Responsive</h3>
@@ -215,7 +176,7 @@
 
                   <div class="col-md-4 col-sm-6 col-xs-6 col-xxs-12 fh5co-service">
                      <div class="fh5co-icon to-animate">
-                        <i class="icon-speedometer"></i>
+                        <i class="icon-wallet"></i>
                      </div>
                      <div class="fh5co-desc">
                         <h3>Lightweight</h3>
@@ -227,7 +188,7 @@
                   <div class="clearfix visible-sm-block visible-xs-block"></div>
                   <div class="col-md-4 col-sm-6 col-xs-6 col-xxs-12 fh5co-service">
                      <div class="fh5co-icon to-animate">
-                        <i class="icon-heart"></i>
+                        <i class="icon-calendar"></i>
                      </div>
                      <div class="fh5co-desc">
                         <h3>Made with Love</h3>
@@ -238,7 +199,7 @@
                   </div>
                   <div class="col-md-4 col-sm-6 col-xs-6 col-xxs-12 fh5co-service">
                      <div class="fh5co-icon to-animate">
-                        <i class="icon-umbrella"></i>
+                        <i class="icon-paypal"></i>
                      </div>
                      <div class="fh5co-desc">
                         <h3>Eco Friendly</h3>
@@ -252,18 +213,18 @@
             </div>
          </div>
       </div>
-   </div>
+   </div> -->
 
    </div>
 
-	  <%@ include file="board/chatpage.jsp"%>
+	  <%@ include file="board/otherchatpage.jsp"%>
 
    <footer id="fh5co-footer">
    <div class="container">
       <div class="row">
          <div class="col-md-10 col-md-offset-1 text-center">
             <p>
-               &copy; Clean Free HTML5. All Rights Reserved. <br>Created by <a
+               &copy;  Free HTML5. All Rights Reserved. <br>Created by <a
                   href="http://freehtml5.co/" target="_blank">FREEHTML5.co</a>
                Images: <a href="http://pexels.com/" target="_blank">Pexels</a>
             </p>

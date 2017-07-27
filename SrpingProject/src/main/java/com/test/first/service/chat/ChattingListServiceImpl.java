@@ -28,6 +28,17 @@ public class ChattingListServiceImpl implements ChattingListService {
 		return chattingListDAO.infoMyChattingList(chat_member_id);
 	}
 	
+	//채팅방 입장시간만 뽑아 올때
+	@Override
+	public long insertTime(int room_num, String chat_member_id) {
+		return chattingListDAO.insertTime(room_num, chat_member_id);
+	}
+	
+	//채팅방 나가기시 삭체 처리를 할때
+	@Override
+	public void deleteChatList(int room_num, String chat_member_id) {
+		chattingListDAO.deleteChatList(room_num, chat_member_id);
+	}
 	
 	
 
@@ -43,6 +54,10 @@ public class ChattingListServiceImpl implements ChattingListService {
 	public void insertChatMember(int room_num, String chat_member_id) {
 		chattingListDAO.insertChatMember(room_num, chat_member_id);
 	}
+
+	
+
+	
 
 	
 

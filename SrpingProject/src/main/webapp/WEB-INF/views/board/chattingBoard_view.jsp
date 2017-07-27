@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>WITH BEA</title>
 <%@ include file="../include/header.jsp"%>
 <%@ include file="../include/sessionCheck.jsp"%>
 <%
@@ -50,16 +50,13 @@
     	      success : function(message) {
     	         if (message) // LOGIN OK?
     	          { 
-    	      	   alert('존재');
-    	      	 	$("#hi").toggle();
+    	      	 	$("#floatChat").click();
     	      	 	//$("#hi").toggle();
     	          } else {
-    	          	alert('존재x');
-    	          	$("#hi").toggle();
-    	          	test3();
+    	          	center();
+    	          	$("#floatChat").click();
     	         	//test();
     	         	
-    	           	  
     	         }
     	         
     	      }
@@ -69,19 +66,13 @@
       }); 
 	
       
-      
-      
-      function test(){
-    	  alert('22222');
-      }
-
    });
 </script>
 
 </head>
 <body>
    <%@ include file="../include/menu.jsp"%>
-   <%@ include file="../board/chatpage.jsp"%>
+	<%@ include file="../board/otherchatpage.jsp"%>
 
    <div align="center" style="margin-top: 30px;">
       <form class="form-horizontal" style="width: 600px;" method="post"
@@ -123,7 +114,7 @@
                      type="text" value="${dto.location}" readonly>
                </div>
             </div>
-
+	
             <div class="form-group" style="margin-bottom: 15px;">
                <label class="control-label" for="inputMeetingPlace"
                   style="float: left; width: 100px; margin-right: 20px">장소명</label>
@@ -168,7 +159,7 @@
                      type="text" value="${dto.board_datetime}" readonly>
                </div>
             </div>
-
+			
             <c:if test="${sessionScope.member_id == dto.member_id}">
                <div class="form-group">
                   <div class="col-lg-10 col-lg-offset-2">
@@ -190,9 +181,9 @@
                   </div>
                </div>
             </c:if>
-
+		 
          </fieldset>
-        
+        	
       </form>
 		  
 		 
